@@ -108,53 +108,68 @@ const Index = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <img src={customImages.textile} alt="Tekstiilipesur" className="w-32 h-32 object-cover rounded-lg mx-auto mb-3" />
-                <label className="block">
+                <div>
                   <span className="text-sm font-medium text-gray-700 block mb-2">Tekstiilipesur</span>
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleImageUpload('textile', e)}
                     className="hidden"
+                    id="textile-upload"
                   />
-                  <Button variant="outline" size="sm" className="cursor-pointer">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Muuda pilti
-                  </Button>
-                </label>
+                  <label htmlFor="textile-upload">
+                    <Button variant="outline" size="sm" className="cursor-pointer" asChild>
+                      <span>
+                        <Plus className="w-4 h-4 mr-2" />
+                        Muuda pilti
+                      </span>
+                    </Button>
+                  </label>
+                </div>
               </div>
               
               <div className="text-center">
                 <img src={customImages.steam} alt="Aurupesur" className="w-32 h-32 object-cover rounded-lg mx-auto mb-3" />
-                <label className="block">
+                <div>
                   <span className="text-sm font-medium text-gray-700 block mb-2">Aurupesur</span>
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleImageUpload('steam', e)}
                     className="hidden"
+                    id="steam-upload"
                   />
-                  <Button variant="outline" size="sm" className="cursor-pointer">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Muuda pilti
-                  </Button>
-                </label>
+                  <label htmlFor="steam-upload">
+                    <Button variant="outline" size="sm" className="cursor-pointer" asChild>
+                      <span>
+                        <Plus className="w-4 h-4 mr-2" />
+                        Muuda pilti
+                      </span>
+                    </Button>
+                  </label>
+                </div>
               </div>
               
               <div className="text-center">
                 <img src={customImages.window} alt="Aknapesuribot" className="w-32 h-32 object-cover rounded-lg mx-auto mb-3" />
-                <label className="block">
+                <div>
                   <span className="text-sm font-medium text-gray-700 block mb-2">Aknapesuribot</span>
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleImageUpload('window', e)}
                     className="hidden"
+                    id="window-upload"
                   />
-                  <Button variant="outline" size="sm" className="cursor-pointer">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Muuda pilti
-                  </Button>
-                </label>
+                  <label htmlFor="window-upload">
+                    <Button variant="outline" size="sm" className="cursor-pointer" asChild>
+                      <span>
+                        <Plus className="w-4 h-4 mr-2" />
+                        Muuda pilti
+                      </span>
+                    </Button>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
