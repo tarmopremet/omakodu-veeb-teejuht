@@ -53,7 +53,7 @@ export default function AdminUsers() {
       // Transform the data to include role and booking count
       const transformedUsers = profiles?.map(profile => ({
         ...profile,
-        role: profile.user_roles?.[0]?.role || 'user',
+        role: (profile.user_roles as any)?.[0]?.role || 'user',
         bookings_count: profile.bookings?.length || 0
       })) || [];
 

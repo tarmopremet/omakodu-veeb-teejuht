@@ -41,7 +41,7 @@ const Homepage = () => {
     <div className="relative inline-block">
       <Button
         onClick={() => setShowDropdown(!showDropdown)}
-        className="bg-[#ea580c] hover:bg-white hover:text-[#ea580c] hover:border-[#ea580c] border-2 border-[#ea580c] text-white px-5 py-3 rounded-full font-medium flex items-center gap-2 transition-all duration-300"
+        className="bg-primary hover:bg-primary-hover text-primary-foreground px-5 py-3 rounded-full font-medium flex items-center gap-2 transition-all duration-300 shadow-soft"
       >
         <MapPin className="w-4 h-4" />
         Broneerima
@@ -54,7 +54,7 @@ const Homepage = () => {
             <button
               key={city.name}
               onClick={() => handleCityClick(city)}
-              className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-[#ea580c] hover:text-white transition-all duration-200 first:rounded-t-lg last:rounded-b-lg"
+              className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-primary hover:text-primary-foreground transition-all duration-200 first:rounded-t-lg last:rounded-b-lg"
             >
               {city.name}
             </button>
@@ -70,17 +70,17 @@ const Homepage = () => {
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-[#ea580c]">Rendiise</h1>
+            <h1 className="text-2xl font-bold text-primary">Rendiise</h1>
             <div className="flex items-center gap-4">
               <nav className="hidden md:flex space-x-6">
-                <a href="#" className="text-gray-600 hover:text-[#ea580c]">Avaleht</a>
-                <a href="#" className="text-gray-600 hover:text-[#ea580c]">Teenused</a>
+                <a href="#" className="text-gray-600 hover:text-primary">Avaleht</a>
+                <a href="#" className="text-gray-600 hover:text-primary">Teenused</a>
                 
                 {/* Asukohad Dropdown */}
                 <div className="relative">
                   <button
                     onClick={() => setShowLocationDropdown(!showLocationDropdown)}
-                    className="text-gray-600 hover:text-[#ea580c] flex items-center gap-1"
+                    className="text-gray-600 hover:text-primary flex items-center gap-1"
                   >
                     Asukohad
                     <ChevronDown className="w-4 h-4" />
@@ -92,7 +92,7 @@ const Homepage = () => {
                         <button
                           key={city.name}
                           onClick={() => handleCityClick(city)}
-                          className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-[#ea580c] hover:text-white transition-all duration-200 first:rounded-t-lg last:rounded-b-lg text-left"
+                          className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-primary hover:text-primary-foreground transition-all duration-200 first:rounded-t-lg last:rounded-b-lg text-left"
                         >
                           {city.name}
                         </button>
@@ -101,7 +101,7 @@ const Homepage = () => {
                   )}
                 </div>
                 
-                <a href="#" className="text-gray-600 hover:text-[#ea580c]">Kontakt</a>
+                <a href="#" className="text-gray-600 hover:text-primary">Kontakt</a>
               </nav>
               
               {/* Auth Section */}
@@ -111,13 +111,13 @@ const Homepage = () => {
                     <User className="w-4 h-4 text-gray-600" />
                     <span className="text-sm text-gray-600">{user.email}</span>
                     {isAdmin && (
-                      <Link to="/admin" className="text-[#ea580c] hover:underline font-medium">
+                      <Link to="/admin" className="text-primary hover:underline font-medium">
                         Admin
                       </Link>
                     )}
                     <button 
                       onClick={signOut} 
-                      className="text-gray-600 hover:text-[#ea580c] flex items-center gap-1"
+                      className="text-gray-600 hover:text-primary flex items-center gap-1"
                     >
                       <LogOut className="w-4 h-4" />
                     </button>
@@ -125,7 +125,7 @@ const Homepage = () => {
                 ) : (
                   <Link 
                     to="/auth" 
-                    className="bg-[#ea580c] hover:bg-orange-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-medium transition-colors"
+                    className="bg-primary hover:bg-primary-hover text-primary-foreground px-4 py-2 rounded-lg flex items-center gap-2 font-medium transition-colors shadow-soft"
                   >
                     <LogIn className="w-4 h-4" />
                     Logi sisse
@@ -157,32 +157,32 @@ const Homepage = () => {
             
             <div className="space-y-3 mb-8">
               <div className="flex items-center">
-                <span className="text-[#ea580c] font-bold mr-2">•</span>
-                <a href="#" className="text-gray-700 hover:text-[#ea580c] transition-colors">
+                <span className="text-primary font-bold mr-2">•</span>
+                <a href="#" className="text-gray-700 hover:text-primary transition-colors">
                   tekstiilipesuri rent
                 </a>
               </div>
               <div className="flex items-center">
-                <span className="text-[#ea580c] font-bold mr-2">•</span>
-                <a href="#" className="text-gray-700 hover:text-[#ea580c] transition-colors">
+                <span className="text-primary font-bold mr-2">•</span>
+                <a href="#" className="text-gray-700 hover:text-primary transition-colors">
                   aurupesuri rent
                 </a>
               </div>
               <div className="flex items-center">
-                <span className="text-[#ea580c] font-bold mr-2">•</span>
-                <a href="#" className="text-gray-700 hover:text-[#ea580c] transition-colors">
+                <span className="text-primary font-bold mr-2">•</span>
+                <a href="#" className="text-gray-700 hover:text-primary transition-colors">
                   aknapesuroboti rent
                 </a>
               </div>
               <div className="flex items-center">
-                <span className="text-[#ea580c] font-bold mr-2">•</span>
-                <a href="#" className="text-gray-700 hover:text-[#ea580c] transition-colors">
+                <span className="text-primary font-bold mr-2">•</span>
+                <a href="#" className="text-gray-700 hover:text-primary transition-colors">
                   tolmuimeja rent
                 </a>
               </div>
               <div className="flex items-center">
-                <span className="text-[#ea580c] font-bold mr-2">•</span>
-                <a href="#" className="text-gray-700 hover:text-[#ea580c] transition-colors">
+                <span className="text-primary font-bold mr-2">•</span>
+                <a href="#" className="text-gray-700 hover:text-primary transition-colors">
                   aknapesuri rent
                 </a>
               </div>
@@ -225,11 +225,11 @@ const Homepage = () => {
               <div className="text-4xl mb-4">📦</div>
               <h4 className="font-medium text-gray-800 mb-2">Nutikapid üle Eesti</h4>
               <p className="text-sm text-gray-600">
-                <a href="/tallinn" className="text-[#ea580c] hover:underline">Tallinn</a>,{" "}
-                <a href="/tartu" className="text-[#ea580c] hover:underline">Tartu</a>,{" "}
-                <a href="/parnu" className="text-[#ea580c] hover:underline">Pärnu</a>,{" "}
-                <a href="/rakvere" className="text-[#ea580c] hover:underline">Rakvere</a>,{" "}
-                <a href="/saku" className="text-[#ea580c] hover:underline">Saku</a>.
+                <a href="/tallinn" className="text-primary hover:underline">Tallinn</a>,{" "}
+                <a href="/tartu" className="text-primary hover:underline">Tartu</a>,{" "}
+                <a href="/parnu" className="text-primary hover:underline">Pärnu</a>,{" "}
+                <a href="/rakvere" className="text-primary hover:underline">Rakvere</a>,{" "}
+                <a href="/saku" className="text-primary hover:underline">Saku</a>.
               </p>
             </CardContent>
           </Card>

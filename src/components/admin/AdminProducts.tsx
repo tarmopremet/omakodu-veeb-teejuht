@@ -7,7 +7,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Search, Plus, Edit, Trash2, Eye } from 'lucide-react';
+import { Search, Plus, Edit, Trash2, Eye, AlertCircle } from 'lucide-react';
+import { ProductDialog } from './ProductDialog';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface Product {
   id: string;
@@ -83,6 +95,31 @@ export const AdminProducts = () => {
     }
   };
 
+  const deleteProduct = async (productId: string) => {
+    try {
+      const { error } = await supabase
+        .from('products')
+        .delete()
+        .eq('id', productId);
+
+      if (error) throw error;
+
+      setProducts(prev => prev.filter(product => product.id !== productId));
+
+      toast({
+        title: 'Edukalt kustutatud',
+        description: 'Toode on edukalt kustutatud',
+      });
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      toast({
+        title: 'Viga',
+        description: 'Toote kustutamine ebaõnnestus',
+        variant: 'destructive',
+      });
+    }
+  };
+
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          product.description?.toLowerCase().includes(searchTerm.toLowerCase());
@@ -117,10 +154,7 @@ export const AdminProducts = () => {
               Vaadake ja hallake kõiki renditeenuseid
             </CardDescription>
           </div>
-          <Button>
-            <Plus className="mr-2 h-4 w-4" />
-            Lisa toode
-          </Button>
+          <ProductDialog onProductSaved={loadProducts} />
         </div>
       </CardHeader>
       <CardContent>
@@ -205,12 +239,15 @@ export const AdminProducts = () => {
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-2">
-                      <Button size="sm" variant="outline">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        <Edit className="h-4 w-4" />
-                      </Button>
+                      <ProductDialog 
+                        product={product}
+                        onProductSaved={loadProducts}
+                        trigger={
+                          <Button size="sm" variant="outline">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        }
+                      />
                       <Button
                         size="sm"
                         variant={product.is_active ? 'secondary' : 'default'}
@@ -218,6 +255,30 @@ export const AdminProducts = () => {
                       >
                         {product.is_active ? 'Deaktiveeri' : 'Aktiveeri'}
                       </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button size="sm" variant="destructive">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Oled sa kindel?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              See tegevus ei ole tagasipööratav. Toode kustutatakse jäädavalt.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Tühista</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => deleteProduct(product.id)}
+                              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            >
+                              Kustuta
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                   </TableCell>
                 </TableRow>
