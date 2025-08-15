@@ -15,11 +15,15 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Professional cleaning equipment theme - green/blue */
-    --primary: 166 76% 37%;
+    /* RendiIse orange/purple theme */
+    --primary: 25 95% 53%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 166 76% 33%;
-    --primary-light: 166 76% 95%;
+    --primary-hover: 25 95% 48%;
+    --primary-light: 25 95% 95%;
+
+    /* Purple for sections */
+    --purple: 250 47% 32%;
+    --purple-light: 250 47% 95%;
 
     --secondary: 220 14% 96%;
     --secondary-foreground: 220 9% 15%;
@@ -27,8 +31,8 @@
     --muted: 220 14% 96%;
     --muted-foreground: 220 9% 46%;
 
-    --accent: 166 76% 95%;
-    --accent-foreground: 166 76% 25%;
+    --accent: 25 95% 95%;
+    --accent-foreground: 25 95% 25%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -43,19 +47,19 @@
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 166 76% 37%;
+    --ring: 25 95% 53%;
 
     --radius: 0.5rem;
 
-    /* Professional gradients for hero sections */
-    --gradient-primary: linear-gradient(135deg, hsl(166 76% 37%), hsl(166 76% 47%));
-    --gradient-secondary: linear-gradient(135deg, hsl(220 14% 96%), hsl(220 14% 98%));
-    --gradient-hero: linear-gradient(135deg, hsl(166 76% 37%) 0%, hsl(220 30% 18%) 100%);
+    /* RendiIse gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(25 95% 53%), hsl(25 95% 63%));
+    --gradient-purple: linear-gradient(135deg, hsl(250 47% 32%), hsl(250 47% 42%));
+    --gradient-hero: linear-gradient(135deg, hsl(25 95% 53%) 0%, hsl(250 47% 32%) 100%);
 
     /* Shadows for depth */
-    --shadow-soft: 0 2px 8px -2px hsl(166 76% 37% / 0.1);
-    --shadow-medium: 0 8px 25px -5px hsl(166 76% 37% / 0.15);
-    --shadow-large: 0 25px 50px -12px hsl(166 76% 37% / 0.25);
+    --shadow-soft: 0 2px 8px -2px hsl(25 95% 53% / 0.1);
+    --shadow-medium: 0 8px 25px -5px hsl(25 95% 53% / 0.15);
+    --shadow-large: 0 25px 50px -12px hsl(25 95% 53% / 0.25);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -81,7 +85,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 166 76% 47%;
+    --primary: 25 95% 63%;
     --primary-foreground: 222.2 84% 4.9%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -98,7 +102,7 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 166 76% 47%;
+    --ring: 25 95% 63%;
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;

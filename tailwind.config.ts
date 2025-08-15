@@ -30,6 +30,10 @@ export default {
 					hover: 'hsl(var(--primary-hover))',
 					light: 'hsl(var(--primary-light))'
 				},
+				purple: {
+					DEFAULT: 'hsl(var(--purple))',
+					light: 'hsl(var(--purple-light))'
+				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
@@ -75,7 +79,7 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
-				'gradient-secondary': 'var(--gradient-secondary)',
+				'gradient-purple': 'var(--gradient-purple)',
 				'gradient-hero': 'var(--gradient-hero)'
 			},
 			boxShadow: {
