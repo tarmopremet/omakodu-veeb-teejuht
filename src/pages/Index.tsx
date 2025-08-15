@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { format } from "date-fns";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { RentalFilters } from "@/components/RentalFilters";
 import { RentalProductCard } from "@/components/RentalProductCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Plus, Edit3, MapPin } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Plus, Edit3, MapPin, CalendarIcon, Trash2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import wurthCleaner from "@/assets/wurth-textile-cleaner.jpg";
 import steamCleaner from "@/assets/steam-cleaner-karcher.jpg";
 import windowRobot from "@/assets/window-robot-new.jpg";
@@ -12,6 +16,7 @@ import windowRobot from "@/assets/window-robot-new.jpg";
 
 const Index = () => {
   const [editMode, setEditMode] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date>();
   const [customImages, setCustomImages] = useState({
     textile: wurthCleaner,
     steam: steamCleaner,
@@ -24,6 +29,15 @@ const Index = () => {
       const url = URL.createObjectURL(file);
       setCustomImages(prev => ({ ...prev, [type]: url }));
     }
+  };
+
+  const handleImageDelete = (type: 'textile' | 'steam' | 'window') => {
+    const defaultImages = {
+      textile: wurthCleaner,
+      steam: steamCleaner,
+      window: windowRobot
+    };
+    setCustomImages(prev => ({ ...prev, [type]: defaultImages[type] }));
   };
 
   // Update rental products with custom images
@@ -111,21 +125,32 @@ const Index = () => {
                 <img src={customImages.textile} alt="Tekstiilipesur" className="w-32 h-32 object-cover rounded-lg mx-auto mb-3" />
                 <div>
                   <span className="text-sm font-medium text-gray-700 block mb-2">Tekstiilipesur</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleImageUpload('textile', e)}
-                    className="hidden"
-                    id="textile-upload"
-                  />
-                  <label htmlFor="textile-upload">
-                    <Button variant="outline" size="sm" className="cursor-pointer" asChild>
-                      <span>
-                        <Plus className="w-4 h-4 mr-2" />
-                        Muuda pilti
-                      </span>
+                  <div className="flex gap-2 justify-center">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload('textile', e)}
+                      className="hidden"
+                      id="textile-upload"
+                    />
+                    <label htmlFor="textile-upload">
+                      <Button variant="outline" size="sm" className="cursor-pointer" asChild>
+                        <span>
+                          <Plus className="w-4 h-4 mr-2" />
+                          Muuda pilti
+                        </span>
+                      </Button>
+                    </label>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => handleImageDelete('textile')}
+                      className="text-red-600 hover:text-red-700"
+                    >
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Kustuta
                     </Button>
-                  </label>
+                  </div>
                 </div>
               </div>
               
@@ -133,21 +158,32 @@ const Index = () => {
                 <img src={customImages.steam} alt="Aurupesur" className="w-32 h-32 object-cover rounded-lg mx-auto mb-3" />
                 <div>
                   <span className="text-sm font-medium text-gray-700 block mb-2">Aurupesur</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleImageUpload('steam', e)}
-                    className="hidden"
-                    id="steam-upload"
-                  />
-                  <label htmlFor="steam-upload">
-                    <Button variant="outline" size="sm" className="cursor-pointer" asChild>
-                      <span>
-                        <Plus className="w-4 h-4 mr-2" />
-                        Muuda pilti
-                      </span>
+                  <div className="flex gap-2 justify-center">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload('steam', e)}
+                      className="hidden"
+                      id="steam-upload"
+                    />
+                    <label htmlFor="steam-upload">
+                      <Button variant="outline" size="sm" className="cursor-pointer" asChild>
+                        <span>
+                          <Plus className="w-4 h-4 mr-2" />
+                          Muuda pilti
+                        </span>
+                      </Button>
+                    </label>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => handleImageDelete('steam')}
+                      className="text-red-600 hover:text-red-700"
+                    >
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Kustuta
                     </Button>
-                  </label>
+                  </div>
                 </div>
               </div>
               
@@ -155,21 +191,32 @@ const Index = () => {
                 <img src={customImages.window} alt="Aknapesuribot" className="w-32 h-32 object-cover rounded-lg mx-auto mb-3" />
                 <div>
                   <span className="text-sm font-medium text-gray-700 block mb-2">Aknapesuribot</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleImageUpload('window', e)}
-                    className="hidden"
-                    id="window-upload"
-                  />
-                  <label htmlFor="window-upload">
-                    <Button variant="outline" size="sm" className="cursor-pointer" asChild>
-                      <span>
-                        <Plus className="w-4 h-4 mr-2" />
-                        Muuda pilti
-                      </span>
+                  <div className="flex gap-2 justify-center">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload('window', e)}
+                      className="hidden"
+                      id="window-upload"
+                    />
+                    <label htmlFor="window-upload">
+                      <Button variant="outline" size="sm" className="cursor-pointer" asChild>
+                        <span>
+                          <Plus className="w-4 h-4 mr-2" />
+                          Muuda pilti
+                        </span>
+                      </Button>
+                    </label>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => handleImageDelete('window')}
+                      className="text-red-600 hover:text-red-700"
+                    >
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Kustuta
                     </Button>
-                  </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -190,6 +237,47 @@ const Index = () => {
             Aknapesuroboti rent - akende pesuks
           </p>
         </div>
+      </section>
+
+      {/* Date Selection and Booking */}
+      <section className="container mx-auto px-4 py-8">
+        <Card className="max-w-md mx-auto">
+          <CardContent className="p-6">
+            <h3 className="text-lg font-semibold mb-4 text-center">Vali kuupäev</h3>
+            <div className="flex flex-col items-center space-y-4">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !selectedDate && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {selectedDate ? format(selectedDate, "dd.MM.yyyy") : "Vali kuupäev"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={setSelectedDate}
+                    initialFocus
+                    className={cn("p-3 pointer-events-auto")}
+                    disabled={(date) => date < new Date()}
+                  />
+                </PopoverContent>
+              </Popover>
+              
+              {selectedDate && (
+                <Button className="w-full" size="lg">
+                  Broneeri {format(selectedDate, "dd.MM.yyyy")}
+                </Button>
+              )}
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
       {/* Filters */}
