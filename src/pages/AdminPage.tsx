@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { AdminBookings } from '@/components/admin/AdminBookings';
 import { AdminDashboard } from '@/components/admin/AdminDashboard';
 import { AdminProducts } from '@/components/admin/AdminProducts';
+import AdminUsers from '@/components/admin/AdminUsers';
 
 export const AdminPage = () => {
   const navigate = useNavigate();
@@ -102,19 +103,7 @@ export const AdminPage = () => {
           </TabsContent>
 
           <TabsContent value="users">
-            <Card>
-              <CardHeader>
-                <CardTitle>Kasutajate haldus</CardTitle>
-                <CardDescription>
-                  Kasutajate ja õiguste haldamine
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Kasutajate haldus tuleb peagi...
-                </p>
-              </CardContent>
-            </Card>
+            <AdminUsers />
           </TabsContent>
         </Tabs>
       </main>
