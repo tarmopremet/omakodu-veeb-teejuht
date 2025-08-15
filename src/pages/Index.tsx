@@ -1,193 +1,158 @@
 import { useState } from "react";
-import { Header } from "@/components/Header";
-import { HeroSection } from "@/components/HeroSection";
-import { SearchFilters } from "@/components/SearchFilters";
-import { PropertyCard } from "@/components/PropertyCard";
+import { CleaningHeader } from "@/components/CleaningHeader";
+import { CleaningHeroSection } from "@/components/CleaningHeroSection";
+import { EquipmentFilters } from "@/components/EquipmentFilters";
+import { EquipmentCard } from "@/components/EquipmentCard";
 
-// Mock data for demonstration
-const mockProperties = [
+// Mock data for cleaning equipment
+const mockEquipment = [
   {
     id: "1",
-    title: "Kaasaegne 2-toaline korter Tallinna kesklinnas",
-    address: "Viru tn 15",
-    city: "Tallinn",
-    price: 850,
-    rooms: 2,
-    area: 65,
-    floor: "3 / 5",
-    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500",
-    hasParking: true,
-    hasStorage: false,
-    petsAllowed: false,
-    isAvailable: true
+    name: "Kärcher BR 40/10 C Põrandapesumasin",
+    category: "Põrande puhastus",
+    dailyPrice: 45,
+    weeklyPrice: 280,
+    image: "https://images.unsplash.com/photo-1558618666-fbd8c755cd64?w=500",
+    isAvailable: true,
+    rating: 4.8,
+    features: ["Kompaktne disain", "Automaatne pesuvesi doseerimise süsteem", "50L veepaak"],
+    deliveryIncluded: true
   },
   {
     id: "2",
-    title: "Avar 3-toaline korter Tartus",
-    address: "Kaunase pst 4a",
-    city: "Tartu",
-    price: 720,
-    rooms: 3,
-    area: 85,
-    floor: "2 / 4",
-    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=500",
-    hasParking: false,
-    hasStorage: true,
-    petsAllowed: true,
-    isAvailable: true
+    name: "Nilfisk Alto Attix 33-2L IC Tolmuimeja",
+    category: "Tolmuimejad",
+    dailyPrice: 25,
+    weeklyPrice: 150,
+    image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=500",
+    isAvailable: true,
+    rating: 4.6,
+    features: ["33L maht", "Märg/kuiv imemine", "Automaatne filter puhastus"],
+    deliveryIncluded: false
   },
   {
     id: "3",
-    title: "Hubane 1-toaline stuudiokorter",
-    address: "Narva mnt 25",
-    city: "Tallinn",
-    price: 550,
-    rooms: 1,
-    area: 35,
-    floor: "1 / 3",
-    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500",
-    hasParking: true,
-    hasStorage: true,
-    petsAllowed: false,
-    isAvailable: false
+    name: "Kärcher Puzzi 8/1 C Vaipade puhastusmasin",
+    category: "Vaipade puhastus",
+    dailyPrice: 65,
+    weeklyPrice: 380,
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=500",
+    isAvailable: false,
+    rating: 4.9,
+    features: ["Sügav vaibapuhastus", "Kiire kuivamine", "8L pesuveepaak"],
+    deliveryIncluded: true
   },
   {
     id: "4",
-    title: "Luksuslik 4-toaline korter vanalinna ääres",
-    address: "Pikk tn 70",
-    city: "Tallinn",
-    price: 1200,
-    rooms: 4,
-    area: 120,
-    floor: "4 / 6",
-    image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=500",
-    hasParking: true,
-    hasStorage: true,
-    petsAllowed: true,
-    isAvailable: true
+    name: "Kärcher HD 6/13 C Survepesur",
+    category: "Survepesur",
+    dailyPrice: 35,
+    weeklyPrice: 200,
+    image: "https://images.unsplash.com/photo-1603712747852-1d6c8e64c3e4?w=500",
+    isAvailable: true,
+    rating: 4.7,
+    features: ["130 bar surve", "360L/h voolukiirus", "Kuuma vee funktsioon"],
+    deliveryIncluded: true
   },
   {
     id: "5",
-    title: "Renoveeritud 2-toaline korter Pärnus",
-    address: "Rüütli tn 12",
-    city: "Pärnu",
-    price: 680,
-    rooms: 2,
-    area: 58,
-    floor: "1 / 2",
-    image: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=500",
-    hasParking: false,
-    hasStorage: false,
-    petsAllowed: true,
-    isAvailable: true
+    name: "Unger HydroPower DI24 Akende pesusüsteem",
+    category: "Akende puhastus",
+    dailyPrice: 55,
+    weeklyPrice: 320,
+    image: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=500",
+    isAvailable: true,
+    rating: 4.5,
+    features: ["Demineraliseeritud vesi", "24L veepaak", "6m teleskoopvarras"],
+    deliveryIncluded: false
   },
   {
     id: "6",
-    title: "Moodne 3-toaline korter Narvas",
-    address: "Kerese tn 8",
-    city: "Narva",
-    price: 450,
-    rooms: 3,
-    area: 75,
-    floor: "5 / 9",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500",
-    hasParking: true,
-    hasStorage: false,
-    petsAllowed: false,
-    isAvailable: true
+    name: "Tennant T300 Põrandapesur",
+    category: "Tööstuslik",
+    dailyPrice: 120,
+    weeklyPrice: 700,
+    image: "https://images.unsplash.com/photo-1563453392212-326d32e5d8c2?w=500",
+    isAvailable: true,
+    rating: 4.9,
+    features: ["Tööstuslik kasutamine", "ec-H2O tehnoloogia", "114L veepaak"],
+    deliveryIncluded: true
   }
 ];
 
 const Index = () => {
-  const [filteredProperties, setFilteredProperties] = useState(mockProperties);
+  const [filteredEquipment, setFilteredEquipment] = useState(mockEquipment);
 
   const handleSearch = (filters: any) => {
-    let filtered = mockProperties;
+    let filtered = mockEquipment;
 
     // Apply filters
-    if (filters.location) {
-      filtered = filtered.filter(property => 
-        property.city.toLowerCase() === filters.location.toLowerCase()
+    if (filters.category) {
+      filtered = filtered.filter(equipment => 
+        equipment.category.toLowerCase() === filters.category.replace("-", " ").toLowerCase()
       );
     }
 
-    if (filters.rooms) {
-      const roomCount = filters.rooms === "5+" ? 5 : parseInt(filters.rooms);
-      if (filters.rooms === "5+") {
-        filtered = filtered.filter(property => property.rooms >= roomCount);
-      } else {
-        filtered = filtered.filter(property => property.rooms === roomCount);
-      }
+    if (filters.maxDailyPrice) {
+      filtered = filtered.filter(equipment => 
+        equipment.dailyPrice <= parseInt(filters.maxDailyPrice)
+      );
     }
 
-    if (filters.minPrice) {
-      filtered = filtered.filter(property => property.price >= parseInt(filters.minPrice));
+    if (filters.maxWeeklyPrice) {
+      filtered = filtered.filter(equipment => 
+        equipment.weeklyPrice <= parseInt(filters.maxWeeklyPrice)
+      );
     }
 
-    if (filters.maxPrice) {
-      filtered = filtered.filter(property => property.price <= parseInt(filters.maxPrice));
+    if (filters.deliveryIncluded) {
+      filtered = filtered.filter(equipment => equipment.deliveryIncluded);
     }
 
-    if (filters.minArea) {
-      filtered = filtered.filter(property => property.area >= parseInt(filters.minArea));
+    if (filters.availableOnly) {
+      filtered = filtered.filter(equipment => equipment.isAvailable);
     }
 
-    if (filters.maxArea) {
-      filtered = filtered.filter(property => property.area <= parseInt(filters.maxArea));
-    }
-
-    if (filters.hasParking) {
-      filtered = filtered.filter(property => property.hasParking);
-    }
-
-    if (filters.hasStorage) {
-      filtered = filtered.filter(property => property.hasStorage);
-    }
-
-    if (filters.petsAllowed) {
-      filtered = filtered.filter(property => property.petsAllowed);
-    }
-
-    setFilteredProperties(filtered);
+    setFilteredEquipment(filtered);
   };
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      <HeroSection />
+      <CleaningHeader />
+      <CleaningHeroSection />
       
       {/* Search Section */}
       <section className="py-12 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-4">Leia sobiv kodu</h2>
+            <h2 className="text-3xl font-bold mb-4">Leia sobiv seade</h2>
             <p className="text-lg text-muted-foreground">
-              Kasuta filtreid, et leida endale kõige sobivam üürikorter
+              Kasuta filtreid, et leida endale kõige sobivam puhastusseade
             </p>
           </div>
-          <SearchFilters onSearch={handleSearch} />
+          <EquipmentFilters onSearch={handleSearch} />
         </div>
       </section>
 
-      {/* Properties Section */}
+      {/* Equipment Section */}
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl font-bold">
-              Saadaval on {filteredProperties.length} kinnisvara objekti
+              Saadaval on {filteredEquipment.length} puhastusseadet
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProperties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+            {filteredEquipment.map((equipment) => (
+              <EquipmentCard key={equipment.id} equipment={equipment} />
             ))}
           </div>
 
-          {filteredProperties.length === 0 && (
+          {filteredEquipment.length === 0 && (
             <div className="text-center py-12">
               <p className="text-lg text-muted-foreground">
-                Antud kriteeriumitele vastavaid kinnisvara objekte ei leitud.
+                Antud kriteeriumitele vastavaid seadmeid ei leitud.
               </p>
               <p className="text-muted-foreground mt-2">
                 Proovige muuta otsingukriteeriumeid.
@@ -197,43 +162,76 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Info Section */}
+      <section className="py-16 bg-accent/20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Miks valida PuhasRent?</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-2xl">🚚</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Kiire kohaletoimetamine</h3>
+              <p className="text-muted-foreground">Same päeva kohaletoimetamine Tallinnas ja Tartus</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-2xl">⚙️</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Hooldatud seadmed</h3>
+              <p className="text-muted-foreground">Kõik seadmed on regulaarselt hooldatud ja kontrollitud</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-2xl">🛡️</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Kindlustus kaasas</h3>
+              <p className="text-muted-foreground">Kõik renditud seadmed on kindlustatud</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-primary text-primary-foreground py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-lg font-semibold mb-4">RendiEst</h3>
+              <h3 className="text-lg font-semibold mb-4">PuhasRent</h3>
               <p className="text-primary-foreground/80">
-                Eesti juhtiv üürikinnisvara platvorm. Leia oma unistuste kodu!
+                Eesti juhtiv puhastusseadmete rendiettevõte. Professionaalsed lahendused igasuguseks puhastamiseks!
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Kiirlingid</h4>
+              <h4 className="font-semibold mb-4">Seadmed</h4>
               <ul className="space-y-2 text-primary-foreground/80">
-                <li><a href="#" className="hover:text-primary-foreground">Otsi kinnisvara</a></li>
-                <li><a href="#" className="hover:text-primary-foreground">Üürileandjakele</a></li>
-                <li><a href="#" className="hover:text-primary-foreground">Abi ja tugi</a></li>
+                <li><a href="#" className="hover:text-primary-foreground">Põrande puhastus</a></li>
+                <li><a href="#" className="hover:text-primary-foreground">Vaipade puhastus</a></li>
+                <li><a href="#" className="hover:text-primary-foreground">Survepesurid</a></li>
+                <li><a href="#" className="hover:text-primary-foreground">Tolmuimejad</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Ettevõte</h4>
+              <h4 className="font-semibold mb-4">Teenused</h4>
               <ul className="space-y-2 text-primary-foreground/80">
-                <li><a href="#" className="hover:text-primary-foreground">Meist</a></li>
-                <li><a href="#" className="hover:text-primary-foreground">Karjäär</a></li>
-                <li><a href="#" className="hover:text-primary-foreground">Kontakt</a></li>
+                <li><a href="#" className="hover:text-primary-foreground">Kohaletoimetamine</a></li>
+                <li><a href="#" className="hover:text-primary-foreground">Hooldus</a></li>
+                <li><a href="#" className="hover:text-primary-foreground">Konsultatsioon</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Õiguslik</h4>
+              <h4 className="font-semibold mb-4">Kontakt</h4>
               <ul className="space-y-2 text-primary-foreground/80">
-                <li><a href="#" className="hover:text-primary-foreground">Privaatsus</a></li>
-                <li><a href="#" className="hover:text-primary-foreground">Tingimused</a></li>
-                <li><a href="#" className="hover:text-primary-foreground">Küpsised</a></li>
+                <li>+372 5555 5555</li>
+                <li>info@puhasrent.ee</li>
+                <li>Tallinn, Tartu, Pärnu</li>
               </ul>
             </div>
           </div>
           <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-primary-foreground/80">
-            <p>&copy; 2024 RendiEst. Kõik õigused kaitstud.</p>
+            <p>&copy; 2024 PuhasRent. Kõik õigused kaitstud.</p>
           </div>
         </div>
       </footer>

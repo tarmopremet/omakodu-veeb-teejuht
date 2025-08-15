@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Estonian Rental Platform Design System - Professional & Modern */
+/* Estonian Cleaning Equipment Rental Platform Design System */
 
 @layer base {
   :root {
@@ -15,11 +15,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    /* Professional blue-green theme for real estate */
-    --primary: 195 100% 39%;
+    /* Professional cleaning equipment theme - green/blue */
+    --primary: 166 76% 37%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 195 100% 35%;
-    --primary-light: 195 100% 96%;
+    --primary-hover: 166 76% 33%;
+    --primary-light: 166 76% 95%;
 
     --secondary: 220 14% 96%;
     --secondary-foreground: 220 9% 15%;
@@ -27,13 +27,13 @@
     --muted: 220 14% 96%;
     --muted-foreground: 220 9% 46%;
 
-    --accent: 195 100% 96%;
-    --accent-foreground: 195 100% 25%;
+    --accent: 166 76% 95%;
+    --accent-foreground: 166 76% 25%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    /* Success color for available properties */
+    /* Success color for available equipment */
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
 
@@ -43,40 +43,32 @@
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 195 100% 39%;
+    --ring: 166 76% 37%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
     /* Professional gradients for hero sections */
-    --gradient-primary: linear-gradient(135deg, hsl(195 100% 39%), hsl(195 100% 50%));
+    --gradient-primary: linear-gradient(135deg, hsl(166 76% 37%), hsl(166 76% 47%));
     --gradient-secondary: linear-gradient(135deg, hsl(220 14% 96%), hsl(220 14% 98%));
-    --gradient-hero: linear-gradient(135deg, hsl(195 100% 39%) 0%, hsl(220 30% 18%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(166 76% 37%) 0%, hsl(220 30% 18%) 100%);
 
     /* Shadows for depth */
-    --shadow-soft: 0 2px 8px -2px hsl(195 100% 39% / 0.1);
-    --shadow-medium: 0 8px 25px -5px hsl(195 100% 39% / 0.15);
-    --shadow-large: 0 25px 50px -12px hsl(195 100% 39% / 0.25);
+    --shadow-soft: 0 2px 8px -2px hsl(166 76% 37% / 0.1);
+    --shadow-medium: 0 8px 25px -5px hsl(166 76% 37% / 0.15);
+    --shadow-large: 0 25px 50px -12px hsl(166 76% 37% / 0.25);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
@@ -89,7 +81,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 195 100% 50%;
+    --primary: 166 76% 47%;
     --primary-foreground: 222.2 84% 4.9%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -106,7 +98,8 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 195 100% 50%;
+    --ring: 166 76% 47%;
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
