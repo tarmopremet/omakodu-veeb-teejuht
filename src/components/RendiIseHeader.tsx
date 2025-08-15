@@ -35,9 +35,9 @@ export const RendiIseHeader = () => {
                 </button>
               </div>
             ) : (
-              <Link to="/auth" className="flex items-center gap-1 hover:underline">
+              <Link to="/auth" className="flex items-center gap-1 hover:underline bg-white/20 px-3 py-1 rounded-full">
                 <LogIn className="w-4 h-4" />
-                <span>Logi sisse</span>
+                <span className="font-semibold">Logi sisse</span>
               </Link>
             )}
             <div className="flex items-center">
