@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
+import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
@@ -143,6 +144,8 @@ const BookingPage = () => {
             ))}
           </div>
         </div>
+        
+        <Footer />
       </div>
     </div>
   );

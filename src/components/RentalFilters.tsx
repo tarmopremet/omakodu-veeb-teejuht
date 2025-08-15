@@ -45,15 +45,11 @@ export const RentalFilters = ({ onFilterChange }: RentalFiltersProps) => {
 
   const categories = [
     "Kõik",
-    "Puhastusseadmed",
-    "Tekstiilipesurid", 
-    "Aknapesurid",
+    "Tekstiiliipesurid", 
     "Aurupesurid",
-    "Tolmuimejad",
     "Aknapesurobotid",
-    "Tööriistad",
-    "Aiatööriistad",
-    "Sõidukid"
+    "Aknapesurid",
+    "Tolmuimejad"
   ];
 
   return (

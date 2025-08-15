@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
+import { Footer } from "@/components/Footer";
 import { BookingForm } from "@/components/BookingForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MapPin, CalendarIcon, Plus } from "lucide-react";
+import { MapPin, CalendarIcon, Plus, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import wurthCleaner from "@/assets/wurth-textile-cleaner.jpg";
@@ -86,6 +87,14 @@ const RentalDetail = () => {
     }
   };
 
+  const handleImageDelete = (index: number, type: 'image' | 'video') => {
+    if (type === 'image') {
+      setImages(prev => prev.filter((_, i) => i !== index));
+    } else {
+      setVideos(prev => prev.filter((_, i) => i !== index));
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <RendiIseHeader />
@@ -96,22 +105,38 @@ const RentalDetail = () => {
           <div className="lg:col-span-2">
             <div className="grid grid-cols-2 gap-4 mb-6">
               {images.map((image, index) => (
-                <div key={`image-${index}`} className="aspect-square bg-white rounded-lg overflow-hidden border">
+                <div key={`image-${index}`} className="relative aspect-square bg-white rounded-lg overflow-hidden border group">
                   <img
                     src={image}
                     alt={`${product.name} ${index + 1}`}
                     className="w-full h-full object-cover"
                   />
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={() => handleImageDelete(index, 'image')}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
                 </div>
               ))}
               {videos.map((video, index) => (
-                <div key={`video-${index}`} className="aspect-square bg-white rounded-lg overflow-hidden border">
+                <div key={`video-${index}`} className="relative aspect-square bg-white rounded-lg overflow-hidden border group">
                   <video
                     src={video}
                     className="w-full h-full object-cover"
                     controls
                     muted
                   />
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={() => handleImageDelete(index, 'video')}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
                 </div>
               ))}
               <div className="aspect-square border-2 border-dashed border-gray-300 rounded-lg flex flex-col">
@@ -331,6 +356,8 @@ const RentalDetail = () => {
         endTime={endTime}
         totalPrice={calculatePrice()}
       />
+      
+      <Footer />
     </div>
   );
 };

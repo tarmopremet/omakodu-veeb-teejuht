@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { format } from "date-fns";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
+import { Footer } from "@/components/Footer";
 import { RentalFilters } from "@/components/RentalFilters";
 import { RentalProductCard } from "@/components/RentalProductCard";
 import { Button } from "@/components/ui/button";
@@ -145,7 +146,10 @@ const Index = () => {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={() => document.getElementById('textile-upload')?.click()}
+                      onClick={() => {
+                        const input = document.getElementById('textile-upload') as HTMLInputElement;
+                        input?.click();
+                      }}
                     >
                       <Plus className="w-4 h-4 mr-2" />
                       Muuda pilti
@@ -178,7 +182,10 @@ const Index = () => {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={() => document.getElementById('steam-upload')?.click()}
+                      onClick={() => {
+                        const input = document.getElementById('steam-upload') as HTMLInputElement;
+                        input?.click();
+                      }}
                     >
                       <Plus className="w-4 h-4 mr-2" />
                       Muuda pilti
@@ -211,7 +218,10 @@ const Index = () => {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={() => document.getElementById('window-upload')?.click()}
+                      onClick={() => {
+                        const input = document.getElementById('window-upload') as HTMLInputElement;
+                        input?.click();
+                      }}
                     >
                       <Plus className="w-4 h-4 mr-2" />
                       Muuda pilti
@@ -264,6 +274,7 @@ const Index = () => {
         </div>
       </section>
 
+      <Footer />
     </div>
   );
 };
