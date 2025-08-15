@@ -99,29 +99,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Cookie Notice */}
-      <div className="fixed bottom-0 left-0 right-0 bg-purple text-white p-6 z-50">
-        <div className="container mx-auto text-center">
-          <div className="mb-4">
-            <div className="text-6xl mb-4">🍪</div>
-            <h3 className="text-xl font-semibold mb-2">Veebileht kasutab toimimimiseks küpsiseid</h3>
-            <p className="text-purple-100">
-              Küpsiste kasutamise tingimused on leitavad privaatsustingimustes.
-            </p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-3">
-            <button className="bg-white text-purple px-6 py-2 rounded-md font-medium hover:bg-gray-100 transition-colors">
-              Valin ise
-            </button>
-            <button className="bg-purple-400 text-white px-6 py-2 rounded-md font-medium hover:bg-purple-500 transition-colors">
-              Luban vajalikud
-            </button>
-            <button className="bg-primary text-white px-6 py-2 rounded-md font-medium hover:bg-primary-hover transition-colors">
-              Luban kõik
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
