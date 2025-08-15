@@ -19,10 +19,13 @@ export const RentalProductCard = ({ product }: RentalProductCardProps) => {
   const navigate = useNavigate();
 
   const handleRentalClick = () => {
+    console.log('Rental click:', product.name);
     const productType = product.name.toLowerCase().includes('tekstiili') ? 'tekstiilipesur' : 
                        product.name.toLowerCase().includes('auru') ? 'aurupesur' : 'aknapesuribot';
     const location = 'kristiine-keskus';
-    navigate(`/et/rendi/${productType}-asukohaga-${location}`);
+    const path = `/et/rendi/${productType}-asukohaga-${location}`;
+    console.log('Navigating to:', path);
+    navigate(path);
   };
   return (
     <Card className="overflow-hidden hover:shadow-medium transition-all duration-300 group">
