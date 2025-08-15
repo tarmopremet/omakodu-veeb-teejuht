@@ -48,8 +48,8 @@ const RentalDetail = () => {
         "Professionaalne kvaliteet"
       ],
       priceList: [
-        { duration: "1 tund", price: "4.50€" },
-        { duration: "1 päev (8h)", price: "30.00€" }
+        { duration: "1 tund", price: "4.35€" },
+        { duration: "1 päev (8h)", price: "20.99€" }
       ]
     };
   };
@@ -65,9 +65,9 @@ const RentalDetail = () => {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
     if (diffDays === 1) {
-      return "4.50"; // 1 hour rate
+      return "4.35"; // 1 hour rate
     } else {
-      return (diffDays * 30).toFixed(2); // daily rate
+      return (diffDays * 20.99).toFixed(2); // daily rate
     }
   };
 

@@ -1,7 +1,7 @@
 import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { RentalFilters } from "@/components/RentalFilters";
 import { RentalProductCard } from "@/components/RentalProductCard";
-import textileCleaner from "@/assets/textile-cleaner-wurth.jpg";
+import wurthCleaner from "@/assets/wurth-textile-cleaner.jpg";
 import steamCleaner from "@/assets/steam-cleaner-karcher.jpg";
 import windowRobot from "@/assets/window-robot-new.jpg";
 
@@ -12,7 +12,7 @@ const rentalProducts = [
     name: "TEKSTIILIPESUR 1 (Järve Keskuses pangaautomaatide juures)",
     price: "4.5€ / Tund",
     location: "Tallinn, Pärnu mnt. 238, Järve Keskus",
-    image: textileCleaner,
+    image: wurthCleaner,
     rating: 4.8,
     available: true
   },
@@ -39,7 +39,7 @@ const rentalProducts = [
     name: "TEKSTIILIPESUR 2 (Kadaka Selveris)",
     price: "4.5€ / Tund",
     location: "Tallinn, Kadaka tee 56a, Kadaka Selver",
-    image: textileCleaner,
+    image: wurthCleaner,
     rating: 4.7,
     available: true
   },
@@ -57,7 +57,7 @@ const rentalProducts = [
     name: "TEKSTIILIPESUR 3 (Pirita Selveris)",
     price: "4.5€ / Tund",
     location: "Tallinn, Rummu tee 4, Pirita Selver",
-    image: textileCleaner,
+    image: wurthCleaner,
     rating: 4.8,
     available: true
   }

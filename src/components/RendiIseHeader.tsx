@@ -1,9 +1,18 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Phone, ShoppingCart, User, Globe } from "lucide-react";
+import { ContactForm } from "@/components/ContactForm";
 
 export const RendiIseHeader = () => {
+  const [showContactForm, setShowContactForm] = useState(false);
+  
   return (
+    <>
+      <ContactForm 
+        isOpen={showContactForm} 
+        onClose={() => setShowContactForm(false)} 
+      />
     <header className="bg-white shadow-sm">
       {/* Top bar */}
       <div className="bg-gradient-primary text-white py-2">
@@ -30,29 +39,55 @@ export const RendiIseHeader = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="text-2xl font-bold">
+            <Link to="/" className="text-2xl font-bold hover:opacity-80 transition-opacity">
               <span className="text-gray-800">Rendi</span>
               <span className="text-primary">Ise</span>
-            </div>
+            </Link>
           </div>
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-gray-700 hover:text-primary font-medium">
+            <Link to="/" className="text-gray-700 hover:text-primary font-medium">
               Avaleht
-            </a>
-            <a href="#" className="text-gray-700 hover:text-primary font-medium">
-              Renditooted
-            </a>
+            </Link>
+            <div className="relative group">
+              <span className="text-gray-700 hover:text-primary font-medium cursor-pointer">
+                Renditooted
+              </span>
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white shadow-lg rounded-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="p-4 space-y-3">
+                  <Link to="/et/rendi/tekstiilipesur-asukohaga-kristiine-keskus" className="block hover:text-primary">
+                    <div className="font-medium">Tekstiilipesur</div>
+                    <div className="text-sm text-gray-500">Diivani, madratsi ja vaiba puhastus</div>
+                  </Link>
+                  <Link to="/et/rendi/aurupesur-asukohaga-kristiine-keskus" className="block hover:text-primary">
+                    <div className="font-medium">Aurupesur</div>
+                    <div className="text-sm text-gray-500">Vannitoa ja köögi puhastus</div>
+                  </Link>
+                  <Link to="/et/rendi/aknapesuribot-asukohaga-kristiine-keskus" className="block hover:text-primary">
+                    <div className="font-medium">Aknapesuribot</div>
+                    <div className="text-sm text-gray-500">Automaatne akende pesu</div>
+                  </Link>
+                  <Link to="/et/rendi/aknapesur-asukohaga-kristiine-keskus" className="block hover:text-primary">
+                    <div className="font-medium">Aknapesur</div>
+                    <div className="text-sm text-gray-500">Käsitsi akende puhastus</div>
+                  </Link>
+                </div>
+              </div>
+            </div>
             <a href="#" className="text-gray-700 hover:text-primary font-medium">
               Müügitooted
             </a>
-            <a href="#" className="text-gray-700 hover:text-primary font-medium">
+            <button 
+              onClick={() => setShowContactForm(true)}
+              className="text-gray-700 hover:text-primary font-medium"
+            >
               Kontakt
-            </a>
+            </button>
           </nav>
         </div>
       </div>
     </header>
+    </>
   );
 };
