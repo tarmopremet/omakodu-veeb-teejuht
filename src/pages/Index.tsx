@@ -239,47 +239,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Date Selection and Booking */}
-      <section className="container mx-auto px-4 py-8">
-        <Card className="max-w-md mx-auto">
-          <CardContent className="p-6">
-            <h3 className="text-lg font-semibold mb-4 text-center">Vali kuupäev</h3>
-            <div className="flex flex-col items-center space-y-4">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className={cn(
-                      "w-full justify-start text-left font-normal",
-                      !selectedDate && "text-muted-foreground"
-                    )}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {selectedDate ? format(selectedDate, "dd.MM.yyyy") : "Vali kuupäev"}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={selectedDate}
-                    onSelect={setSelectedDate}
-                    initialFocus
-                    className={cn("p-3 pointer-events-auto")}
-                    disabled={(date) => date < new Date()}
-                  />
-                </PopoverContent>
-              </Popover>
-              
-              {selectedDate && (
-                <Button className="w-full" size="lg">
-                  Broneeri {format(selectedDate, "dd.MM.yyyy")}
-                </Button>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-      </section>
-
       {/* Filters */}
       <section className="container mx-auto px-4 py-8">
         <RentalFilters />

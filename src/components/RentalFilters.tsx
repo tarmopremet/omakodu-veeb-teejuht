@@ -118,16 +118,14 @@ export const RentalFilters = ({ onFilterChange }: RentalFiltersProps) => {
             </Select>
           </div>
 
-          {/* Search */}
+          {/* Booking Button */}
           <div className="space-y-2">
             <Label className="text-sm font-medium">
               Renditoode
             </Label>
-            <Input 
-              placeholder="Otsi toodet..."
-              value={filters.searchTerm}
-              onChange={(e) => handleFilterChange("searchTerm", e.target.value)}
-            />
+            <Button className="w-full h-10" size="default">
+              Broneeri
+            </Button>
           </div>
         </div>
       </CardContent>
