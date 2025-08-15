@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -11,6 +12,7 @@ interface RentalFiltersProps {
 }
 
 export const RentalFilters = ({ onFilterChange }: RentalFiltersProps) => {
+  const navigate = useNavigate();
   const [filters, setFilters] = useState({
     location: "",
     startDate: "",
@@ -23,6 +25,12 @@ export const RentalFilters = ({ onFilterChange }: RentalFiltersProps) => {
     const newFilters = { ...filters, [key]: value };
     setFilters(newFilters);
     onFilterChange?.(newFilters);
+  };
+
+  const handleBooking = () => {
+    // Get selected location to determine city
+    const cityFromLocation = filters.location.split(',')[0] || "Tallinn";
+    navigate(`/broneeri/${cityFromLocation.toLowerCase()}`);
   };
 
   const locations = [
@@ -123,7 +131,7 @@ export const RentalFilters = ({ onFilterChange }: RentalFiltersProps) => {
             <Label className="text-sm font-medium">
               Renditoode
             </Label>
-            <Button className="w-full h-10" size="default">
+            <Button className="w-full h-10" size="default" onClick={handleBooking}>
               Broneeri
             </Button>
           </div>

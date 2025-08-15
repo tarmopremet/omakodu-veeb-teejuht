@@ -137,12 +137,14 @@ const Index = () => {
                       className="hidden"
                       id="textile-upload"
                     />
-                    <label htmlFor="textile-upload" className="cursor-pointer">
-                      <Button variant="outline" size="sm" type="button">
-                        <Plus className="w-4 h-4 mr-2" />
-                        Muuda pilti
-                      </Button>
-                    </label>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => document.getElementById('textile-upload')?.click()}
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Muuda pilti
+                    </Button>
                     <Button 
                       variant="outline" 
                       size="sm" 
@@ -168,12 +170,14 @@ const Index = () => {
                       className="hidden"
                       id="steam-upload"
                     />
-                    <label htmlFor="steam-upload" className="cursor-pointer">
-                      <Button variant="outline" size="sm" type="button">
-                        <Plus className="w-4 h-4 mr-2" />
-                        Muuda pilti
-                      </Button>
-                    </label>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => document.getElementById('steam-upload')?.click()}
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Muuda pilti
+                    </Button>
                     <Button 
                       variant="outline" 
                       size="sm" 
@@ -199,12 +203,14 @@ const Index = () => {
                       className="hidden"
                       id="window-upload"
                     />
-                    <label htmlFor="window-upload" className="cursor-pointer">
-                      <Button variant="outline" size="sm" type="button">
-                        <Plus className="w-4 h-4 mr-2" />
-                        Muuda pilti
-                      </Button>
-                    </label>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => document.getElementById('window-upload')?.click()}
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Muuda pilti
+                    </Button>
                     <Button 
                       variant="outline" 
                       size="sm" 
