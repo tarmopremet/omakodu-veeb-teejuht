@@ -3,7 +3,8 @@ import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { RentalFilters } from "@/components/RentalFilters";
 import { RentalProductCard } from "@/components/RentalProductCard";
 import { Button } from "@/components/ui/button";
-import { Plus, Edit3 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Plus, Edit3, MapPin } from "lucide-react";
 import wurthCleaner from "@/assets/wurth-textile-cleaner.jpg";
 import steamCleaner from "@/assets/steam-cleaner-karcher.jpg";
 import windowRobot from "@/assets/window-robot-new.jpg";
@@ -82,9 +83,54 @@ const Index = () => {
       available: true
     }
   ];
+  const cities = [
+    { name: "Tallinn", slug: "tallinn", subdomain: "tallinn.rendiise.ee" },
+    { name: "Tartu", slug: "tartu", subdomain: "tartu.rendiise.ee" },
+    { name: "Pärnu", slug: "parnu", subdomain: "parnu.rendiise.ee" },
+    { name: "Narva", slug: "narva", subdomain: "narva.rendiise.ee" },
+    { name: "Viljandi", slug: "viljandi", subdomain: "viljandi.rendiise.ee" },
+    { name: "Rakvere", slug: "rakvere", subdomain: "rakvere.rendiise.ee" }
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <RendiIseHeader />
+      
+      {/* City Selection Section */}
+      <section className="bg-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+              Vali oma linn
+            </h1>
+            <p className="text-lg text-gray-600">
+              Tekstiilipesuri, aurupesuri ja aknapesuroboti rent üle kogu Eesti
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {cities.map((city) => (
+              <Card key={city.slug} className="hover:shadow-lg transition-shadow duration-300 cursor-pointer group">
+                <CardContent className="p-6 text-center">
+                  <div className="flex flex-col items-center">
+                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
+                      <MapPin className="w-8 h-8 text-blue-600" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">{city.name}</h3>
+                    <p className="text-sm text-gray-500 mb-4">{city.subdomain}</p>
+                    <Button 
+                      className="w-full"
+                      onClick={() => window.open(`https://${city.subdomain}`, '_blank')}
+                    >
+                      Ava {city.name}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
       
       {/* Edit Mode Toggle */}
       <div className="container mx-auto px-4 pt-4">
