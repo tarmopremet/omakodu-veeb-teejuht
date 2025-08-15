@@ -4,15 +4,18 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Star, Phone } from "lucide-react";
 
 const RentalDetail = () => {
-  const { productType, location } = useParams();
+  const { slug } = useParams();
   
-  // Mock product details based on URL params
+  // Parse product details from slug
   const getProductDetails = () => {
-    const productName = productType?.replace(/-/g, ' ') || '';
-    const locationName = location?.replace(/-/g, ' ') || '';
+    if (!slug) return { name: "Toode", price: "4.5€ / Tund", location: "Tallinn", rating: 4.8 };
+    
+    const productType = slug.includes('tekstiili') ? 'Tekstiilipesur' : 
+                       slug.includes('auru') ? 'Aurupesur' : 'Aknapesuribot';
+    const locationName = slug.includes('kristiine') ? 'Kristiine Keskus' : 'Tallinn';
     
     return {
-      name: `${productName} (${locationName})`,
+      name: `${productType} (${locationName})`,
       price: "4.5€ / Tund",
       location: "Tallinn, Kristiine Keskus",
       rating: 4.8,
