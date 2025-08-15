@@ -1,15 +1,18 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, ChevronDown } from "lucide-react";
+import { MapPin, ChevronDown, LogIn, LogOut, User } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Homepage = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
   const navigate = useNavigate();
+  const { user, isAdmin, signOut } = useAuth();
 
   const cities = [
     { name: "Tallinn", href: "/tallinn" },
@@ -68,37 +71,68 @@ const Homepage = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold text-[#ea580c]">Rendiise</h1>
-            <nav className="hidden md:flex space-x-6">
-              <a href="#" className="text-gray-600 hover:text-[#ea580c]">Avaleht</a>
-              <a href="#" className="text-gray-600 hover:text-[#ea580c]">Teenused</a>
-              
-              {/* Asukohad Dropdown */}
-              <div className="relative">
-                <button
-                  onClick={() => setShowLocationDropdown(!showLocationDropdown)}
-                  className="text-gray-600 hover:text-[#ea580c] flex items-center gap-1"
-                >
-                  Asukohad
-                  <ChevronDown className="w-4 h-4" />
-                </button>
+            <div className="flex items-center gap-4">
+              <nav className="hidden md:flex space-x-6">
+                <a href="#" className="text-gray-600 hover:text-[#ea580c]">Avaleht</a>
+                <a href="#" className="text-gray-600 hover:text-[#ea580c]">Teenused</a>
                 
-                {showLocationDropdown && (
-                  <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[120px]">
-                    {cities.map((city) => (
-                      <button
-                        key={city.name}
-                        onClick={() => handleCityClick(city)}
-                        className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-[#ea580c] hover:text-white transition-all duration-200 first:rounded-t-lg last:rounded-b-lg text-left"
-                      >
-                        {city.name}
-                      </button>
-                    ))}
+                {/* Asukohad Dropdown */}
+                <div className="relative">
+                  <button
+                    onClick={() => setShowLocationDropdown(!showLocationDropdown)}
+                    className="text-gray-600 hover:text-[#ea580c] flex items-center gap-1"
+                  >
+                    Asukohad
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                  
+                  {showLocationDropdown && (
+                    <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[120px]">
+                      {cities.map((city) => (
+                        <button
+                          key={city.name}
+                          onClick={() => handleCityClick(city)}
+                          className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-[#ea580c] hover:text-white transition-all duration-200 first:rounded-t-lg last:rounded-b-lg text-left"
+                        >
+                          {city.name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                
+                <a href="#" className="text-gray-600 hover:text-[#ea580c]">Kontakt</a>
+              </nav>
+              
+              {/* Auth Section */}
+              <div className="flex items-center gap-2">
+                {user ? (
+                  <div className="flex items-center gap-2">
+                    <User className="w-4 h-4 text-gray-600" />
+                    <span className="text-sm text-gray-600">{user.email}</span>
+                    {isAdmin && (
+                      <Link to="/admin" className="text-[#ea580c] hover:underline font-medium">
+                        Admin
+                      </Link>
+                    )}
+                    <button 
+                      onClick={signOut} 
+                      className="text-gray-600 hover:text-[#ea580c] flex items-center gap-1"
+                    >
+                      <LogOut className="w-4 h-4" />
+                    </button>
                   </div>
+                ) : (
+                  <Link 
+                    to="/auth" 
+                    className="bg-[#ea580c] hover:bg-orange-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-medium transition-colors"
+                  >
+                    <LogIn className="w-4 h-4" />
+                    Logi sisse
+                  </Link>
                 )}
               </div>
-              
-              <a href="#" className="text-gray-600 hover:text-[#ea580c]">Kontakt</a>
-            </nav>
+            </div>
           </div>
         </div>
       </header>
