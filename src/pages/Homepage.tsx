@@ -8,24 +8,22 @@ import { useNavigate } from "react-router-dom";
 const Homepage = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
+  const [showLocationDropdown, setShowLocationDropdown] = useState(false);
   const navigate = useNavigate();
 
   const cities = [
     { name: "Tallinn", href: "/tallinn" },
-    { name: "Tartu", href: "https://tartu.rendiise.ee/" },
-    { name: "Pärnu", href: "https://parnu.rendiise.ee/" },
-    { name: "Rakvere", href: "https://rakvere.rendiise.ee/" },
-    { name: "Saku", href: "https://saku.rendiise.ee/" }
+    { name: "Tartu", href: "/tartu" },
+    { name: "Pärnu", href: "/parnu" },
+    { name: "Rakvere", href: "/rakvere" },
+    { name: "Saku", href: "/saku" }
   ];
 
   const handleCityClick = (city: typeof cities[0]) => {
-    if (city.name === "Tallinn") {
-      navigate("/tallinn");
-    } else {
-      window.open(city.href, "_blank");
-    }
+    navigate(city.href);
     setShowDropdown1(false);
     setShowDropdown2(false);
+    setShowLocationDropdown(false);
   };
 
   const DropdownButton = ({ 
@@ -73,6 +71,32 @@ const Homepage = () => {
             <nav className="hidden md:flex space-x-6">
               <a href="#" className="text-gray-600 hover:text-[#ea580c]">Avaleht</a>
               <a href="#" className="text-gray-600 hover:text-[#ea580c]">Teenused</a>
+              
+              {/* Asukohad Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowLocationDropdown(!showLocationDropdown)}
+                  className="text-gray-600 hover:text-[#ea580c] flex items-center gap-1"
+                >
+                  Asukohad
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+                
+                {showLocationDropdown && (
+                  <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[120px]">
+                    {cities.map((city) => (
+                      <button
+                        key={city.name}
+                        onClick={() => handleCityClick(city)}
+                        className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-[#ea580c] hover:text-white transition-all duration-200 first:rounded-t-lg last:rounded-b-lg text-left"
+                      >
+                        {city.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
               <a href="#" className="text-gray-600 hover:text-[#ea580c]">Kontakt</a>
             </nav>
           </div>
@@ -168,10 +192,10 @@ const Homepage = () => {
               <h4 className="font-medium text-gray-800 mb-2">Nutikapid üle Eesti</h4>
               <p className="text-sm text-gray-600">
                 <a href="/tallinn" className="text-[#ea580c] hover:underline">Tallinn</a>,{" "}
-                <a href="https://tartu.rendiise.ee" className="text-[#ea580c] hover:underline">Tartu</a>,{" "}
-                <a href="https://parnu.rendiise.ee" className="text-[#ea580c] hover:underline">Pärnu</a>,{" "}
-                <a href="https://rakvere.rendiise.ee" className="text-[#ea580c] hover:underline">Rakvere</a>,{" "}
-                <a href="https://saku.rendiise.ee" className="text-[#ea580c] hover:underline">Saku</a>.
+                <a href="/tartu" className="text-[#ea580c] hover:underline">Tartu</a>,{" "}
+                <a href="/parnu" className="text-[#ea580c] hover:underline">Pärnu</a>,{" "}
+                <a href="/rakvere" className="text-[#ea580c] hover:underline">Rakvere</a>,{" "}
+                <a href="/saku" className="text-[#ea580c] hover:underline">Saku</a>.
               </p>
             </CardContent>
           </Card>
