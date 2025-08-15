@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface RentalProductCardProps {
   product: {
@@ -15,6 +16,14 @@ interface RentalProductCardProps {
 }
 
 export const RentalProductCard = ({ product }: RentalProductCardProps) => {
+  const navigate = useNavigate();
+
+  const handleRentalClick = () => {
+    const productType = product.name.toLowerCase().includes('tekstiili') ? 'tekstiilipesur' : 
+                       product.name.toLowerCase().includes('auru') ? 'aurupesur' : 'aknapesuribot';
+    const location = 'kristiine-keskus';
+    navigate(`/et/rendi/${productType}-asukohaga-${location}`);
+  };
   return (
     <Card className="overflow-hidden hover:shadow-medium transition-all duration-300 group">
       <div className="aspect-square overflow-hidden">
@@ -53,6 +62,7 @@ export const RentalProductCard = ({ product }: RentalProductCardProps) => {
         <Button 
           className="w-full bg-primary hover:bg-primary-hover"
           disabled={!product.available}
+          onClick={handleRentalClick}
         >
           {product.available ? "Rendi kohe" : "Pole saadaval"}
         </Button>

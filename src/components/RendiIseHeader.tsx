@@ -45,10 +45,7 @@ export const RendiIseHeader = () => {
               Renditooted
             </a>
             <a href="#" className="text-gray-700 hover:text-primary font-medium">
-              Müügitoroted
-            </a>
-            <a href="#" className="text-gray-700 hover:text-primary font-medium">
-              Püsihlendile
+              Müügitooted
             </a>
             <a href="#" className="text-gray-700 hover:text-primary font-medium">
               Kontakt

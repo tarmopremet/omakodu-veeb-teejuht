@@ -1,9 +1,9 @@
 import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { RentalFilters } from "@/components/RentalFilters";
 import { RentalProductCard } from "@/components/RentalProductCard";
-import textileCleaner from "@/assets/textile-cleaner.jpg";
-import steamCleaner from "@/assets/steam-cleaner.jpg";
-import windowRobot from "@/assets/window-robot.jpg";
+import textileCleaner from "@/assets/textile-cleaner-wurth.jpg";
+import steamCleaner from "@/assets/steam-cleaner-karcher.jpg";
+import windowRobot from "@/assets/window-robot-new.jpg";
 
 // Mock data matching the original site
 const rentalProducts = [
