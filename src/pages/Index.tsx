@@ -30,9 +30,14 @@ const Index = () => {
     if (file) {
       const url = URL.createObjectURL(file);
       console.log('Created URL:', url);
-      setCustomImages(prev => ({ ...prev, [type]: url }));
-      console.log('Updated customImages');
+      setCustomImages(prev => {
+        const updated = { ...prev, [type]: url };
+        console.log('Updated customImages:', updated);
+        return updated;
+      });
     }
+    // Clear the input value to allow selecting the same file again
+    event.target.value = '';
   };
 
   const handleImageDelete = (type: 'textile' | 'steam' | 'window') => {
