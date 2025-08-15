@@ -24,10 +24,14 @@ const Index = () => {
   });
 
   const handleImageUpload = (type: 'textile' | 'steam' | 'window', event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('handleImageUpload called for type:', type);
     const file = event.target.files?.[0];
+    console.log('Selected file:', file);
     if (file) {
       const url = URL.createObjectURL(file);
+      console.log('Created URL:', url);
       setCustomImages(prev => ({ ...prev, [type]: url }));
+      console.log('Updated customImages');
     }
   };
 
@@ -133,12 +137,10 @@ const Index = () => {
                       className="hidden"
                       id="textile-upload"
                     />
-                    <label htmlFor="textile-upload">
-                      <Button variant="outline" size="sm" className="cursor-pointer" asChild>
-                        <span>
-                          <Plus className="w-4 h-4 mr-2" />
-                          Muuda pilti
-                        </span>
+                    <label htmlFor="textile-upload" className="cursor-pointer">
+                      <Button variant="outline" size="sm" type="button">
+                        <Plus className="w-4 h-4 mr-2" />
+                        Muuda pilti
                       </Button>
                     </label>
                     <Button 
@@ -166,12 +168,10 @@ const Index = () => {
                       className="hidden"
                       id="steam-upload"
                     />
-                    <label htmlFor="steam-upload">
-                      <Button variant="outline" size="sm" className="cursor-pointer" asChild>
-                        <span>
-                          <Plus className="w-4 h-4 mr-2" />
-                          Muuda pilti
-                        </span>
+                    <label htmlFor="steam-upload" className="cursor-pointer">
+                      <Button variant="outline" size="sm" type="button">
+                        <Plus className="w-4 h-4 mr-2" />
+                        Muuda pilti
                       </Button>
                     </label>
                     <Button 
@@ -199,12 +199,10 @@ const Index = () => {
                       className="hidden"
                       id="window-upload"
                     />
-                    <label htmlFor="window-upload">
-                      <Button variant="outline" size="sm" className="cursor-pointer" asChild>
-                        <span>
-                          <Plus className="w-4 h-4 mr-2" />
-                          Muuda pilti
-                        </span>
+                    <label htmlFor="window-upload" className="cursor-pointer">
+                      <Button variant="outline" size="sm" type="button">
+                        <Plus className="w-4 h-4 mr-2" />
+                        Muuda pilti
                       </Button>
                     </label>
                     <Button 
