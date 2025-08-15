@@ -79,13 +79,28 @@ const categories = [
   "Survepesurid"
 ];
 
-const locations = [
-  "Tallinn",
-  "Tartu", 
-  "Pärnu",
-  "Rakvere",
-  "Saku"
-];
+const cityStores = {
+  "Tallinn": [
+    "Kristiine Keskus",
+    "Sikupilli Prisma", 
+    "Lasnamäe Prisma",
+    "Kadaka Selver",
+    "Pirita Selver"
+  ],
+  "Tartu": [
+    "Sõbra Prisma",
+    "Annelinna Keskus"
+  ],
+  "Pärnu": ["Pärnu"],
+  "Rakvere": ["Rakvere"], 
+  "Saku": ["Saku"]
+};
+
+const locations = Object.keys(cityStores).flatMap(city => 
+  cityStores[city as keyof typeof cityStores].map(store => 
+    city === store ? city : `${city} - ${store}`
+  )
+);
 
 export function ProductDialog({ product, onProductSaved, trigger }: ProductDialogProps) {
   const [open, setOpen] = useState(false);

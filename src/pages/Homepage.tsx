@@ -66,11 +66,27 @@ const Homepage = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Orange Top Bar */}
+      <div className="bg-primary text-primary-foreground py-2 px-4">
+        <div className="container mx-auto flex justify-between items-center text-sm">
+          <div className="flex items-center space-x-4">
+            <span>📞 Helista +37250127355</span>
+            <span>🕒 Iga päev 24/7</span>
+          </div>
+          <div className="flex items-center space-x-4">
+            <span>🏪 Poed üle Eesti</span>
+            <span>🚀 Nutikapid</span>
+          </div>
+        </div>
+      </div>
+      
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-primary">Rendiise</h1>
+            <h1 className="text-2xl font-bold">
+              <span className="text-gray-900">Rendi</span><span className="text-primary">ise</span>
+            </h1>
             <div className="flex items-center gap-4">
               <nav className="hidden md:flex space-x-6">
                 <a href="#" className="text-gray-600 hover:text-primary">Avaleht</a>
