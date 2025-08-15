@@ -6,21 +6,27 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
-import { MapPin, Clock, Star, Phone, CalendarIcon, Upload, Plus } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { MapPin, Clock, Phone, CalendarIcon, Plus } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import wurthCleaner from "@/assets/wurth-textile-cleaner.jpg";
 
 const RentalDetail = () => {
   const { slug } = useParams();
-  const [selectedDate, setSelectedDate] = useState<Date>();
-  const [selectedHours, setSelectedHours] = useState<number>(1);
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
+  const [startTime, setStartTime] = useState("09:00");
+  const [endTime, setEndTime] = useState("17:00");
   const [description, setDescription] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const [location, setLocation] = useState("");
   const [images, setImages] = useState(["/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png"]);
 
   // Parse product details from slug
   const getProductDetails = () => {
-    if (!slug) return { name: "Toode", price: "4.5€ / Tund", location: "Tallinn", rating: 4.8 };
+    if (!slug) return { name: "Toode", price: "4.5€ / Tund", location: "Tallinn" };
     
     const productType = slug.includes('tekstiili') ? 'Tekstiilipesur' : 
                        slug.includes('auru') ? 'Aurupesur' : 'Aknapesuribot';
@@ -30,7 +36,6 @@ const RentalDetail = () => {
       name: `${productType} (${locationName})`,
       price: "4.5€ / Tund",
       location: "Tallinn, Kristiine Keskus",
-      rating: 4.8,
       description: "Professionaalne Würth tekstiilipesur RS 162. Sobib diivani, madratsi, vaiba ja tugitoolide sügavaks puhastamiseks.",
       features: [
         "Võimas 1200W mootor",
@@ -41,9 +46,7 @@ const RentalDetail = () => {
       ],
       priceList: [
         { duration: "1 tund", price: "4.50€" },
-        { duration: "4 tundi", price: "16.00€" },
-        { duration: "1 päev (8h)", price: "30.00€" },
-        { duration: "1 nädal", price: "180.00€" }
+        { duration: "1 päev (8h)", price: "30.00€" }
       ]
     };
   };
@@ -51,8 +54,18 @@ const RentalDetail = () => {
   const product = getProductDetails();
 
   const calculatePrice = () => {
-    const hourlyRate = 4.5;
-    return (hourlyRate * selectedHours).toFixed(2);
+    if (!startDate || !endDate) return "0.00";
+    
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 1) {
+      return "4.50"; // 1 hour rate
+    } else {
+      return (diffDays * 30).toFixed(2); // daily rate
+    }
   };
 
   const addImage = () => {
@@ -91,16 +104,41 @@ const RentalDetail = () => {
               </Button>
             </div>
 
-            {/* Description Editor */}
+            {/* Description, Instructions, Location Editor */}
             <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-4">Toote kirjeldus</h3>
-                <Textarea
-                  placeholder="Kirjutage toote kirjeldus..."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className="min-h-[120px]"
-                />
+              <CardContent className="p-6 space-y-6">
+                <div>
+                  <Label htmlFor="description" className="text-lg font-semibold mb-3 block">Toote kirjeldus</Label>
+                  <Textarea
+                    id="description"
+                    placeholder="Kirjutage toote kirjeldus..."
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="min-h-[100px]"
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="instructions" className="text-lg font-semibold mb-3 block">Kasutamisjuhend</Label>
+                  <Textarea
+                    id="instructions"
+                    placeholder="Kirjutage kasutamisjuhend..."
+                    value={instructions}
+                    onChange={(e) => setInstructions(e.target.value)}
+                    className="min-h-[100px]"
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="location" className="text-lg font-semibold mb-3 block">Asukoht</Label>
+                  <Textarea
+                    id="location"
+                    placeholder="Kirjutage täpne asukoht ja juhised..."
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    className="min-h-[80px]"
+                  />
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -110,11 +148,6 @@ const RentalDetail = () => {
             <Card>
               <CardContent className="p-6">
                 <h1 className="text-2xl font-bold mb-4">{product.name}</h1>
-                
-                <div className="flex items-center mb-4">
-                  <Star className="w-5 h-5 fill-yellow-400 text-yellow-400 mr-1" />
-                  <span className="font-medium">{product.rating}</span>
-                </div>
 
                 <div className="flex items-center text-muted-foreground mb-6">
                   <MapPin className="w-5 h-5 mr-2" />
@@ -134,47 +167,73 @@ const RentalDetail = () => {
                   </div>
                 </div>
 
-                {/* Calendar */}
-                <div className="mb-6">
-                  <h4 className="font-semibold mb-3">Vali kuupäev</h4>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className={cn(
-                          "w-full justify-start text-left font-normal",
-                          !selectedDate && "text-muted-foreground"
-                        )}
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {selectedDate ? format(selectedDate, "PPP") : <span>Vali kuupäev</span>}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={selectedDate}
-                        onSelect={setSelectedDate}
-                        disabled={(date) => date < new Date()}
-                        initialFocus
-                        className={cn("p-3 pointer-events-auto")}
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-
-                {/* Hours Selection */}
-                <div className="mb-6">
-                  <h4 className="font-semibold mb-3">Tundide arv</h4>
-                  <select 
-                    value={selectedHours} 
-                    onChange={(e) => setSelectedHours(Number(e.target.value))}
-                    className="w-full p-2 border rounded-md"
-                  >
-                    {[1,2,3,4,5,6,7,8].map(hour => (
-                      <option key={hour} value={hour}>{hour} tund{hour > 1 ? 'i' : ''}</option>
-                    ))}
-                  </select>
+                {/* Date and Time Selection */}
+                <div className="mb-6 space-y-4">
+                  <h4 className="font-semibold">Algus kuupäev ja kellaaeg</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "justify-start text-left font-normal",
+                            !startDate && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {startDate ? format(startDate, "dd.MM") : <span>Kuupäev</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={startDate}
+                          onSelect={setStartDate}
+                          disabled={(date) => date < new Date()}
+                          initialFocus
+                          className={cn("p-3 pointer-events-auto")}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <Input
+                      type="time"
+                      value={startTime}
+                      onChange={(e) => setStartTime(e.target.value)}
+                    />
+                  </div>
+                  
+                  <h4 className="font-semibold">Lõpp kuupäev ja kellaaeg</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "justify-start text-left font-normal",
+                            !endDate && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {endDate ? format(endDate, "dd.MM") : <span>Kuupäev</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={endDate}
+                          onSelect={setEndDate}
+                          disabled={(date) => date < new Date() || (startDate && date < startDate)}
+                          initialFocus
+                          className={cn("p-3 pointer-events-auto")}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <Input
+                      type="time"
+                      value={endTime}
+                      onChange={(e) => setEndTime(e.target.value)}
+                    />
+                  </div>
                 </div>
 
                 {/* Total Price */}
@@ -185,9 +244,9 @@ const RentalDetail = () => {
                 <div className="space-y-3">
                   <Button 
                     className="w-full bg-primary hover:bg-primary-hover text-lg py-3"
-                    disabled={!selectedDate}
+                    disabled={!startDate || !endDate}
                   >
-                    Broneeri ({selectedHours}h)
+                    Broneeri
                   </Button>
                   
                   <Button variant="outline" className="w-full flex items-center justify-center">
