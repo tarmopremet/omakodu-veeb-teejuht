@@ -25,6 +25,7 @@ const RentalDetail = () => {
   const [instructions, setInstructions] = useState("");
   const [location, setLocation] = useState("");
   const [images, setImages] = useState(["/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png"]);
+  const [videos, setVideos] = useState<string[]>([]);
   const [showBookingForm, setShowBookingForm] = useState(false);
 
   // Parse product details from slug
@@ -49,7 +50,7 @@ const RentalDetail = () => {
       ],
       priceList: [
         { duration: "1 tund", price: "4.35€" },
-        { duration: "1 päev (8h)", price: "20.99€" }
+        { duration: "1 päev", price: "20.99€" }
       ]
     };
   };
@@ -71,10 +72,18 @@ const RentalDetail = () => {
     }
   };
 
-  const addImage = () => {
-    // Placeholder for image upload functionality
-    const newImage = `https://via.placeholder.com/400x400?text=Pilt+${images.length + 1}`;
-    setImages([...images, newImage]);
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, type: 'image' | 'video') => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const url = URL.createObjectURL(file);
+      
+      if (type === 'image') {
+        setImages(prev => [...prev, url]);
+      } else {
+        setVideos(prev => [...prev, url]);
+      }
+    }
   };
 
   return (
@@ -83,11 +92,11 @@ const RentalDetail = () => {
       
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Images Section */}
+          {/* Images and Videos Section */}
           <div className="lg:col-span-2">
             <div className="grid grid-cols-2 gap-4 mb-6">
               {images.map((image, index) => (
-                <div key={index} className="aspect-square bg-white rounded-lg overflow-hidden border">
+                <div key={`image-${index}`} className="aspect-square bg-white rounded-lg overflow-hidden border">
                   <img
                     src={image}
                     alt={`${product.name} ${index + 1}`}
@@ -95,16 +104,39 @@ const RentalDetail = () => {
                   />
                 </div>
               ))}
-              <Button
-                variant="outline"
-                className="aspect-square border-2 border-dashed border-gray-300 hover:border-primary"
-                onClick={addImage}
-              >
-                <div className="text-center">
-                  <Plus className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-                  <span className="text-sm text-gray-500">Lisa pilt</span>
+              {videos.map((video, index) => (
+                <div key={`video-${index}`} className="aspect-square bg-white rounded-lg overflow-hidden border">
+                  <video
+                    src={video}
+                    className="w-full h-full object-cover"
+                    controls
+                    muted
+                  />
                 </div>
-              </Button>
+              ))}
+              <div className="aspect-square border-2 border-dashed border-gray-300 rounded-lg flex flex-col">
+                <label className="flex-1 flex flex-col items-center justify-center cursor-pointer hover:border-primary hover:bg-gray-50 transition-colors">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleFileUpload(e, 'image')}
+                    className="hidden"
+                  />
+                  <Plus className="w-6 h-6 text-gray-400 mb-2" />
+                  <span className="text-sm text-gray-500">Lisa pilt</span>
+                </label>
+                <div className="border-t border-gray-200">
+                  <label className="flex-1 flex flex-col items-center justify-center cursor-pointer hover:border-primary hover:bg-gray-50 transition-colors py-2">
+                    <input
+                      type="file"
+                      accept="video/*"
+                      onChange={(e) => handleFileUpload(e, 'video')}
+                      className="hidden"
+                    />
+                    <span className="text-xs text-gray-500">Lisa video</span>
+                  </label>
+                </div>
+              </div>
             </div>
 
             {/* Description, Instructions, Location Tabs */}
