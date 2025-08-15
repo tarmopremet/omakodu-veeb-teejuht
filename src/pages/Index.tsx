@@ -225,9 +225,9 @@ const Index = () => {
       {/* Hero Section */}
       <section className="bg-white py-16">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            Tekstiilipesuri nutirent Tallinnas
-          </h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+              Tekstiilipesuri nutirent üle kogu Eesti
+            </h1>
           
           <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
             Tekstiilipesuri rent - diivani, madratsi, vaiba ja tugitoolide puhastuseks /<br />
