@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Phone, ShoppingCart, User, Globe } from "lucide-react";
+import { Phone, ShoppingCart, User, Globe, LogIn, LogOut } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const RendiIseHeader = () => {
   const [showContactForm, setShowContactForm] = useState(false);
+  const { user, isAdmin, signOut } = useAuth();
   
   return (
     <>
@@ -19,7 +21,25 @@ export const RendiIseHeader = () => {
         <div className="container mx-auto px-4 flex justify-end items-center text-sm">
           <div className="flex items-center gap-4">
             <span>ET</span>
-            <User className="w-4 h-4" />
+            {user ? (
+              <div className="flex items-center gap-2">
+                <User className="w-4 h-4" />
+                <span>{user.email}</span>
+                {isAdmin && (
+                  <Link to="/admin" className="hover:underline">
+                    Admin
+                  </Link>
+                )}
+                <button onClick={signOut} className="hover:underline">
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <Link to="/auth" className="flex items-center gap-1 hover:underline">
+                <LogIn className="w-4 h-4" />
+                <span>Logi sisse</span>
+              </Link>
+            )}
             <div className="flex items-center">
               <ShoppingCart className="w-4 h-4 mr-1" />
               <span className="bg-white text-primary rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
