@@ -130,9 +130,9 @@ const Index = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="bg-white rounded-lg p-6 shadow-sm">
             <h3 className="text-lg font-semibold mb-4">Muuda toodete pilte</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
               <div className="text-center">
-                <img src={customImages.textile} alt="Tekstiilipesur" className="w-32 h-32 object-cover rounded-lg mx-auto mb-3" />
+                <img src={customImages.textile} alt="Tekstiilipesur" className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg mx-auto mb-3" />
                 <div>
                   <span className="text-sm font-medium text-gray-700 block mb-2">Tekstiilipesur</span>
                   <div className="flex gap-2 justify-center">
@@ -168,7 +168,7 @@ const Index = () => {
               </div>
               
               <div className="text-center">
-                <img src={customImages.steam} alt="Aurupesur" className="w-32 h-32 object-cover rounded-lg mx-auto mb-3" />
+                <img src={customImages.steam} alt="Aurupesur" className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg mx-auto mb-3" />
                 <div>
                   <span className="text-sm font-medium text-gray-700 block mb-2">Aurupesur</span>
                   <div className="flex gap-2 justify-center">
@@ -204,7 +204,7 @@ const Index = () => {
               </div>
               
               <div className="text-center">
-                <img src={customImages.window} alt="Aknapesuribot" className="w-32 h-32 object-cover rounded-lg mx-auto mb-3" />
+                <img src={customImages.window} alt="Aknapesuribot" className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg mx-auto mb-3" />
                 <div>
                   <span className="text-sm font-medium text-gray-700 block mb-2">Aknapesuribot</span>
                   <div className="flex gap-2 justify-center">
@@ -267,7 +267,7 @@ const Index = () => {
       <section className="container mx-auto px-4 pb-16">
         <h2 className="text-2xl font-bold text-gray-800 mb-8">Meie soovitused</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {rentalProducts.map((product) => (
             <RentalProductCard key={product.id} product={product} />
           ))}
