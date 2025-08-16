@@ -28,19 +28,19 @@ export const RentalFilters = ({ onFilterChange }: RentalFiltersProps) => {
   };
 
   const handleBooking = () => {
-    // Get selected location to determine city
-    const cityFromLocation = filters.location.split(',')[0] || "Tallinn";
-    navigate(`/broneeri/${cityFromLocation.toLowerCase()}`);
+    const selectedCity = locations.find(l => l.label === filters.location)?.city || "Tallinn";
+    const citySlug = selectedCity.toLowerCase();
+    navigate(`/et/broneeri/${citySlug}`);
   };
 
   const locations = [
-    "Kõik",
-    "Tallinn, Rummu tee 4, Pirita selver",
-    "Tallinn, Kadaka tee 56a, Kadaka Selver", 
-    "Tallinn, Mustakivi tee 17, Lasnamäe Prisma",
-    "Tallinn, Tartu mnt 87, Sikupilli Prisma",
-    "Tallinn, Endla 45, Kristiine Keskus",
-    "Tallinn, Pärnu mnt. 238, Järve Keskus"
+    { label: "Kõik asukohad", city: "Tallinn" },
+    { label: "Pirita Selver – Rummu tee 4", city: "Tallinn" },
+    { label: "Kadaka Selver – Kadaka tee 56a", city: "Tallinn" },
+    { label: "Lasnamäe Prisma – Mustakivi tee 17", city: "Tallinn" },
+    { label: "Sikupilli Prisma – Tartu mnt 87", city: "Tallinn" },
+    { label: "Kristiine Keskus – Endla 45", city: "Tallinn" },
+    { label: "Järve Keskus – Pärnu mnt 238", city: "Tallinn" }
   ];
 
   const categories = [
@@ -68,8 +68,8 @@ export const RentalFilters = ({ onFilterChange }: RentalFiltersProps) => {
               </SelectTrigger>
               <SelectContent>
                 {locations.map((location) => (
-                  <SelectItem key={location} value={location}>
-                    {location}
+                  <SelectItem key={location.label} value={location.label}>
+                    {location.label}
                   </SelectItem>
                 ))}
               </SelectContent>

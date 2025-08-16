@@ -20,10 +20,28 @@ export const RentalProductCard = ({ product }: RentalProductCardProps) => {
 
   const handleRentalClick = () => {
     console.log('Rental click:', product.name);
+
+    const slugify = (s: string) =>
+      s
+        .toLowerCase()
+        .replace(/[ä]/g, 'a')
+        .replace(/[ö]/g, 'o')
+        .replace(/[ü]/g, 'u')
+        .replace(/[õ]/g, 'o')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+
+    const extractPlace = (loc: string) => {
+      if (!loc) return 'kristiine-keskus';
+      if (loc.includes('–')) return loc.split('–')[0].trim();
+      const parts = loc.split(',');
+      return parts[parts.length - 1].trim();
+    };
+
     const productType = product.name.toLowerCase().includes('tekstiili') ? 'tekstiilipesur' : 
                        product.name.toLowerCase().includes('auru') ? 'aurupesur' : 'aknapesuribot';
-    const location = 'kristiine-keskus';
-    const path = `/et/rendi/${productType}-asukohaga-${location}`;
+    const placeSlug = slugify(extractPlace(product.location || ''));
+    const path = `/et/rendi/${productType}-asukohaga-${placeSlug}`;
     console.log('Navigating to:', path);
     navigate(path);
   };

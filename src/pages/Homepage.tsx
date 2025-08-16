@@ -244,11 +244,11 @@ const Homepage = () => {
             </div>
 
             {/* Search Section */}
-            <div className="mb-8 max-w-md mx-auto">
+            <div className="mb-8 max-w-md mx-auto relative">
               <div className="flex gap-2">
                 <Input
                   type="text"
-                  placeholder="Näited: Pirita Selver – Rummu tee 4, Sikupilli Prisma – Tartu mnt 87, Kristiine Keskus – Endla 45"
+                  placeholder="Otsi asukohta (nt. Pirita Selver, Sikupilli Prisma)..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
@@ -259,22 +259,25 @@ const Homepage = () => {
                 </Button>
               </div>
 
-              <div className="mt-2 bg-white border rounded-lg shadow-sm divide-y">
-                {(searchQuery ? filteredSuggestions : storeSuggestions.slice(0,6)).map((s, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => {
-                      setSearchQuery(s.label);
-                      navigate(s.cityHref);
-                      setShowDropdown1(false);
-                      setShowDropdown2(false);
-                    }}
-                    className="w-full text-left px-3 py-2 text-sm hover:bg-primary hover:text-primary-foreground"
-                  >
-                    {s.label}
-                  </button>
-                ))}
-              </div>
+              {searchQuery && (
+                <div className="absolute left-0 right-0 mt-2 bg-white border rounded-lg shadow-sm divide-y z-50">
+                  {(filteredSuggestions.length ? filteredSuggestions : storeSuggestions.slice(0, 6)).map((s, idx) => (
+                    <button
+                      key={idx}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        setSearchQuery(s.label);
+                        navigate(s.cityHref);
+                        setShowDropdown1(false);
+                        setShowDropdown2(false);
+                      }}
+                      className="w-full text-left px-3 py-2 text-sm hover:bg-primary hover:text-primary-foreground"
+                    >
+                      {s.label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <DropdownButton 
