@@ -197,7 +197,7 @@ const Homepage = () => {
       <section className="container mx-auto px-4 py-8 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           <div className="md:col-span-5 order-2 md:order-1">
-            <div className="w-full max-w-[160px] mx-auto">
+            <div className="w-full max-w-sm mx-auto">
               <img
                 src="/lovable-uploads/df0e8fbf-70e2-43c9-85f7-287560a031d1.png"
                 alt="Puhastusseadmed"
