@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Edit } from "lucide-react";
+import { Plus, Edit, Upload, X } from "lucide-react";
 
 const productSchema = z.object({
   name: z.string().min(1, "Toote nimi on kohustuslik"),
@@ -61,6 +61,7 @@ interface Product {
   meta_title?: string;
   meta_description?: string;
   meta_keywords?: string;
+  images?: string[];
 }
 
 interface ProductDialogProps {
@@ -105,6 +106,8 @@ const locations = Object.keys(cityStores).flatMap(city =>
 export function ProductDialog({ product, onProductSaved, trigger }: ProductDialogProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState<string[]>([]);
+  const [uploadingImages, setUploadingImages] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<ProductFormData>({
@@ -139,6 +142,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         meta_description: product.meta_description || "",
         meta_keywords: product.meta_keywords || "",
       });
+      setImages(product.images || []);
     } else if (!product && open) {
       form.reset({
         name: "",
@@ -153,8 +157,63 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         meta_description: "",
         meta_keywords: "",
       });
+      setImages([]);
     }
   }, [product, open, form]);
+
+  const uploadImage = async (file: File): Promise<string> => {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `${fileName}`;
+
+    const { error: uploadError, data } = await supabase.storage
+      .from('product-images')
+      .upload(filePath, file);
+
+    if (uploadError) {
+      throw uploadError;
+    }
+
+    const { data: { publicUrl } } = supabase.storage
+      .from('product-images')
+      .getPublicUrl(filePath);
+
+    return publicUrl;
+  };
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploadingImages(true);
+    try {
+      const uploadPromises = Array.from(files).map(uploadImage);
+      const uploadedUrls = await Promise.all(uploadPromises);
+      setImages(prev => [...prev, ...uploadedUrls]);
+      
+      toast({
+        title: "Õnnestus",
+        description: `${uploadedUrls.length} pilti laeti üles`,
+      });
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      toast({
+        title: "Viga",
+        description: "Piltide üleslaadimine ebaõnnestus",
+        variant: "destructive",
+      });
+    } finally {
+      setUploadingImages(false);
+      // Clear the input
+      if (event.target) {
+        event.target.value = '';
+      }
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setImages(prev => prev.filter((_, i) => i !== index));
+  };
 
   const onSubmit = async (data: ProductFormData) => {
     setLoading(true);
@@ -171,6 +230,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         meta_title: data.meta_title || null,
         meta_description: data.meta_description || null,
         meta_keywords: data.meta_keywords || null,
+        images: images.length > 0 ? images : null,
       };
 
       if (product?.id) {
@@ -340,6 +400,60 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
                 </FormItem>
               )}
             />
+
+            {/* Image Upload Section */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-medium">Pildid</h4>
+              
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleImageUpload}
+                    disabled={uploadingImages}
+                    className="hidden"
+                    id="image-upload"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => document.getElementById('image-upload')?.click()}
+                    disabled={uploadingImages}
+                  >
+                    <Upload className="w-4 h-4 mr-2" />
+                    {uploadingImages ? "Laaditakse üles..." : "Lisa pildid"}
+                  </Button>
+                  <span className="text-sm text-gray-500">
+                    {images.length > 0 ? `${images.length} pilti lisatud` : "Pildid aitavad tooteid paremini müüa"}
+                  </span>
+                </div>
+
+                {images.length > 0 && (
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {images.map((imageUrl, index) => (
+                      <div key={index} className="relative group">
+                        <img
+                          src={imageUrl}
+                          alt={`Toote pilt ${index + 1}`}
+                          className="w-full h-32 object-cover rounded-lg border"
+                        />
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => removeImage(index)}
+                          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity p-1 h-auto"
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <FormField
