@@ -81,74 +81,46 @@ const SalesProducts = () => {
               <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="space-y-6">
                   {/* Image section */}
-                  <div className="p-6 pb-0">
-                    {/* Mobile 2x2 grid, desktop single image */}
-                    <div className="md:hidden grid grid-cols-2 gap-2">
-                      {/* Always show at least 4 slots in mobile */}
-                      <div 
-                        className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
-                        onClick={() => handlePurchaseProduct(product)}
-                      >
-                        {product.images && product.images[0] ? (
-                          <img
-                            src={product.images[0]}
-                            alt={product.name}
-                            className="w-full h-full object-cover"
-                          />
+                  <div className="p-3 md:p-6 pb-0">
+                    {/* Mobile 2x2 grid */}
+                    <div className="grid grid-cols-2 gap-2 md:hidden">
+                      <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                           onClick={() => handlePurchaseProduct(product)}>
+                        {product.images?.[0] ? (
+                          <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <p className="text-gray-500 text-xs">Pilt 1</p>
+                            <p className="text-gray-400 text-xs">1</p>
                           </div>
                         )}
                       </div>
-
-                      <div 
-                        className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
-                        onClick={() => handlePurchaseProduct(product)}
-                      >
-                        {product.images && product.images[1] ? (
-                          <img
-                            src={product.images[1]}
-                            alt={`${product.name} 2`}
-                            className="w-full h-full object-cover"
-                          />
+                      <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                           onClick={() => handlePurchaseProduct(product)}>
+                        {product.images?.[1] ? (
+                          <img src={product.images[1]} alt={`${product.name} 2`} className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <p className="text-gray-500 text-xs">Pilt 2</p>
+                            <p className="text-gray-400 text-xs">2</p>
                           </div>
                         )}
                       </div>
-
-                      <div 
-                        className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
-                        onClick={() => handlePurchaseProduct(product)}
-                      >
-                        {product.images && product.images[2] ? (
-                          <img
-                            src={product.images[2]}
-                            alt={`${product.name} 3`}
-                            className="w-full h-full object-cover"
-                          />
+                      <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                           onClick={() => handlePurchaseProduct(product)}>
+                        {product.images?.[2] ? (
+                          <img src={product.images[2]} alt={`${product.name} 3`} className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <p className="text-gray-500 text-xs">Pilt 3</p>
+                            <p className="text-gray-400 text-xs">3</p>
                           </div>
                         )}
                       </div>
-
-                      <div 
-                        className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
-                        onClick={() => handlePurchaseProduct(product)}
-                      >
-                        {product.images && product.images[3] ? (
-                          <img
-                            src={product.images[3]}
-                            alt={`${product.name} 4`}
-                            className="w-full h-full object-cover"
-                          />
+                      <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                           onClick={() => handlePurchaseProduct(product)}>
+                        {product.images?.[3] ? (
+                          <img src={product.images[3]} alt={`${product.name} 4`} className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <p className="text-gray-500 text-xs">Pilt 4</p>
+                            <p className="text-gray-400 text-xs">4</p>
                           </div>
                         )}
                       </div>
