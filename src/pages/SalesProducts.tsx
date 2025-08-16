@@ -82,25 +82,70 @@ const SalesProducts = () => {
                 <div className="space-y-6">
                   {/* Image section */}
                   <div className="p-6 pb-0">
-                    {product.images && product.images[0] ? (
-                      <div 
-                        className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
-                        onClick={() => handlePurchaseProduct(product)}
-                      >
-                        <img
-                          src={product.images[0]}
-                          alt={product.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    ) : (
-                      <div 
-                        className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"
-                        onClick={() => handlePurchaseProduct(product)}
-                      >
-                        <p className="text-gray-500">Toote pilt</p>
-                      </div>
-                    )}
+                    {/* Mobile 2x2 grid, desktop single image */}
+                    <div className="grid grid-cols-2 md:grid-cols-1 gap-2 md:gap-0">
+                      {product.images && product.images[0] ? (
+                        <div 
+                          className="aspect-square md:aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                          onClick={() => handlePurchaseProduct(product)}
+                        >
+                          <img
+                            src={product.images[0]}
+                            alt={product.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div 
+                          className="aspect-square md:aspect-square bg-gray-100 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"
+                          onClick={() => handlePurchaseProduct(product)}
+                        >
+                          <p className="text-gray-500 text-xs md:text-base">Toote pilt</p>
+                        </div>
+                      )}
+
+                      {/* Second image for mobile 2x2 layout */}
+                      {product.images && product.images[1] && (
+                        <div 
+                          className="md:hidden aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                          onClick={() => handlePurchaseProduct(product)}
+                        >
+                          <img
+                            src={product.images[1]}
+                            alt={`${product.name} 2`}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+
+                      {/* Third image for mobile 2x2 layout */}
+                      {product.images && product.images[2] && (
+                        <div 
+                          className="md:hidden aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                          onClick={() => handlePurchaseProduct(product)}
+                        >
+                          <img
+                            src={product.images[2]}
+                            alt={`${product.name} 3`}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+
+                      {/* Fourth image for mobile 2x2 layout */}
+                      {product.images && product.images[3] && (
+                        <div 
+                          className="md:hidden aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                          onClick={() => handlePurchaseProduct(product)}
+                        >
+                          <img
+                            src={product.images[3]}
+                            alt={`${product.name} 4`}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                    </div>
                     
                     {product.video_url && (
                       <div className="mt-4 aspect-video bg-gray-100 rounded-lg overflow-hidden">
