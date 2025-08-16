@@ -195,7 +195,11 @@ const RentalDetail = () => {
               {/* Show database images */}
               {productImages.length > 0 ? (
                 productImages.map((imageUrl: string, index: number) => (
-                  <div key={`db-image-${index}`} className="aspect-square bg-white rounded-lg overflow-hidden border">
+                  <div 
+                    key={`db-image-${index}`} 
+                    className="aspect-square bg-white rounded-lg overflow-hidden border cursor-pointer hover:shadow-lg transition-shadow"
+                    onClick={() => setShowBookingForm(true)}
+                  >
                     <img
                       src={imageUrl}
                       alt={`${product.name} pilt ${index + 1}`}
@@ -209,7 +213,10 @@ const RentalDetail = () => {
                 ))
               ) : (
                 // Fallback image if no database images
-                <div className="aspect-square bg-white rounded-lg overflow-hidden border">
+                <div 
+                  className="aspect-square bg-white rounded-lg overflow-hidden border cursor-pointer hover:shadow-lg transition-shadow"
+                  onClick={() => setShowBookingForm(true)}
+                >
                   <img
                     src={wurthCleaner}
                     alt={product.name}
@@ -237,7 +244,7 @@ const RentalDetail = () => {
             <Tabs defaultValue="description" className="mb-6">
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="description">Kirjeldus</TabsTrigger>
-                <TabsTrigger value="manual" disabled={!product.manual_url}>Juhend</TabsTrigger>
+                <TabsTrigger value="manual" disabled={!product.manual_text && !product.manual_url}>Juhend</TabsTrigger>
                 <TabsTrigger value="location">Asukoht</TabsTrigger>
               </TabsList>
               
@@ -256,9 +263,28 @@ const RentalDetail = () => {
                 <Card>
                   <CardContent className="p-6">
                     <h3 className="text-lg font-semibold mb-4">Juhend</h3>
-                    {product.manual_url ? (
+                    {product.manual_text ? (
                       <div className="space-y-4">
-                        <p className="text-gray-600">Kasutusjuhend aitab Teid seadme õige kasutamisega.</p>
+                        <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">
+                          {product.manual_text}
+                        </p>
+                        {product.manual_url && (
+                          <div className="pt-4 border-t">
+                            <p className="text-sm text-gray-500 mb-2">Täiendav materjal:</p>
+                            <a 
+                              href={product.manual_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition-colors"
+                            >
+                              Ava PDF juhend
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    ) : product.manual_url ? (
+                      <div className="space-y-4">
+                        <p className="text-gray-600">Kasutusjuhend on saadaval PDF-ina.</p>
                         <a 
                           href={product.manual_url} 
                           target="_blank" 
