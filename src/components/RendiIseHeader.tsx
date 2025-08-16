@@ -71,33 +71,13 @@ export const RendiIseHeader = () => {
               Avaleht
             </Link>
             <div className="relative group">
-              <span className="text-gray-700 hover:text-primary font-medium cursor-pointer">
+              <Link to="/renditooted" className="text-gray-700 hover:text-primary font-medium">
                 Renditooted
-              </span>
-              <div className="absolute top-full left-0 mt-2 w-64 bg-white shadow-lg rounded-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div className="p-4 space-y-3">
-                  <Link to="/et/rendi/tekstiilipesur-asukohaga-kristiine-keskus" className="block hover:text-primary">
-                    <div className="font-medium">Tekstiilipesur</div>
-                    <div className="text-sm text-gray-500">Diivani, madratsi ja vaiba puhastus</div>
-                  </Link>
-                  <Link to="/et/rendi/aurupesur-asukohaga-kristiine-keskus" className="block hover:text-primary">
-                    <div className="font-medium">Aurupesur</div>
-                    <div className="text-sm text-gray-500">Vannitoa ja köögi puhastus</div>
-                  </Link>
-                  <Link to="/et/rendi/aknapesuribot-asukohaga-kristiine-keskus" className="block hover:text-primary">
-                    <div className="font-medium">Aknapesuribot</div>
-                    <div className="text-sm text-gray-500">Automaatne akende pesu</div>
-                  </Link>
-                  <Link to="/et/rendi/aknapesur-asukohaga-kristiine-keskus" className="block hover:text-primary">
-                    <div className="font-medium">Aknapesur</div>
-                    <div className="text-sm text-gray-500">Käsitsi akende puhastus</div>
-                  </Link>
-                </div>
-              </div>
+              </Link>
             </div>
-            <a href="#" className="text-gray-700 hover:text-primary font-medium">
+            <Link to="/myygitooted" className="text-gray-700 hover:text-primary font-medium">
               Müügitooted
-            </a>
+            </Link>
             <button 
               onClick={() => setShowContactForm(true)}
               className="text-gray-700 hover:text-primary font-medium"

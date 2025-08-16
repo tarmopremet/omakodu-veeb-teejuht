@@ -12,6 +12,9 @@ import Rakvere from "./pages/Rakvere";
 import Saku from "./pages/Saku";
 import BookingPage from "./pages/BookingPage";
 import RentalDetail from "./pages/RentalDetail";
+import RentalProducts from "./pages/RentalProducts";
+import CategoryProducts from "./pages/CategoryProducts";
+import SalesProducts from "./pages/SalesProducts";
 import { AuthPage } from "./pages/AuthPage";
 import { AdminPage } from "./pages/AdminPage";
 import NotFound from "./pages/NotFound";
@@ -34,6 +37,9 @@ const App = () => (
             <Route path="/parnu" element={<Parnu />} />
             <Route path="/rakvere" element={<Rakvere />} />
             <Route path="/saku" element={<Saku />} />
+            <Route path="/renditooted" element={<RentalProducts />} />
+            <Route path="/renditooted/:category" element={<CategoryProducts />} />
+            <Route path="/myygitooted" element={<SalesProducts />} />
             <Route path="/et/broneeri/:city" element={<BookingPage />} />
             <Route path="/et/rendi/:slug" element={<RentalDetail />} />
             <Route path="/auth" element={<AuthPage />} />
