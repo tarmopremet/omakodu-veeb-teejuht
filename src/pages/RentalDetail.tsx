@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { Footer } from "@/components/Footer";
@@ -7,93 +7,142 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MapPin, CalendarIcon, Plus, Trash2 } from "lucide-react";
+import { MapPin, CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import wurthCleaner from "@/assets/wurth-textile-cleaner.jpg";
 
 const RentalDetail = () => {
   const { slug } = useParams();
+  const { toast } = useToast();
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
   const [startTime, setStartTime] = useState("09:00");
   const [endTime, setEndTime] = useState("17:00");
-  const [description, setDescription] = useState("");
-  const [instructions, setInstructions] = useState("");
-  const [location, setLocation] = useState("");
-  const [images, setImages] = useState(["/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png"]);
-  const [videos, setVideos] = useState<string[]>([]);
   const [showBookingForm, setShowBookingForm] = useState(false);
+  const [product, setProduct] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Parse product details from slug
-  const getProductDetails = () => {
-    if (!slug) return { name: "Toode", price: "4.5€ / Tund", location: "Tallinn" };
+  useEffect(() => {
+    loadProduct();
+  }, [slug]);
+
+  const loadProduct = async () => {
+    if (!slug) return;
     
-    const productType = slug.includes('tekstiili') ? 'Tekstiilipesur' : 
-                       slug.includes('auru') ? 'Aurupesur' : 'Aknapesuribot';
-    const locationName = slug.includes('kristiine') ? 'Kristiine Keskus' : 'Tallinn';
-    
-    return {
-      name: `${productType} (${locationName})`,
-      price: "4.5€ / Tund",
-      location: "Tallinn, Kristiine Keskus",
-      description: "Professionaalne Würth tekstiilipesur RS 162. Sobib diivani, madratsi, vaiba ja tugitoolide sügavaks puhastamiseks.",
-      features: [
-        "Võimas 1200W mootor",
-        "Sügav tekstiilipuhastus", 
-        "Lihtne kasutada",
-        "Kiire kuivamine",
-        "Professionaalne kvaliteet"
-      ],
-      priceList: [
-        { duration: "1 tund", price: "4.35€" },
-        { duration: "1 päev", price: "20.99€" }
-      ]
-    };
+    try {
+      setLoading(true);
+      
+      // Parse product info from slug to search database
+      let productType = "";
+      if (slug.includes('tekstiilipesur')) productType = "Tekstiilipesurid";
+      else if (slug.includes('aurupesur')) productType = "Aurupesurid";  
+      else if (slug.includes('aknapesuribot')) productType = "Aknapesurobotid";
+      
+      console.log('Loading product with slug:', slug, 'type:', productType);
+      
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('is_active', true)
+        .eq('category', productType)
+        .limit(1);
+      
+      if (error) {
+        console.error('Error loading product:', error);
+        throw error;
+      }
+      
+      console.log('Loaded product data:', data);
+      
+      if (data && data.length > 0) {
+        setProduct(data[0]);
+      } else {
+        console.log('No product found, using fallback');
+        // Fallback product
+        setProduct({
+          name: "Tekstiilipesur",
+          description: "Professionaalne tekstiilipesur",
+          location: "Tallinn",
+          price_per_hour: 4.5,
+          price_per_day: 20.99,
+          images: null,
+          video_url: null
+        });
+      }
+    } catch (error) {
+      console.error('Error loading product:', error);
+      toast({
+        title: "Viga",
+        description: "Toote andmete laadimine ebaõnnestus",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const product = getProductDetails();
-
   const calculatePrice = () => {
-    if (!startDate || !endDate) return "0.00";
+    if (!startDate || !endDate || !product) return "0.00";
     
     const start = new Date(startDate);
     const end = new Date(endDate);
     const diffTime = Math.abs(end.getTime() - start.getTime());
+    const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
     if (diffDays === 1) {
-      return "4.35"; // 1 hour rate
+      return (diffHours * product.price_per_hour).toFixed(2);
     } else {
-      return (diffDays * 20.99).toFixed(2); // daily rate
+      return (diffDays * (product.price_per_day || product.price_per_hour * 24)).toFixed(2);
     }
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, type: 'image' | 'video') => {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      const file = files[0];
-      const url = URL.createObjectURL(file);
-      
-      if (type === 'image') {
-        setImages(prev => [...prev, url]);
-      } else {
-        setVideos(prev => [...prev, url]);
-      }
+  const convertYouTubeUrl = (url: string) => {
+    if (!url) return null;
+    
+    // Convert YouTube URLs to embed format
+    const videoIdMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/);
+    if (videoIdMatch) {
+      return `https://www.youtube.com/embed/${videoIdMatch[1]}`;
     }
+    return url;
   };
 
-  const handleImageDelete = (index: number, type: 'image' | 'video') => {
-    if (type === 'image') {
-      setImages(prev => prev.filter((_, i) => i !== index));
-    } else {
-      setVideos(prev => prev.filter((_, i) => i !== index));
-    }
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <RendiIseHeader />
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">
+            <p>Laadime toote andmeid...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <RendiIseHeader />
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">
+            <p>Toodet ei leitud</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const productImages = product.images || [];
+  const hasVideo = product.video_url;
+  const embedVideoUrl = convertYouTubeUrl(product.video_url);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -103,116 +152,55 @@ const RentalDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Images and Videos Section */}
           <div className="lg:col-span-2">
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              {images.map((image, index) => (
-                <div key={`image-${index}`} className="relative aspect-square bg-white rounded-lg overflow-hidden border group">
-                  <img
-                    src={image}
-                    alt={`${product.name} ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                    onClick={() => handleImageDelete(index, 'image')}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-                </div>
-              ))}
-              {videos.map((video, index) => (
-                <div key={`video-${index}`} className="relative aspect-square bg-white rounded-lg overflow-hidden border group">
-                  <video
-                    src={video}
-                    className="w-full h-full object-cover"
-                    controls
-                    muted
-                  />
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                    onClick={() => handleImageDelete(index, 'video')}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-                </div>
-              ))}
-              <div className="aspect-square border-2 border-dashed border-gray-300 rounded-lg flex flex-col">
-                <label className="flex-1 flex flex-col items-center justify-center cursor-pointer hover:border-primary hover:bg-gray-50 transition-colors">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleFileUpload(e, 'image')}
-                    className="hidden"
-                  />
-                  <Plus className="w-6 h-6 text-gray-400 mb-2" />
-                  <span className="text-sm text-gray-500">Lisa pilt</span>
-                </label>
-                <div className="border-t border-gray-200">
-                  <label className="flex-1 flex flex-col items-center justify-center cursor-pointer hover:border-primary hover:bg-gray-50 transition-colors py-2">
-                    <input
-                      type="file"
-                      accept="video/*"
-                      onChange={(e) => handleFileUpload(e, 'video')}
-                      className="hidden"
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              {/* Show database images */}
+              {productImages.length > 0 ? (
+                productImages.map((imageUrl: string, index: number) => (
+                  <div key={`db-image-${index}`} className="aspect-square bg-white rounded-lg overflow-hidden border">
+                    <img
+                      src={imageUrl}
+                      alt={`${product.name} pilt ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        console.log('Image failed to load:', imageUrl);
+                        (e.target as HTMLImageElement).src = wurthCleaner;
+                      }}
                     />
-                    <span className="text-xs text-gray-500">Lisa video</span>
-                  </label>
+                  </div>
+                ))
+              ) : (
+                // Fallback image if no database images
+                <div className="aspect-square bg-white rounded-lg overflow-hidden border">
+                  <img
+                    src={wurthCleaner}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-              </div>
+              )}
+
+              {/* Show YouTube video if available */}
+              {hasVideo && embedVideoUrl && (
+                <div className="aspect-square bg-white rounded-lg overflow-hidden border">
+                  <iframe
+                    src={embedVideoUrl}
+                    title={`${product.name} video`}
+                    className="w-full h-full"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              )}
             </div>
 
-            {/* Description, Instructions, Location Tabs */}
+            {/* Product Description */}
             <Card>
               <CardContent className="p-6">
-                <Tabs defaultValue="description" className="w-full">
-                  <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="description">Kirjeldus</TabsTrigger>
-                    <TabsTrigger value="instructions">Juhend</TabsTrigger>
-                    <TabsTrigger value="location">Asukoht</TabsTrigger>
-                  </TabsList>
-                  
-                  <TabsContent value="description" className="mt-4">
-                    <div>
-                      <Label htmlFor="description" className="text-lg font-semibold mb-3 block">Toote kirjeldus</Label>
-                      <Textarea
-                        id="description"
-                        placeholder="Kirjutage toote kirjeldus..."
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="min-h-[150px]"
-                      />
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="instructions" className="mt-4">
-                    <div>
-                      <Label htmlFor="instructions" className="text-lg font-semibold mb-3 block">Kasutamisjuhend</Label>
-                      <Textarea
-                        id="instructions"
-                        placeholder="Kirjutage kasutamisjuhend..."
-                        value={instructions}
-                        onChange={(e) => setInstructions(e.target.value)}
-                        className="min-h-[150px]"
-                      />
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="location" className="mt-4">
-                    <div>
-                      <Label htmlFor="location" className="text-lg font-semibold mb-3 block">Asukoht</Label>
-                      <Textarea
-                        id="location"
-                        placeholder="Kirjutage täpne asukoht ja juhised..."
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        className="min-h-[150px]"
-                      />
-                    </div>
-                  </TabsContent>
-                </Tabs>
+                <h3 className="text-lg font-semibold mb-4">Toote kirjeldus</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {product.description || "Kvaliteetne renditav seade, mis sobib igapäevaseks kasutamiseks."}
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -232,12 +220,22 @@ const RentalDetail = () => {
                 <div className="mb-6">
                   <h4 className="font-semibold mb-3">Hinnakiri</h4>
                   <div className="space-y-2">
-                    {product.priceList.map((item, index) => (
-                      <div key={index} className="flex justify-between p-2 bg-gray-50 rounded">
-                        <span>{item.duration}</span>
-                        <span className="font-semibold">{item.price}</span>
+                    <div className="flex justify-between p-2 bg-gray-50 rounded">
+                      <span>1 tund</span>
+                      <span className="font-semibold">{product.price_per_hour}€</span>
+                    </div>
+                    {product.price_per_day && (
+                      <div className="flex justify-between p-2 bg-gray-50 rounded">
+                        <span>1 päev</span>
+                        <span className="font-semibold">{product.price_per_day}€</span>
                       </div>
-                    ))}
+                    )}
+                    {product.price_per_week && (
+                      <div className="flex justify-between p-2 bg-gray-50 rounded">
+                        <span>1 nädal</span>
+                        <span className="font-semibold">{product.price_per_week}€</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -327,17 +325,23 @@ const RentalDetail = () => {
               </CardContent>
             </Card>
 
-            {/* Features */}
+            {/* Basic Features */}
             <Card>
               <CardContent className="p-6">
                 <h4 className="font-semibold mb-3">Omadused</h4>
                 <ul className="space-y-2">
-                  {product.features.map((feature, index) => (
-                    <li key={index} className="flex items-center">
-                      <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                      {feature}
-                    </li>
-                  ))}
+                  <li className="flex items-center">
+                    <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                    Professionaalne kvaliteet
+                  </li>
+                  <li className="flex items-center">
+                    <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                    Lihtne kasutada
+                  </li>
+                  <li className="flex items-center">
+                    <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                    24/7 kättesaadav
+                  </li>
                 </ul>
               </CardContent>
             </Card>
