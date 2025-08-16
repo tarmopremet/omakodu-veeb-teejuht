@@ -116,6 +116,7 @@ export type Database = {
           images: string[] | null
           is_active: boolean
           location: string
+          manual_text: string | null
           manual_url: string | null
           meta_description: string | null
           meta_keywords: string | null
@@ -137,6 +138,7 @@ export type Database = {
           images?: string[] | null
           is_active?: boolean
           location: string
+          manual_text?: string | null
           manual_url?: string | null
           meta_description?: string | null
           meta_keywords?: string | null
@@ -158,6 +160,7 @@ export type Database = {
           images?: string[] | null
           is_active?: boolean
           location?: string
+          manual_text?: string | null
           manual_url?: string | null
           meta_description?: string | null
           meta_keywords?: string | null
