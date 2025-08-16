@@ -37,6 +37,7 @@ const productSchema = z.object({
   category: z.string().min(1, "Kategooria on kohustuslik"),
   location: z.string().min(1, "Asukoht on kohustuslik"),
   description: z.string().optional(),
+  manual_url: z.string().optional(),
   price_per_hour: z.number().min(0, "Tunni hind peab olema positiivne"),
   price_per_day: z.number().min(0, "Päeva hind peab olema positiivne").optional(),
   price_per_week: z.number().min(0, "Nädala hind peab olema positiivne").optional(),
@@ -55,6 +56,7 @@ interface Product {
   category: string;
   location: string;
   description?: string;
+  manual_url?: string;
   price_per_hour: number;
   price_per_day?: number;
   price_per_week?: number;
@@ -119,6 +121,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
       category: "",
       location: "",
       description: "",
+      manual_url: "",
       price_per_hour: 0,
       price_per_day: 0,
       price_per_week: 0,
@@ -137,6 +140,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         category: product.category || "",
         location: product.location || "",
         description: product.description || "",
+        manual_url: product.manual_url || "",
         price_per_hour: product.price_per_hour || 0,
         price_per_day: product.price_per_day || 0,
         price_per_week: product.price_per_week || 0,
@@ -153,6 +157,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         category: "",
         location: "",
         description: "",
+        manual_url: "",
         price_per_hour: 0,
         price_per_day: 0,
         price_per_week: 0,
@@ -228,6 +233,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         category: data.category,
         location: data.location,
         description: data.description || null,
+        manual_url: data.manual_url || null,
         price_per_hour: data.price_per_hour,
         price_per_day: data.price_per_day || null,
         price_per_week: data.price_per_week || null,
@@ -403,6 +409,26 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
                     />
                   </FormControl>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="manual_url"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Juhendi link</FormLabel>
+                  <FormControl>
+                    <Input 
+                      placeholder="https://..." 
+                      {...field} 
+                    />
+                  </FormControl>
+                  <FormMessage />
+                  <p className="text-xs text-gray-500">
+                    Lisa link kasutusjuhendile (PDF või veebileht)
+                  </p>
                 </FormItem>
               )}
             />
