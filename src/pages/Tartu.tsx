@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { Footer } from "@/components/Footer";
@@ -10,6 +10,8 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Plus, Edit3, MapPin, CalendarIcon, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import wurthCleaner from "@/assets/wurth-textile-cleaner.jpg";
 import steamCleaner from "@/assets/steam-cleaner-karcher.jpg";
 import windowRobot from "@/assets/window-robot-new.jpg";
@@ -17,6 +19,9 @@ import windowRobot from "@/assets/window-robot-new.jpg";
 const Tartu = () => {
   const [editMode, setEditMode] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
   const [customImages, setCustomImages] = useState({
     textile: wurthCleaner,
     steam: steamCleaner,
@@ -48,44 +53,56 @@ const Tartu = () => {
     setCustomImages(prev => ({ ...prev, [type]: defaultImages[type] }));
   };
 
-  const rentalProducts = [
-    {
-      id: "1",
-      name: "TEKSTIILIPESUR 1 (Lõunakeskuses)",
-      price: "4.5€ / Tund",
-      location: "Tartu, Ringtee 75, Lõunakeskus",
-      image: customImages.textile,
-      rating: 4.8,
-      available: true
-    },
-    {
-      id: "2", 
-      name: "AURUPESUR (Kaubamajas)",
-      price: "3.5€ / Tund",
-      location: "Tartu, Riia 1, Kaubamaja",
-      image: customImages.steam,
-      rating: 4.6,
-      available: true
-    },
-    {
-      id: "3",
-      name: "AKNAPESURIBOT (Selveris)",
-      price: "5.0€ / Tund", 
-      location: "Tartu, Kalda tee 35, Selver",
-      image: customImages.window,
-      rating: 4.9,
-      available: true
-    },
-    {
-      id: "4",
-      name: "TEKSTIILIPESUR 2 (Maximas)",
-      price: "4.5€ / Tund",
-      location: "Tartu, Turu 10, Maxima",
-      image: customImages.textile,
-      rating: 4.7,
-      available: true
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const loadProducts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('is_active', true)
+        .ilike('location', '%Tartu%');
+
+      if (error) throw error;
+      setProducts(data || []);
+    } catch (error) {
+      console.error('Error loading products:', error);
+      toast({
+        title: "Viga",
+        description: "Toodete laadimine ebaõnnestus",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  const getDefaultImage = (category: string) => {
+    switch (category.toLowerCase()) {
+      case 'tekstiilipesurid':
+        return customImages.textile;
+      case 'aurupesurid':
+        return customImages.steam;
+      case 'aknapesurobotid':
+        return customImages.window;
+      default:
+        return customImages.textile;
+    }
+  };
+
+  const formatProducts = () => {
+    return products.map(product => ({
+      id: product.id,
+      name: product.name,
+      price: `${product.price_per_hour}€ / Tund`,
+      location: product.location,
+      image: product.images?.[0] || getDefaultImage(product.category),
+      rating: 4.8,
+      available: product.is_active
+    }));
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -247,11 +264,17 @@ const Tartu = () => {
       <section className="container mx-auto px-4 pb-16">
         <h2 className="text-2xl font-bold text-gray-800 mb-8">Meie soovitused</h2>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {rentalProducts.map((product) => (
-            <RentalProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center py-8">
+            <p>Laadime tooteid...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {formatProducts().map((product) => (
+              <RentalProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </section>
 
       <Footer />

@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, ChevronDown, LogIn, LogOut, User } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { MapPin, ChevronDown, LogIn, LogOut, User, Search } from "lucide-react";
 import { Footer } from "@/components/Footer";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 
 const Homepage = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const { user, isAdmin, signOut } = useAuth();
 
@@ -21,6 +22,29 @@ const Homepage = () => {
     { name: "Rakvere", href: "/rakvere" },
     { name: "Saku", href: "/saku" }
   ];
+
+  const handleSearch = () => {
+    if (!searchQuery.trim()) return;
+    
+    const query = searchQuery.toLowerCase();
+    // Check if search contains specific store names and redirect accordingly
+    if (query.includes('sikupilli') || query.includes('kristiine') || query.includes('kadaka') || query.includes('pirita') || query.includes('lasnamäe') || query.includes('järve')) {
+      navigate('/tallinn');
+    } else if (query.includes('sõbra') || query.includes('annelinna') || query.includes('lõunakeskus')) {
+      navigate('/tartu');
+    } else if (query.includes('pärnu')) {
+      navigate('/parnu');
+    } else if (query.includes('rakvere')) {
+      navigate('/rakvere');
+    } else if (query.includes('saku')) {
+      navigate('/saku');
+    } else {
+      // Default to Tallinn if no specific location found
+      navigate('/tallinn');
+    }
+    setShowDropdown1(false);
+    setShowDropdown2(false);
+  };
 
   const handleCityClick = (city: typeof cities[0]) => {
     navigate(city.href);
@@ -201,6 +225,23 @@ const Homepage = () => {
                 <a href="#" className="text-gray-700 hover:text-primary transition-colors">
                   aknapesuri rent
                 </a>
+              </div>
+            </div>
+
+            {/* Search Section */}
+            <div className="mb-8 max-w-md mx-auto">
+              <div className="flex gap-2">
+                <Input
+                  type="text"
+                  placeholder="Otsi asukohta (nt. Sikupilli, Kristiine)..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                  className="flex-1"
+                />
+                <Button onClick={handleSearch} className="bg-primary hover:bg-primary-hover">
+                  <Search className="w-4 h-4" />
+                </Button>
               </div>
             </div>
 
