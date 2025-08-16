@@ -59,9 +59,8 @@ export const RendiIseHeader = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="text-2xl font-bold hover:opacity-80 transition-opacity">
-              <span className="text-gray-800">Rendi</span>
-              <span className="text-primary">Ise</span>
+            <Link to="/" className="hover:opacity-80 transition-opacity">
+              <img src="/rendiise-logo.png" alt="RendiIse" className="h-8" />
             </Link>
           </div>
 
