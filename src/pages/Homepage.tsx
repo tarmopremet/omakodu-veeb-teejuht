@@ -23,6 +23,21 @@ const Homepage = () => {
     { name: "Saku", href: "/saku" }
   ];
 
+  const storeSuggestions = [
+    { label: "Pirita Selver – Rummu tee 4", cityHref: "/tallinn" },
+    { label: "Sikupilli Prisma – Tartu mnt 87", cityHref: "/tallinn" },
+    { label: "Kristiine Keskus – Endla 45", cityHref: "/tallinn" },
+    { label: "Kadaka Selver – Kadaka tee 56a", cityHref: "/tallinn" },
+    { label: "Lasnamäe Prisma – Mustakivi tee 17", cityHref: "/tallinn" },
+    { label: "Järve Keskus – Pärnu mnt 238", cityHref: "/tallinn" },
+    { label: "Sõbra Prisma – Ringtee 75", cityHref: "/tartu" },
+    { label: "Annelinna Keskus – Turu 10", cityHref: "/tartu" }
+  ];
+
+  const filteredSuggestions = storeSuggestions.filter(s =>
+    s.label.toLowerCase().includes(searchQuery.toLowerCase())
+  ).slice(0, 8);
+
   const handleSearch = () => {
     if (!searchQuery.trim()) return;
     
@@ -233,15 +248,32 @@ const Homepage = () => {
               <div className="flex gap-2">
                 <Input
                   type="text"
-                  placeholder="Otsi asukohta (nt. Sikupilli, Kristiine)..."
+                  placeholder="Näited: Pirita Selver – Rummu tee 4, Sikupilli Prisma – Tartu mnt 87, Kristiine Keskus – Endla 45"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                   className="flex-1"
                 />
                 <Button onClick={handleSearch} className="bg-primary hover:bg-primary-hover">
                   <Search className="w-4 h-4" />
                 </Button>
+              </div>
+
+              <div className="mt-2 bg-white border rounded-lg shadow-sm divide-y">
+                {(searchQuery ? filteredSuggestions : storeSuggestions.slice(0,6)).map((s, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      setSearchQuery(s.label);
+                      navigate(s.cityHref);
+                      setShowDropdown1(false);
+                      setShowDropdown2(false);
+                    }}
+                    className="w-full text-left px-3 py-2 text-sm hover:bg-primary hover:text-primary-foreground"
+                  >
+                    {s.label}
+                  </button>
+                ))}
               </div>
             </div>
 
