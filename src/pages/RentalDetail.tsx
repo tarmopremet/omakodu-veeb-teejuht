@@ -87,18 +87,42 @@ const RentalDetail = () => {
 
   const calculatePrice = () => {
     if (!startDate || !endDate || !product) return "0.00";
-    
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const diffTime = Math.abs(end.getTime() - start.getTime());
-    const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
-    if (diffDays === 1) {
-      return (diffHours * product.price_per_hour).toFixed(2);
+
+    const buildDateTime = (date: Date, time: string) => {
+      const [h, m] = (time || "00:00").split(":").map(Number);
+      const d = new Date(date);
+      d.setHours(h || 0, m || 0, 0, 0);
+      return d;
+    };
+
+    const start = buildDateTime(startDate, startTime);
+    const end = buildDateTime(endDate, endTime);
+
+    const diffMs = end.getTime() - start.getTime();
+    if (diffMs <= 0) return "0.00";
+
+    const hourMs = 1000 * 60 * 60;
+    const totalHours = Math.ceil(diffMs / hourMs);
+
+    const perHour = Number(product.price_per_hour) || 0;
+    const perDay = Number(product.price_per_day) || perHour * 24;
+
+    let total = 0;
+
+    if (totalHours < 24) {
+      total = totalHours <= 5 ? totalHours * perHour : perDay;
     } else {
-      return (diffDays * (product.price_per_day || product.price_per_hour * 24)).toFixed(2);
+      const fullDays = Math.floor(totalHours / 24);
+      const remainder = totalHours % 24;
+      const remainderCost = remainder === 0
+        ? 0
+        : remainder <= 5
+          ? remainder * perHour
+          : perDay;
+      total = fullDays * perDay + remainderCost;
     }
+
+    return total.toFixed(2);
   };
 
   const convertYouTubeUrl = (url: string) => {
