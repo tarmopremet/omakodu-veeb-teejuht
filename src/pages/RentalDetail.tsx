@@ -182,6 +182,7 @@ const RentalDetail = () => {
   const productImages = product.images || [];
   const hasVideo = product.video_url;
   const embedVideoUrl = convertYouTubeUrl(product.video_url);
+  const imagesToShow = Array.isArray(productImages) ? productImages.slice(0, hasVideo ? 3 : 4) : [];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -191,10 +192,10 @@ const RentalDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Images and Videos Section */}
           <div className="lg:col-span-2">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-2 gap-3 lg:gap-4 mb-6">
               {/* Show database images */}
-              {productImages.length > 0 ? (
-                productImages.map((imageUrl: string, index: number) => (
+              {imagesToShow.length > 0 ? (
+                imagesToShow.map((imageUrl: string, index: number) => (
                   <div 
                     key={`db-image-${index}`} 
                     className="aspect-square bg-white rounded-lg overflow-hidden border cursor-pointer hover:shadow-lg transition-shadow"
