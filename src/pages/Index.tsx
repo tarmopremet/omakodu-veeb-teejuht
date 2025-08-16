@@ -61,13 +61,19 @@ const Index = () => {
 
   const loadProducts = async () => {
     try {
+      setLoading(true);
       const { data, error } = await supabase
         .from('products')
         .select('*')
         .eq('is_active', true)
         .ilike('location', '%Tallinn%');
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
+      
+      console.log('Loaded products:', data);
       setProducts(data || []);
     } catch (error) {
       console.error('Error loading products:', error);
@@ -76,6 +82,8 @@ const Index = () => {
         description: "Toodete laadimine ebaõnnestus",
         variant: "destructive"
       });
+      // Set empty array on error to prevent showing nothing
+      setProducts([]);
     } finally {
       setLoading(false);
     }
@@ -268,6 +276,11 @@ const Index = () => {
         {loading ? (
           <div className="text-center py-8">
             <p>Laadime tooteid...</p>
+          </div>
+        ) : products.length === 0 ? (
+          <div className="text-center py-8">
+            <p>Tallinnas pole hetkel saadaval tooteid.</p>
+            <p className="text-sm text-gray-500 mt-2">Administraator saab lisada tooteid admin paneelilt.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
