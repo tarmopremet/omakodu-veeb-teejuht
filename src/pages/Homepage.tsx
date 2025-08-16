@@ -2,18 +2,14 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { MapPin, ChevronDown, LogIn, LogOut, User, Search } from "lucide-react";
+import { MapPin, ChevronDown } from "lucide-react";
 import { Footer } from "@/components/Footer";
-import { useAuth } from "@/contexts/AuthContext";
+import { RendiIseHeader } from "@/components/RendiIseHeader";
 
 const Homepage = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
-  const [showLocationDropdown, setShowLocationDropdown] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
-  const { user, isAdmin, signOut } = useAuth();
 
   const cities = [
     { name: "Tallinn", href: "/tallinn" },
@@ -23,49 +19,10 @@ const Homepage = () => {
     { name: "Saku", href: "/saku" }
   ];
 
-  const storeSuggestions = [
-    { label: "Pirita Selver – Rummu tee 4", cityHref: "/tallinn" },
-    { label: "Sikupilli Prisma – Tartu mnt 87", cityHref: "/tallinn" },
-    { label: "Kristiine Keskus – Endla 45", cityHref: "/tallinn" },
-    { label: "Kadaka Selver – Kadaka tee 56a", cityHref: "/tallinn" },
-    { label: "Lasnamäe Prisma – Mustakivi tee 17", cityHref: "/tallinn" },
-    { label: "Järve Keskus – Pärnu mnt 238", cityHref: "/tallinn" },
-    { label: "Sõbra Prisma – Ringtee 75", cityHref: "/tartu" },
-    { label: "Annelinna Keskus – Turu 10", cityHref: "/tartu" }
-  ];
-
-  const filteredSuggestions = storeSuggestions.filter(s =>
-    s.label.toLowerCase().includes(searchQuery.toLowerCase())
-  ).slice(0, 8);
-
-  const handleSearch = () => {
-    if (!searchQuery.trim()) return;
-    
-    const query = searchQuery.toLowerCase();
-    // Check if search contains specific store names and redirect accordingly
-    if (query.includes('sikupilli') || query.includes('kristiine') || query.includes('kadaka') || query.includes('pirita') || query.includes('lasnamäe') || query.includes('järve')) {
-      navigate('/tallinn');
-    } else if (query.includes('sõbra') || query.includes('annelinna') || query.includes('lõunakeskus')) {
-      navigate('/tartu');
-    } else if (query.includes('pärnu')) {
-      navigate('/parnu');
-    } else if (query.includes('rakvere')) {
-      navigate('/rakvere');
-    } else if (query.includes('saku')) {
-      navigate('/saku');
-    } else {
-      // Default to Tallinn if no specific location found
-      navigate('/tallinn');
-    }
-    setShowDropdown1(false);
-    setShowDropdown2(false);
-  };
-
   const handleCityClick = (city: typeof cities[0]) => {
     navigate(city.href);
     setShowDropdown1(false);
     setShowDropdown2(false);
-    setShowLocationDropdown(false);
   };
 
   const DropdownButton = ({ 
@@ -105,93 +62,7 @@ const Homepage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Orange Top Bar */}
-      <div className="bg-primary text-primary-foreground py-2 px-4">
-        <div className="container mx-auto flex justify-between items-center text-sm">
-          <div className="flex items-center space-x-4">
-            <span>📞 Helista +37250127355</span>
-            <span>🕒 Iga päev 24/7</span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <span>🏪 Poed üle Eesti</span>
-            <span>🚀 Nutikapid</span>
-          </div>
-        </div>
-      </div>
-      
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold">
-              <span className="text-gray-900">Rendi</span><span className="text-primary">ise</span>
-            </h1>
-            <div className="flex items-center gap-4">
-              <nav className="hidden md:flex space-x-6">
-                <a href="#" className="text-gray-600 hover:text-primary">Avaleht</a>
-                <Link to="/renditooted" className="text-gray-600 hover:text-primary">Renditooted</Link>
-                <Link to="/myygitooted" className="text-gray-600 hover:text-primary">Müügitooted</Link>
-                
-                {/* Asukohad Dropdown */}
-                <div className="relative">
-                  <button
-                    onClick={() => setShowLocationDropdown(!showLocationDropdown)}
-                    className="text-gray-600 hover:text-primary flex items-center gap-1"
-                  >
-                    Asukohad
-                    <ChevronDown className="w-4 h-4" />
-                  </button>
-                  
-                  {showLocationDropdown && (
-                    <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[120px]">
-                      {cities.map((city) => (
-                        <button
-                          key={city.name}
-                          onClick={() => handleCityClick(city)}
-                          className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-primary hover:text-primary-foreground transition-all duration-200 first:rounded-t-lg last:rounded-b-lg text-left"
-                        >
-                          {city.name}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                
-                <a href="#" className="text-gray-600 hover:text-primary">Kontakt</a>
-              </nav>
-              
-              {/* Auth Section */}
-              <div className="flex items-center gap-2">
-                {user ? (
-                  <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-gray-600" />
-                    <span className="text-sm text-gray-600">{user.email}</span>
-                    {isAdmin && (
-                      <Link to="/admin" className="text-primary hover:underline font-medium">
-                        Admin
-                      </Link>
-                    )}
-                    <button 
-                      onClick={signOut} 
-                      className="text-gray-600 hover:text-primary flex items-center gap-1"
-                    >
-                      <LogOut className="w-4 h-4" />
-                    </button>
-                  </div>
-                ) : (
-                  <Link 
-                    to="/auth" 
-                    className="bg-primary hover:bg-primary-hover text-primary-foreground px-4 py-2 rounded-lg flex items-center gap-2 font-medium transition-colors shadow-soft"
-                  >
-                    <LogIn className="w-4 h-4" />
-                    Logi sisse
-                  </Link>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <RendiIseHeader />
 
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-8 md:py-16">

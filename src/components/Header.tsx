@@ -11,7 +11,7 @@ export const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <img src="/rendiise-logo.png" alt="RendiIse" className="h-8" />
+            <img src="/lovable-uploads/1df18946-6bda-4219-b803-f1f4a7719f3e.png" alt="RendiIse" className="h-8" />
           </div>
 
           {/* Desktop Navigation */}

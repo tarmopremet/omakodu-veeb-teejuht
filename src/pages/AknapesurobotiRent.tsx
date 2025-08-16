@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
+import { RendiIseHeader } from "@/components/RendiIseHeader";
 import aknapesurobotImage from "@/assets/window-robot.jpg";
 import aknapesurobotNewImage from "@/assets/window-robot-new.jpg";
 
@@ -17,7 +17,7 @@ const AknapesurobotiRent = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+      <RendiIseHeader />
       
       <main className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
