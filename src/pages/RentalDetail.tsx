@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { BookingForm } from "@/components/BookingForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
@@ -232,43 +233,66 @@ const RentalDetail = () => {
               )}
             </div>
 
-            {/* Product Description, Manual & Location */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold mb-4">Toote kirjeldus</h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {product.description || "Kvaliteetne renditav seade, mis sobib igapäevaseks kasutamiseks."}
-                  </p>
-                </CardContent>
-              </Card>
+            {/* Product Info Tabs */}
+            <Tabs defaultValue="description" className="mb-6">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="description">Kirjeldus</TabsTrigger>
+                <TabsTrigger value="manual" disabled={!product.manual_url}>Juhend</TabsTrigger>
+                <TabsTrigger value="location">Asukoht</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="description" className="mt-4">
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold mb-4">Toote kirjeldus</h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {product.description || "Kvaliteetne renditav seade, mis sobib igapäevaseks kasutamiseks."}
+                    </p>
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-              {product.manual_url && (
+              <TabsContent value="manual" className="mt-4">
                 <Card>
                   <CardContent className="p-6">
                     <h3 className="text-lg font-semibold mb-4">Juhend</h3>
-                    <a 
-                      href={product.manual_url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-primary hover:text-primary-hover underline inline-flex items-center"
-                    >
-                      Vaata kasutusjuhendit
-                    </a>
+                    {product.manual_url ? (
+                      <div className="space-y-4">
+                        <p className="text-gray-600">Kasutusjuhend aitab Teid seadme õige kasutamisega.</p>
+                        <a 
+                          href={product.manual_url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition-colors"
+                        >
+                          Ava kasutusjuhend
+                        </a>
+                      </div>
+                    ) : (
+                      <p className="text-gray-500">Kasutusjuhend pole hetkel saadaval.</p>
+                    )}
                   </CardContent>
                 </Card>
-              )}
+              </TabsContent>
 
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold mb-4">Asukoht</h3>
-                  <div className="flex items-center text-gray-600">
-                    <MapPin className="w-5 h-5 mr-2" />
-                    <span>{product.location}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+              <TabsContent value="location" className="mt-4">
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold mb-4">Asukoht</h3>
+                    <div className="space-y-4">
+                      <div className="flex items-center text-gray-600">
+                        <MapPin className="w-5 h-5 mr-2" />
+                        <span className="font-medium">{product.location}</span>
+                      </div>
+                      <p className="text-gray-600">
+                        Seade asub eeltoodud asukohas ja on valmis rendiks. 
+                        Palun võtke ühendust broneerimiseks.
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
           </div>
 
           {/* Booking Section */}
