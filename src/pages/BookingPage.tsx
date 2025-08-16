@@ -107,8 +107,10 @@ const BookingPage = () => {
   const formatProducts = () => {
     return products.map(product => ({
       id: product.id,
-      name: product.name,
-      description: product.description || "Kvaliteetne seade",
+      name: product.category === 'tekstiilipesurid' ? 'Tekstiilipesuri rent' :
+            product.category === 'aurupesurid' ? 'Aurupesuri rent' :
+            product.category === 'aknapesurobotid' ? 'Aknapesuroboti rent' :
+            product.name,
       price: `${product.price_per_hour}€ / Tund`,
       location: product.location,
       image: product.images?.[0] || getDefaultImage(product.category),
@@ -167,12 +169,13 @@ const BookingPage = () => {
                         className="w-full h-40 sm:h-48 object-cover rounded-lg mb-4"
                       />
                       <h3 className="font-semibold text-lg mb-2">{product.name}</h3>
-                      <p className="text-sm text-gray-600 mb-2">{product.description}</p>
-                      <p className="text-sm text-gray-500 flex items-center justify-center mb-3">
+                      <div className="text-2xl font-bold text-primary mb-3">
+                        {product.price}
+                      </div>
+                      <div className="text-sm text-gray-500 flex items-center justify-center mb-4">
                         <MapPin className="w-4 h-4 mr-1" />
                         {product.location}
-                      </p>
-                      <p className="text-xl font-bold text-blue-600 mb-4">{product.price}</p>
+                      </div>
                       
                       {product.available ? (
                         <Button className="w-full">
