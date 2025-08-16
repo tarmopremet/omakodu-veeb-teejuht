@@ -198,7 +198,7 @@ const Homepage = () => {
           <div className="md:col-span-5 order-2 md:order-1">
             <div className="w-full max-w-sm mx-auto">
               <img
-                src="/src/assets/cleaning-equipment-hero.jpg"
+                src="/lovable-uploads/df0e8fbf-70e2-43c9-85f7-287560a031d1.png"
                 alt="Puhastusseadmed"
                 className="w-full h-auto rounded-lg"
               />
