@@ -44,6 +44,7 @@ const productSchema = z.object({
   meta_title: z.string().optional(),
   meta_description: z.string().optional(),
   meta_keywords: z.string().optional(),
+  video_url: z.string().optional(),
 });
 
 type ProductFormData = z.infer<typeof productSchema>;
@@ -62,6 +63,7 @@ interface Product {
   meta_description?: string;
   meta_keywords?: string;
   images?: string[];
+  video_url?: string;
 }
 
 interface ProductDialogProps {
@@ -124,6 +126,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
       meta_title: "",
       meta_description: "",
       meta_keywords: "",
+      video_url: "",
     },
   });
 
@@ -141,6 +144,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         meta_title: product.meta_title || "",
         meta_description: product.meta_description || "",
         meta_keywords: product.meta_keywords || "",
+        video_url: product.video_url || "",
       });
       setImages(product.images || []);
     } else if (!product && open) {
@@ -156,6 +160,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         meta_title: "",
         meta_description: "",
         meta_keywords: "",
+        video_url: "",
       });
       setImages([]);
     }
@@ -231,6 +236,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         meta_description: data.meta_description || null,
         meta_keywords: data.meta_keywords || null,
         images: images.length > 0 ? images : null,
+        video_url: data.video_url || null,
       };
 
       if (product?.id) {
@@ -516,6 +522,27 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
                 )}
               />
             </div>
+
+            {/* Video URL Section */}
+            <FormField
+              control={form.control}
+              name="video_url"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>YouTube Video Link</FormLabel>
+                  <FormControl>
+                    <Input 
+                      placeholder="https://www.youtube.com/watch?v=..." 
+                      {...field} 
+                    />
+                  </FormControl>
+                  <FormMessage />
+                  <p className="text-xs text-gray-500">
+                    Lisa YouTube video link, et näidata toodet paremini (valikuline)
+                  </p>
+                </FormItem>
+              )}
+            />
 
             <div className="space-y-4">
               <h4 className="text-sm font-medium">SEO Andmed</h4>
