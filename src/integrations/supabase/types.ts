@@ -126,6 +126,7 @@ export type Database = {
           price_per_week: number | null
           related_products: string[] | null
           updated_at: string
+          video_url: string | null
           videos: string[] | null
         }
         Insert: {
@@ -146,6 +147,7 @@ export type Database = {
           price_per_week?: number | null
           related_products?: string[] | null
           updated_at?: string
+          video_url?: string | null
           videos?: string[] | null
         }
         Update: {
@@ -166,6 +168,7 @@ export type Database = {
           price_per_week?: number | null
           related_products?: string[] | null
           updated_at?: string
+          video_url?: string | null
           videos?: string[] | null
         }
         Relationships: []
