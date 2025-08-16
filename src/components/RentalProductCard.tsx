@@ -47,7 +47,7 @@ export const RentalProductCard = ({ product }: RentalProductCardProps) => {
   };
   return (
     <Card className="overflow-hidden hover:shadow-medium transition-all duration-300 group">
-      <div className="aspect-[4/3] overflow-hidden">
+      <div className="aspect-[4/3] overflow-hidden cursor-pointer" onClick={handleRentalClick}>
         <img
           src={product.image}
           alt={product.name}
