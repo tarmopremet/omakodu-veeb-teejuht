@@ -243,7 +243,7 @@ const RentalDetail = () => {
             {/* Product Info Tabs */}
             <Tabs defaultValue="description" className="mb-6">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="description">Kirjeldus</TabsTrigger>
+                <TabsTrigger value="description">Kuidas rentida</TabsTrigger>
                 <TabsTrigger value="manual" disabled={!product.manual_text && !product.manual_url}>Juhend</TabsTrigger>
                 <TabsTrigger value="location">Asukoht</TabsTrigger>
               </TabsList>
@@ -251,8 +251,8 @@ const RentalDetail = () => {
               <TabsContent value="description" className="mt-4">
                 <Card>
                   <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold mb-4">Toote kirjeldus</h3>
-                    <p className="text-gray-600 leading-relaxed">
+                    <h3 className="text-lg font-semibold mb-4">Kuidas rentida</h3>
+                    <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">
                       {product.description || "Kvaliteetne renditav seade, mis sobib igapäevaseks kasutamiseks."}
                     </p>
                   </CardContent>
@@ -311,8 +311,7 @@ const RentalDetail = () => {
                         <span className="font-medium">{product.location}</span>
                       </div>
                       <p className="text-gray-600">
-                        Seade asub eeltoodud asukohas ja on valmis rendiks. 
-                        Palun võtke ühendust broneerimiseks.
+                        Seade on valmisolekus ja ootab rentimist. Võtke ühendust broneerimiseks või vajutage broneeri nuppu.
                       </p>
                     </div>
                   </CardContent>

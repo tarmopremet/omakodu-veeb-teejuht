@@ -406,10 +406,10 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Kirjeldus</FormLabel>
+                  <FormLabel>Kuidas rentida</FormLabel>
                   <FormControl>
                     <Textarea 
-                      placeholder="Toote kirjeldus..." 
+                      placeholder="Kirjeldage kuidas rentida..." 
                       className="min-h-[100px]"
                       {...field} 
                     />
