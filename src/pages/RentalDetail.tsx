@@ -30,6 +30,15 @@ const RentalDetail = () => {
     loadProduct();
   }, [slug]);
 
+  // Auto-set end date to 24h from start date
+  useEffect(() => {
+    if (startDate && !endDate) {
+      const nextDay = new Date(startDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      setEndDate(nextDay);
+    }
+  }, [startDate]);
+
   const loadProduct = async () => {
     if (!slug) return;
     
@@ -110,13 +119,13 @@ const RentalDetail = () => {
     let total = 0;
 
     if (totalHours < 24) {
-      total = totalHours <= 5 ? totalHours * perHour : perDay;
+      total = totalHours <= 4 ? totalHours * perHour : perDay;
     } else {
       const fullDays = Math.floor(totalHours / 24);
       const remainder = totalHours % 24;
       const remainderCost = remainder === 0
         ? 0
-        : remainder <= 5
+        : remainder <= 4
           ? remainder * perHour
           : perDay;
       total = fullDays * perDay + remainderCost;
@@ -225,6 +234,34 @@ const RentalDetail = () => {
                 <p className="text-gray-600 leading-relaxed">
                   {product.description || "Kvaliteetne renditav seade, mis sobib igapäevaseks kasutamiseks."}
                 </p>
+              </CardContent>
+            </Card>
+
+            {/* Manual/Instructions */}
+            {product.manual_url && (
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-semibold mb-4">Juhend</h3>
+                  <a 
+                    href={product.manual_url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary-hover underline"
+                  >
+                    Vaata kasutusjuhendit
+                  </a>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Location */}
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold mb-4">Asukoht</h3>
+                <div className="flex items-center text-gray-600">
+                  <MapPin className="w-5 h-5 mr-2" />
+                  <span>{product.location}</span>
+                </div>
               </CardContent>
             </Card>
           </div>
