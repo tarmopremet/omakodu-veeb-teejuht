@@ -129,7 +129,8 @@ const Homepage = () => {
             <div className="flex items-center gap-4">
               <nav className="hidden md:flex space-x-6">
                 <a href="#" className="text-gray-600 hover:text-primary">Avaleht</a>
-                <a href="#" className="text-gray-600 hover:text-primary">Teenused</a>
+                <Link to="/renditooted" className="text-gray-600 hover:text-primary">Renditooted</Link>
+                <Link to="/myygitooted" className="text-gray-600 hover:text-primary">Müügitooted</Link>
                 
                 {/* Asukohad Dropdown */}
                 <div className="relative">
