@@ -215,33 +215,33 @@ const Homepage = () => {
             <div className="space-y-3 mb-8">
               <div className="flex items-center">
                 <span className="text-primary font-bold mr-2">•</span>
-                <a href="#" className="text-gray-700 hover:text-primary transition-colors">
+                <Link to="/tekstiilipesuri-rent" className="text-gray-700 hover:text-primary transition-colors">
                   tekstiilipesuri rent
-                </a>
+                </Link>
               </div>
               <div className="flex items-center">
                 <span className="text-primary font-bold mr-2">•</span>
-                <a href="#" className="text-gray-700 hover:text-primary transition-colors">
+                <Link to="/aurupesuri-rent" className="text-gray-700 hover:text-primary transition-colors">
                   aurupesuri rent
-                </a>
+                </Link>
               </div>
               <div className="flex items-center">
                 <span className="text-primary font-bold mr-2">•</span>
-                <a href="#" className="text-gray-700 hover:text-primary transition-colors">
+                <Link to="/aknapesuroboti-rent" className="text-gray-700 hover:text-primary transition-colors">
                   aknapesuroboti rent
-                </a>
+                </Link>
               </div>
               <div className="flex items-center">
                 <span className="text-primary font-bold mr-2">•</span>
-                <a href="#" className="text-gray-700 hover:text-primary transition-colors">
+                <Link to="/tolmuimeja-rent" className="text-gray-700 hover:text-primary transition-colors">
                   tolmuimeja rent
-                </a>
+                </Link>
               </div>
               <div className="flex items-center">
                 <span className="text-primary font-bold mr-2">•</span>
-                <a href="#" className="text-gray-700 hover:text-primary transition-colors">
+                <Link to="/aknapesuri-rent" className="text-gray-700 hover:text-primary transition-colors">
                   aknapesuri rent
-                </a>
+                </Link>
               </div>
             </div>
 

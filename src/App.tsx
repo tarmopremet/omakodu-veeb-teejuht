@@ -18,6 +18,11 @@ import SalesProducts from "./pages/SalesProducts";
 import { AuthPage } from "./pages/AuthPage";
 import { AdminPage } from "./pages/AdminPage";
 import NotFound from "./pages/NotFound";
+import TekstiilipesuriRent from "./pages/TekstiilipesuriRent";
+import AuripesuriRent from "./pages/AuripesuriRent";
+import AknapesurobotiRent from "./pages/AknapesurobotiRent";
+import TolmuimejaRent from "./pages/TolmuimejaRent";
+import AknapesuriRent from "./pages/AknapesuriRent";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +47,11 @@ const App = () => (
             <Route path="/myygitooted" element={<SalesProducts />} />
             <Route path="/et/broneeri/:city" element={<BookingPage />} />
             <Route path="/et/rendi/:slug" element={<RentalDetail />} />
+            <Route path="/tekstiilipesuri-rent" element={<TekstiilipesuriRent />} />
+            <Route path="/aurupesuri-rent" element={<AuripesuriRent />} />
+            <Route path="/aknapesuroboti-rent" element={<AknapesurobotiRent />} />
+            <Route path="/tolmuimeja-rent" element={<TolmuimejaRent />} />
+            <Route path="/aknapesuri-rent" element={<AknapesuriRent />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/admin" element={<AdminPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
