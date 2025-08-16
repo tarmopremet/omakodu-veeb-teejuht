@@ -30,14 +30,19 @@ const RentalDetail = () => {
     loadProduct();
   }, [slug]);
 
-  // Auto-set end date to 24h from start date
+  // Auto-set end date to exactly 24h from start date and time
   useEffect(() => {
     if (startDate && !endDate) {
-      const nextDay = new Date(startDate);
-      nextDay.setDate(nextDay.getDate() + 1);
-      setEndDate(nextDay);
+      // Create end date that's exactly 24 hours later
+      const endDateTime = new Date(startDate);
+      const [hours, minutes] = startTime.split(':').map(Number);
+      endDateTime.setHours(hours, minutes, 0, 0);
+      endDateTime.setTime(endDateTime.getTime() + 24 * 60 * 60 * 1000); // Add 24 hours
+      
+      setEndDate(endDateTime);
+      setEndTime(startTime); // Same time as start
     }
-  }, [startDate]);
+  }, [startDate, startTime]);
 
   const loadProduct = async () => {
     if (!slug) return;
