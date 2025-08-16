@@ -210,6 +210,7 @@ const Homepage = () => {
               Puhastusseadmete nutirent Eestis
             </h1>
             
+            {/* Lisatud tööriistad ja teenused */}
             <div className="space-y-3 mb-8">
               <div className="flex items-center">
                 <span className="text-primary font-bold mr-2">•</span>
@@ -241,43 +242,6 @@ const Homepage = () => {
                   aknapesuri rent
                 </a>
               </div>
-            </div>
-
-            {/* Search Section */}
-            <div className="mb-8 max-w-md mx-auto relative">
-              <div className="flex gap-2">
-                <Input
-                  type="text"
-                  placeholder="Otsi asukohta (nt. Pirita Selver, Sikupilli Prisma)..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                  className="flex-1"
-                />
-                <Button onClick={handleSearch} className="bg-primary hover:bg-primary-hover">
-                  <Search className="w-4 h-4" />
-                </Button>
-              </div>
-
-              {searchQuery && (
-                <div className="absolute left-0 right-0 mt-2 bg-white border rounded-lg shadow-sm divide-y z-50">
-                  {(filteredSuggestions.length ? filteredSuggestions : storeSuggestions.slice(0, 6)).map((s, idx) => (
-                    <button
-                      key={idx}
-                      onMouseDown={(e) => {
-                        e.preventDefault();
-                        setSearchQuery(s.label);
-                        navigate(s.cityHref);
-                        setShowDropdown1(false);
-                        setShowDropdown2(false);
-                      }}
-                      className="w-full text-left px-3 py-2 text-sm hover:bg-primary hover:text-primary-foreground"
-                    >
-                      {s.label}
-                    </button>
-                  ))}
-                </div>
-              )}
             </div>
 
             <DropdownButton 
