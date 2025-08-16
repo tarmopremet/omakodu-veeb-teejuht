@@ -109,7 +109,6 @@ const Index = () => {
       price: `${product.price_per_hour}€ / Tund`,
       location: product.location,
       image: product.images?.[0] || getDefaultImage(product.category),
-      rating: 4.8,
       available: product.is_active
     }));
   };

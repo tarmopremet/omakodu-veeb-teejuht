@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MapPin, Clock, Star } from "lucide-react";
+import { MapPin, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface RentalProductCardProps {
@@ -68,13 +68,6 @@ export const RentalProductCard = ({ product }: RentalProductCardProps) => {
           <div className="flex items-center text-sm text-muted-foreground mb-3">
             <MapPin className="w-4 h-4 mr-1" />
             <span className="line-clamp-1">{product.location}</span>
-          </div>
-        )}
-
-        {product.rating && (
-          <div className="flex items-center mb-3">
-            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
-            <span className="text-sm font-medium">{product.rating}</span>
           </div>
         )}
         
