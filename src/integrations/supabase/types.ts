@@ -209,6 +209,57 @@ export type Database = {
         }
         Relationships: []
       }
+      sales_products: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          images: string[] | null
+          is_active: boolean
+          manual_text: string | null
+          manual_url: string | null
+          meta_description: string | null
+          meta_keywords: string | null
+          meta_title: string | null
+          name: string
+          price: number
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          images?: string[] | null
+          is_active?: boolean
+          manual_text?: string | null
+          manual_url?: string | null
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
+          name: string
+          price: number
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          images?: string[] | null
+          is_active?: boolean
+          manual_text?: string | null
+          manual_url?: string | null
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
+          name?: string
+          price?: number
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
