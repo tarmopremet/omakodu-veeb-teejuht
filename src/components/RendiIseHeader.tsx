@@ -60,7 +60,7 @@ export const RendiIseHeader = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="hover:opacity-80 transition-opacity">
-              <img src="/lovable-uploads/1df18946-6bda-4219-b803-f1f4a7719f3e.png" alt="RendiIse" className="h-8" />
+              <img src="/lovable-uploads/1df18946-6bda-4219-b803-f1f4a7719f3e.png" alt="RendiIse" className="h-12" />
             </Link>
           </div>
 
