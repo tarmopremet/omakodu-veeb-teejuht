@@ -12,9 +12,11 @@ interface PageImage {
   id: string;
   page_name: string;
   image_url: string;
+  video_url: string | null;
   alt_text: string | null;
   display_order: number;
   is_active: boolean;
+  content_type: 'image' | 'video';
 }
 
 const pageOptions = [
@@ -44,7 +46,10 @@ export const PageImageManager = () => {
         .order('display_order');
 
       if (error) throw error;
-      setImages(data || []);
+      setImages((data || []).map(item => ({
+        ...item,
+        content_type: (item.content_type as 'image' | 'video') || 'image'
+      })));
     } catch (error: any) {
       toast({
         title: "Viga",
@@ -61,9 +66,11 @@ export const PageImageManager = () => {
       id: `temp-${Date.now()}`,
       page_name: selectedPage,
       image_url: "",
+      video_url: null,
       alt_text: "",
       display_order: images.length + 1,
       is_active: true,
+      content_type: 'image',
     };
     setImages([...images, newImage]);
   };
@@ -103,10 +110,11 @@ export const PageImageManager = () => {
   };
 
   const saveImage = async (image: PageImage) => {
-    if (!image.image_url.trim()) {
+    const requiredUrl = image.content_type === 'video' ? image.video_url : image.image_url;
+    if (!requiredUrl?.trim()) {
       toast({
         title: "Viga",
-        description: "Pildi URL on kohustuslik",
+        description: `${image.content_type === 'video' ? 'Video' : 'Pildi'} URL on kohustuslik`,
         variant: "destructive",
       });
       return;
@@ -120,9 +128,11 @@ export const PageImageManager = () => {
           .insert({
             page_name: image.page_name,
             image_url: image.image_url,
+            video_url: image.video_url,
             alt_text: image.alt_text,
             display_order: image.display_order,
             is_active: image.is_active,
+            content_type: image.content_type,
           })
           .select()
           .single();
@@ -131,7 +141,10 @@ export const PageImageManager = () => {
 
         // Update local state with real ID
         setImages(images.map(img => 
-          img.id === image.id ? { ...data } : img
+          img.id === image.id ? { 
+            ...data, 
+            content_type: (data.content_type as 'image' | 'video') || 'image'
+          } : img
         ));
       } else {
         // Update existing image
@@ -139,9 +152,11 @@ export const PageImageManager = () => {
           .from('page_images')
           .update({
             image_url: image.image_url,
+            video_url: image.video_url,
             alt_text: image.alt_text,
             display_order: image.display_order,
             is_active: image.is_active,
+            content_type: image.content_type,
           })
           .eq('id', image.id);
 
@@ -176,7 +191,7 @@ export const PageImageManager = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Lehekülgede pildid</CardTitle>
+        <CardTitle>Lehekülgede pildid ja videod</CardTitle>
         <div className="w-full max-w-xs">
           <Label>Vali lehekülg</Label>
           <Select value={selectedPage} onValueChange={setSelectedPage}>
@@ -194,26 +209,28 @@ export const PageImageManager = () => {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Button onClick={addNewImage} className="mb-4">
-          <Plus className="w-4 h-4 mr-2" />
-          Lisa uus pilt
-        </Button>
+        <div className="flex gap-2 mb-4">
+          <Button onClick={addNewImage}>
+            <Plus className="w-4 h-4 mr-2" />
+            Lisa uus pilt/video
+          </Button>
+        </div>
 
         {images.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
-            <p>Sellel lehel pole veel pilte. Lisa esimene pilt!</p>
+            <p>Sellel lehel pole veel pilte ega videoid. Lisa esimene!</p>
           </div>
         ) : (
           <div className="space-y-4">
             {images.map((image) => (
               <div key={image.id} className="border rounded-lg p-4 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-medium">Pilt #{image.display_order}</span>
+                  <span className="font-medium">{image.content_type === 'video' ? 'Video' : 'Pilt'} #{image.display_order}</span>
                   <div className="flex gap-2">
                     <Button
                       size="sm"
                       onClick={() => saveImage(image)}
-                      disabled={!image.image_url.trim()}
+                      disabled={!(image.content_type === 'video' ? image.video_url?.trim() : image.image_url.trim())}
                     >
                       <Save className="w-4 h-4" />
                     </Button>
@@ -227,21 +244,36 @@ export const PageImageManager = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <Label>Pildi URL *</Label>
+                    <Label>Tüüp</Label>
+                    <Select 
+                      value={image.content_type} 
+                      onValueChange={(value: 'image' | 'video') => updateImage(image.id, 'content_type', value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="image">Pilt</SelectItem>
+                        <SelectItem value="video">Video</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>{image.content_type === 'video' ? 'Video URL *' : 'Pildi URL *'}</Label>
                     <Input
-                      value={image.image_url}
-                      onChange={(e) => updateImage(image.id, 'image_url', e.target.value)}
+                      value={image.content_type === 'video' ? (image.video_url || '') : image.image_url}
+                      onChange={(e) => updateImage(image.id, image.content_type === 'video' ? 'video_url' : 'image_url', e.target.value)}
                       placeholder="https://..."
                     />
                   </div>
                   <div>
-                    <Label>Alt tekst</Label>
+                    <Label>Alt tekst/Kirjeldus</Label>
                     <Input
                       value={image.alt_text || ""}
                       onChange={(e) => updateImage(image.id, 'alt_text', e.target.value)}
-                      placeholder="Pildi kirjeldus"
+                      placeholder={image.content_type === 'video' ? 'Video kirjeldus' : 'Pildi kirjeldus'}
                     />
                   </div>
                 </div>
@@ -266,16 +298,27 @@ export const PageImageManager = () => {
                   </div>
                 </div>
 
-                {image.image_url && (
+                {((image.content_type === 'video' && image.video_url) || (image.content_type === 'image' && image.image_url)) && (
                   <div className="mt-2">
-                    <img
-                      src={image.image_url}
-                      alt={image.alt_text || "Preview"}
-                      className="w-32 h-24 object-cover rounded border"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                      }}
-                    />
+                    {image.content_type === 'video' ? (
+                      <video
+                        src={image.video_url || ''}
+                        className="w-32 h-24 object-cover rounded border"
+                        controls
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={image.image_url}
+                        alt={image.alt_text || "Preview"}
+                        className="w-32 h-24 object-cover rounded border"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
+                    )}
                   </div>
                 )}
               </div>
@@ -287,10 +330,11 @@ export const PageImageManager = () => {
           <h4 className="font-medium text-blue-900 mb-2">Juhised:</h4>
           <ul className="text-sm text-blue-800 space-y-1">
             <li>1. Vali lehekülg, mille pilte soovid hallata</li>
-            <li>2. Lisa uusi pilte või muuda olemasolevaid</li>
-            <li>3. Kasuta "Pildid" tabi üles laaditud piltide URL-ide saamiseks</li>
-            <li>4. Salvesta muudatused enne lehekülje vahetamist</li>
-            <li>5. Pildid kuvatakse leheküljel järjekorras</li>
+            <li>2. Lisa uusi pilte või videoid või muuda olemasolevaid</li>
+            <li>3. Vali kas soovid lisada pildi või video</li>
+            <li>4. Kasuta "Pildid" tabi üles laaditud piltide URL-ide saamiseks</li>
+            <li>5. Salvesta muudatused enne lehekülje vahetamist</li>
+            <li>6. Pildid ja videod kuvatakse leheküljel järjekorras</li>
           </ul>
         </div>
       </CardContent>

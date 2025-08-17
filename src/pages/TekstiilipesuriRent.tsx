@@ -10,8 +10,10 @@ import { supabase } from "@/integrations/supabase/client";
 interface PageImage {
   id: string;
   image_url: string;
+  video_url: string | null;
   alt_text: string | null;
   display_order: number;
+  content_type: 'image' | 'video';
 }
 
 const TekstiilipesuriRent = () => {
@@ -33,7 +35,10 @@ const TekstiilipesuriRent = () => {
         .order('display_order');
 
       if (error) throw error;
-      setPageImages(data || []);
+      setPageImages((data || []).map(item => ({
+        ...item,
+        content_type: (item.content_type as 'image' | 'video') || 'image'
+      })));
     } catch (error) {
       console.error('Error loading page images:', error);
       // Fallback to empty array if there's an error
@@ -153,25 +158,33 @@ const TekstiilipesuriRent = () => {
             </div>
           </section>
 
-          {/* Product Images */}
+          {/* Product Images and Videos */}
           <section className="mb-8">
             {pageImages.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {pageImages.map((image) => (
-                  <Card key={image.id} className="overflow-hidden">
+                {pageImages.map((item) => (
+                  <Card key={item.id} className="overflow-hidden">
                     <CardContent className="p-0">
-                      <img 
-                        src={image.image_url} 
-                        alt={image.alt_text || "Tekstiilipesuri rent"} 
-                        className="w-full h-64 object-cover"
-                      />
+                      {item.content_type === 'video' ? (
+                        <video 
+                          src={item.video_url || ''} 
+                          className="w-full h-64 object-cover"
+                          controls
+                        />
+                      ) : (
+                        <img 
+                          src={item.image_url} 
+                          alt={item.alt_text || "Tekstiilipesuri rent"} 
+                          className="w-full h-64 object-cover"
+                        />
+                      )}
                     </CardContent>
                   </Card>
                 ))}
               </div>
             ) : (
               <div className="text-center py-8 text-gray-500">
-                <p>Pilte ei leitud. Admin saab lisada pilte lehekülgede halduse kaudu.</p>
+                <p>Pilte või videoid ei leitud. Admin saab lisada sisu lehekülgede halduse kaudu.</p>
               </div>
             )}
           </section>

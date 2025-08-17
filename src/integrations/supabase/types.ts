@@ -83,6 +83,7 @@ export type Database = {
       page_images: {
         Row: {
           alt_text: string | null
+          content_type: string | null
           created_at: string
           display_order: number | null
           id: string
@@ -90,9 +91,11 @@ export type Database = {
           is_active: boolean
           page_name: string
           updated_at: string
+          video_url: string | null
         }
         Insert: {
           alt_text?: string | null
+          content_type?: string | null
           created_at?: string
           display_order?: number | null
           id?: string
@@ -100,9 +103,11 @@ export type Database = {
           is_active?: boolean
           page_name: string
           updated_at?: string
+          video_url?: string | null
         }
         Update: {
           alt_text?: string | null
+          content_type?: string | null
           created_at?: string
           display_order?: number | null
           id?: string
@@ -110,6 +115,7 @@ export type Database = {
           is_active?: boolean
           page_name?: string
           updated_at?: string
+          video_url?: string | null
         }
         Relationships: []
       }

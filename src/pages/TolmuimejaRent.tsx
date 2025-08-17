@@ -8,7 +8,7 @@ import { MapPin, ChevronDown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const TolmuimejaRent = () => {
-  const [images, setImages] = useState<Array<{id: string; image_url: string; alt_text?: string}>>([]);
+  const [images, setImages] = useState<Array<{id: string; image_url: string; video_url?: string; alt_text?: string; content_type?: 'image' | 'video'}>>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
 
@@ -29,12 +29,15 @@ const TolmuimejaRent = () => {
     const fetchImages = async () => {
       const { data } = await supabase
         .from('page_images')
-        .select('id, image_url, alt_text')
+        .select('id, image_url, video_url, alt_text, content_type')
         .eq('page_name', 'tolmuimejad')
         .eq('is_active', true)
         .order('display_order');
       
-      if (data) setImages(data);
+      if (data) setImages(data.map(item => ({
+        ...item,
+        content_type: (item.content_type as 'image' | 'video') || 'image'
+      })));
     };
     fetchImages();
   }, []);
@@ -138,18 +141,26 @@ const TolmuimejaRent = () => {
             </div>
           </section>
 
-          {/* Product Images */}
+          {/* Product Images and Videos */}
           {images.length > 0 && (
             <section className="mb-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {images.map((image) => (
-                  <Card key={image.id} className="overflow-hidden">
+                {images.map((item) => (
+                  <Card key={item.id} className="overflow-hidden">
                     <CardContent className="p-0">
-                      <img 
-                        src={image.image_url} 
-                        alt={image.alt_text || "Tolmuimeja rent"} 
-                        className="w-full h-64 object-cover"
-                      />
+                      {item.content_type === 'video' ? (
+                        <video 
+                          src={item.video_url || ''} 
+                          className="w-full h-64 object-cover"
+                          controls
+                        />
+                      ) : (
+                        <img 
+                          src={item.image_url} 
+                          alt={item.alt_text || "Tolmuimeja rent"} 
+                          className="w-full h-64 object-cover"
+                        />
+                      )}
                     </CardContent>
                   </Card>
                 ))}
