@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import wurthCleaner from "@/assets/wurth-textile-cleaner.jpg";
-import steamCleaner from "@/assets/https://sfismionwystqhsmytjq.supabase.co/storage/v1/object/public/product-images/products/8s9iz52x9bb.jpg";
+import steamCleaner from "@/assets/steam-cleaner-karcher.jpg";
 import windowRobot from "@/assets/window-robot-new.jpg";
 
 
