@@ -30,7 +30,7 @@ const AurupesuriRent = () => {
       const { data } = await supabase
         .from('page_images')
         .select('id, image_url, alt_text')
-        .eq('page_name', 'aurupesur')
+        .eq('page_name', 'aurupesurid')
         .eq('is_active', true)
         .order('display_order');
       
