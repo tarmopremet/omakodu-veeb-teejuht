@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Smartphone, CreditCard, Mail, X } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
+import { TermsDialog } from "./TermsDialog";
 
 interface BookingFormProps {
   isOpen: boolean;
@@ -38,6 +39,7 @@ export const BookingForm = ({
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [selectedSignatureMethod, setSelectedSignatureMethod] = useState<"mobile-id" | "smart-id" | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showTermsDialog, setShowTermsDialog] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -175,7 +177,14 @@ export const BookingForm = ({
                   onCheckedChange={(checked) => setAgreeToTerms(checked as boolean)}
                 />
                 <Label htmlFor="terms" className="text-sm">
-                  Olen nõus kasutajatingimustega
+                  Olen nõus{" "}
+                  <button
+                    type="button"
+                    onClick={() => setShowTermsDialog(true)}
+                    className="text-primary underline hover:text-primary-hover"
+                  >
+                    kasutajatingimustega
+                  </button>
                 </Label>
               </div>
 
@@ -226,6 +235,11 @@ export const BookingForm = ({
           </Button>
         </div>
       </DialogContent>
+      
+      <TermsDialog 
+        isOpen={showTermsDialog} 
+        onClose={() => setShowTermsDialog(false)} 
+      />
     </Dialog>
   );
 };
