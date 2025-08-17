@@ -20,7 +20,7 @@ import { AdminPage } from "./pages/AdminPage";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
 import NotFound from "./pages/NotFound";
 import TekstiilipesuriRent from "./pages/TekstiilipesuriRent";
-import AuripesuriRent from "./pages/AuripesuriRent";
+import AurupesuriRent from "./pages/AurupesuriRent";
 import AknapesurobotiRent from "./pages/AknapesurobotiRent";
 import TolmuimejaRent from "./pages/TolmuimejaRent";
 import AknapesuriRent from "./pages/AknapesuriRent";
@@ -44,12 +44,17 @@ const App = () => (
             <Route path="/rakvere" element={<Rakvere />} />
             <Route path="/saku" element={<Saku />} />
             <Route path="/renditooted" element={<RentalProducts />} />
+            <Route path="/renditooted/tekstiilipesurid" element={<TekstiilipesuriRent />} />
+            <Route path="/renditooted/aurupesurid" element={<AurupesuriRent />} />
+            <Route path="/renditooted/aknapesurobotid" element={<AknapesurobotiRent />} />
+            <Route path="/renditooted/aknapesurid" element={<AknapesuriRent />} />
+            <Route path="/renditooted/tolmuimejad" element={<TolmuimejaRent />} />
             <Route path="/renditooted/:category" element={<CategoryProducts />} />
             <Route path="/myygitooted" element={<SalesProducts />} />
             <Route path="/et/broneeri/:city" element={<BookingPage />} />
             <Route path="/et/rendi/:slug" element={<RentalDetail />} />
             <Route path="/tekstiilipesuri-rent" element={<TekstiilipesuriRent />} />
-            <Route path="/aurupesuri-rent" element={<AuripesuriRent />} />
+            <Route path="/aurupesuri-rent" element={<AurupesuriRent />} />
             <Route path="/aknapesuroboti-rent" element={<AknapesurobotiRent />} />
             <Route path="/tolmuimeja-rent" element={<TolmuimejaRent />} />
             <Route path="/aknapesuri-rent" element={<AknapesuriRent />} />

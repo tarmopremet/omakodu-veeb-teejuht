@@ -33,10 +33,10 @@ const TolmuimejaRent = () => {
 
           <div className="bg-primary/10 p-6 rounded-lg mb-8">
             <p className="text-xl font-medium text-gray-800 mb-4">
-              Hind: 2,5 EUR/1h ja 14,99 EUR/24h
+              Hind: 2,0 EUR/1h ja 12,99 EUR/24h
             </p>
             <Button className="bg-primary hover:bg-primary-hover text-primary-foreground px-6 py-3 rounded-full">
-              Broneerima
+              Broneeri kohe
             </Button>
           </div>
 
@@ -62,52 +62,32 @@ const TolmuimejaRent = () => {
             <div className="space-y-4 text-gray-600">
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Professionaalne tolmuimeja on võimsam kui tavalisest kodusest - ideaalne suuremaks koristuseks või remondi järel.</p>
+                <p>Professionaalne tolmuimeja on kallis - rentides saad kasutada kõrgeima kvaliteediga seadet odavalt.</p>
               </div>
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Rentides saad kasutada uusimat tehnoloogiat ilma suurt rahalist investeeringut tegemata.</p>
+                <p>Võimsam imedusjõud võrreldes tavaliste kodutolmuimejatega - põhjalikum puhastus.</p>
               </div>
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Sobib suurepäraselt ehitusprahi, põrandate ja raskesti puhastatavate pindade jaoks.</p>
+                <p>Sobib suuremateks töödeks - kolimine, remont, sügavpuhastus.</p>
               </div>
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Suur mahutavus - ei pea pidevalt tühjendama nagu tavalist tolmuimejat.</p>
+                <p>Ei pea muretsema hoiustamise ja hoolduse pärast.</p>
               </div>
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Võimas imemine - eemaldab ka syvalt mattidest ja vaibalt mustuse ja tolmu.</p>
+                <p>HEPA-filter tagab õhu puhtuse - sobib allergilistele.</p>
               </div>
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Märg- ja kuivimetused - üks seade mitme funktsiooniga.</p>
+                <p>Erinevad otsikud eri pindade jaoks - paindlik kasutamine.</p>
               </div>
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Ideaalne kontoritele, suurematele kaarutele või eriürituste järel koristamiseks.</p>
+                <p>Vaikne töö - ei sega naabreid ega koduse elu rütmi.</p>
               </div>
-            </div>
-          </section>
-
-          {/* Product Images */}
-          <section className="mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="overflow-hidden">
-                <CardContent className="p-0">
-                  <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-500">Professionaalne tolmuimeja</span>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="overflow-hidden">
-                <CardContent className="p-0">
-                  <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-500">Märg-kuiv tolmuimeja</span>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </section>
 
@@ -117,11 +97,11 @@ const TolmuimejaRent = () => {
               Kasulik teada
             </h3>
             <div className="space-y-3 text-gray-600">
-              <p>• Suur jõudlus võimaldab kiiret ja tõhusat koristamist.</p>
-              <p>• Erinevad otsikud erinevate pindade jaoks.</p>
-              <p>• Filtrisüsteem tagab puhtama õhu tagasivoolu.</p>
-              <p>• Kompaktne disain - lihtne liigutada ja kasutada.</p>
-              <p>• Madal müratase võrreldes tavalistega profiseadmetega.</p>
+              <p>• Suure mahutavusega tolmukotiga - ei pea tihti tühjendama.</p>
+              <p>• Sobib nii kuivale kui märjale tolmule.</p>
+              <p>• Kaasas erinevad otsikud - põrand, mööbel, autosisustus.</p>
+              <p>• Pikk kaabel võimaldab mugavalt töötada suuremas ruumis.</p>
+              <p>• Kerge liigutada - rattad tagavad sujuva sõidu.</p>
             </div>
           </section>
         </div>

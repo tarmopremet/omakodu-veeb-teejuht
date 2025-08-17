@@ -3,8 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Footer } from "@/components/Footer";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
+import aurupesuriImage from "@/assets/steam-cleaner.jpg";
+import karcherSteamImage from "@/assets/steam-cleaner-karcher.jpg";
 
-const AknapesuriRent = () => {
+const AurupesuriRent = () => {
   const cities = [
     { name: "Tallinn", href: "/tallinn" },
     { name: "Tartu", href: "/tartu" },
@@ -22,18 +24,18 @@ const AknapesuriRent = () => {
         <nav className="mb-6 text-sm">
           <Link to="/" className="text-primary hover:underline">Avaleht</Link>
           <span className="mx-2">/</span>
-          <span className="text-gray-600">Aknapesuri rent</span>
+          <span className="text-gray-600">Aurupesuri rent</span>
         </nav>
 
         {/* Main Content */}
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-light text-gray-800 mb-6">
-            Aknapesuri rent
+            Aurupesuri rent
           </h1>
 
           <div className="bg-primary/10 p-6 rounded-lg mb-8">
             <p className="text-xl font-medium text-gray-800 mb-4">
-              Hind: 2,5 EUR/1h ja 14,99 EUR/24h
+              Hind: 3,5 EUR/1h ja 18,99 EUR/24h
             </p>
             <Button className="bg-primary hover:bg-primary-hover text-primary-foreground px-6 py-3 rounded-full">
               Broneeri kohe
@@ -56,34 +58,62 @@ const AknapesuriRent = () => {
           {/* Why Rent Section */}
           <section className="mb-8">
             <h2 className="text-2xl font-light text-gray-800 mb-6">
-              Miks aknapesuri rent?
+              Miks aurupesuri rent?
             </h2>
             
             <div className="space-y-4 text-gray-600">
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Aknapesur on spetsiaalne seade, mida vajatakse mõned korrad aastas - rent on odavam kui ostmine.</p>
+                <p>Aurupesur on kallis seade - mõneks korraks aastas pole vaja kulutada nii palju ja aurupesuri rent on oluliselt odavam.</p>
               </div>
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Professionaalne tulemus - jätab aknad triibuvabaks ja läbipaistvaks.</p>
+                <p>Auru abil saad puhastada ilma keemiliste vahenditeta - ökoloogiline ja tervislik valik.</p>
               </div>
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Kiire ja efektiivne - säästab aega võrreldes käsitsi pesemisega.</p>
+                <p>Hävitab baktereid ja viirusi - ideaalne allergilistele ja väikelastega peredele.</p>
               </div>
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Sobib kõigile aknasuurustele ja ka peeglitele ning klaaspindadele.</p>
+                <p>Sobib vannitoa, köögi, põrandate ja pindade põhjalikuks puhastamiseks.</p>
               </div>
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Ei vaja erikoolitust - lihtne kasutada ka algajatele.</p>
+                <p>Eemaldab rasked plekid ja mustuse, mis tavapärase pesemisega ei kaduks.</p>
               </div>
               <div className="flex items-start">
                 <span className="text-primary font-bold mr-3 mt-1">•</span>
-                <p>Kaasas kõik vajalikud tarvikud ja puhastusvahend.</p>
+                <p>Kuiv aur ei jäta pindu märjaks ning puhastab ka raskesti ligipääsetavad kohad.</p>
               </div>
+              <div className="flex items-start">
+                <span className="text-primary font-bold mr-3 mt-1">•</span>
+                <p>Säästab ruumi - ei pea ostma ja hoiustama suurt seadet.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Product Images */}
+          <section className="mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="overflow-hidden">
+                <CardContent className="p-0">
+                  <img 
+                    src={aurupesuriImage} 
+                    alt="Aurupesuri rent - professionaalne seade" 
+                    className="w-full h-64 object-cover"
+                  />
+                </CardContent>
+              </Card>
+              <Card className="overflow-hidden">
+                <CardContent className="p-0">
+                  <img 
+                    src={karcherSteamImage} 
+                    alt="Aurupesuri rent - Kärcher mudel" 
+                    className="w-full h-64 object-cover"
+                  />
+                </CardContent>
+              </Card>
             </div>
           </section>
 
@@ -93,10 +123,10 @@ const AknapesuriRent = () => {
               Kasulik teada
             </h3>
             <div className="space-y-3 text-gray-600">
-              <p>• Sobib nii sise- kui väljaküljele - universaalne lahendus.</p>
-              <p>• Hea haare tagab ühtlase puhastamise kogu akna pinnal.</p>
-              <p>• Vee-tolmu imemisfunktsioon hoiab ümbruse puhtana.</p>
-              <p>• Ergonoomne käepide vähendab käte väsimust pikema kasutamise korral.</p>
+              <p>• Kõrge temperatuuriga aur (üle 100°C) hävitab kõik bakterid ja viirused.</p>
+              <p>• Ei vaja keemilisi puhastusvahendeid - säästab keskkonda ja rahakotti.</p>
+              <p>• Sobib kõigile pindadele - põrandad, seinad, sanitaarseadmed, ahjud.</p>
+              <p>• Kiire ja efektiivne - säästab aega võrreldes tavalise puhastamisega.</p>
             </div>
           </section>
         </div>
@@ -107,4 +137,4 @@ const AknapesuriRent = () => {
   );
 };
 
-export default AknapesuriRent;
+export default AurupesuriRent;

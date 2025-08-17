@@ -138,7 +138,7 @@ const RentalProducts = () => {
                           className="block"
                         >
                           <Button variant="outline" className="w-full">
-                            Vaata tooteid
+                            Toote info
                           </Button>
                         </Link>
                         {firstProduct && (
