@@ -12,6 +12,7 @@ import { AdminDashboard } from '@/components/admin/AdminDashboard';
 import { AdminProducts } from '@/components/admin/AdminProducts';
 import AdminUsers from '@/components/admin/AdminUsers';
 import { ImageManager } from '@/components/admin/ImageManager';
+import { PageImageManager } from '@/components/admin/PageImageManager';
 
 export const AdminPage = () => {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ export const AdminPage = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-8">
+          <TabsList className="grid w-full grid-cols-6 mb-8">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
               Ülevaade
@@ -88,6 +89,10 @@ export const AdminPage = () => {
             <TabsTrigger value="images" className="flex items-center gap-2">
               <Images className="h-4 w-4" />
               Pildid
+            </TabsTrigger>
+            <TabsTrigger value="pages" className="flex items-center gap-2">
+              <Images className="h-4 w-4" />
+              Leheküljed
             </TabsTrigger>
             <TabsTrigger value="users" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
@@ -115,7 +120,19 @@ export const AdminPage = () => {
                   Laadige üles ja hallake toote pilte. Pildid salvestatakse Supabase Storage'sse.
                 </p>
               </div>
-              <ImageManager />
+            <ImageManager />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="pages">
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight mb-2">Lehekülgede pildid</h2>
+                <p className="text-muted-foreground">
+                  Hallake konkreetsete lehekülgede pilte. Muudatused kajastuvad kohe veebilehel.
+                </p>
+              </div>
+              <PageImageManager />
             </div>
           </TabsContent>
 

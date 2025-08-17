@@ -1,16 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Footer } from "@/components/Footer";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { MapPin, ChevronDown } from "lucide-react";
-import tekstiilipesuriImage from "@/assets/textile-cleaner.jpg";
-import tekstiiliWurthImage from "@/assets/textile-cleaner-wurth.jpg";
+import { supabase } from "@/integrations/supabase/client";
+
+interface PageImage {
+  id: string;
+  image_url: string;
+  alt_text: string | null;
+  display_order: number;
+}
 
 const TekstiilipesuriRent = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [pageImages, setPageImages] = useState<PageImage[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    loadPageImages();
+  }, []);
+
+  const loadPageImages = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('page_images')
+        .select('*')
+        .eq('page_name', 'tekstiilipesuri')
+        .eq('is_active', true)
+        .order('display_order');
+
+      if (error) throw error;
+      setPageImages(data || []);
+    } catch (error) {
+      console.error('Error loading page images:', error);
+      // Fallback to empty array if there's an error
+      setPageImages([]);
+    }
+  };
 
   const cities = [
     { name: "Tallinn", href: "/tallinn" },
@@ -126,26 +155,25 @@ const TekstiilipesuriRent = () => {
 
           {/* Product Images */}
           <section className="mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="overflow-hidden">
-                <CardContent className="p-0">
-                  <img 
-                    src={tekstiilipesuriImage} 
-                    alt="Tekstiilipesuri rent - Kärcher seade" 
-                    className="w-full h-64 object-cover"
-                  />
-                </CardContent>
-              </Card>
-              <Card className="overflow-hidden">
-                <CardContent className="p-0">
-                  <img 
-                    src={tekstiiliWurthImage} 
-                    alt="Tekstiilipesuri rent - Würth seade" 
-                    className="w-full h-64 object-cover"
-                  />
-                </CardContent>
-              </Card>
-            </div>
+            {pageImages.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {pageImages.map((image) => (
+                  <Card key={image.id} className="overflow-hidden">
+                    <CardContent className="p-0">
+                      <img 
+                        src={image.image_url} 
+                        alt={image.alt_text || "Tekstiilipesuri rent"} 
+                        className="w-full h-64 object-cover"
+                      />
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                <p>Pilte ei leitud. Admin saab lisada pilte lehekülgede halduse kaudu.</p>
+              </div>
+            )}
           </section>
 
           {/* Additional Info */}
