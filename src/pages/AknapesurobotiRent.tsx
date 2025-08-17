@@ -30,7 +30,7 @@ const AknapesurobotiRent = () => {
       const { data } = await supabase
         .from('page_images')
         .select('id, image_url, alt_text')
-        .eq('page_name', 'aknapesuribot')
+        .eq('page_name', 'aknapesurobot')
         .eq('is_active', true)
         .order('display_order');
       

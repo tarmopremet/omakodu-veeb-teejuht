@@ -30,7 +30,7 @@ const TolmuimejaRent = () => {
       const { data } = await supabase
         .from('page_images')
         .select('id, image_url, alt_text')
-        .eq('page_name', 'tolmuimeja')
+        .eq('page_name', 'tolmuimejad')
         .eq('is_active', true)
         .order('display_order');
       
