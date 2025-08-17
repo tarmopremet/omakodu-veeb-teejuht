@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { BookingForm } from "@/components/BookingForm";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { MapPin, ChevronDown } from "lucide-react";
 
 const categories = [
   {
@@ -41,7 +42,29 @@ const RentalProducts = () => {
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [showBookingForm, setShowBookingForm] = useState(false);
+  const [dropdownStates, setDropdownStates] = useState<{[key: string]: boolean}>({});
   const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const cities = [
+    { name: "Tallinn", href: "/tallinn" },
+    { name: "Tartu", href: "/tartu" },
+    { name: "Pärnu", href: "/parnu" },
+    { name: "Rakvere", href: "/rakvere" },
+    { name: "Saku", href: "/saku" }
+  ];
+
+  const handleCityClick = (city: typeof cities[0]) => {
+    navigate(city.href);
+    setDropdownStates({});
+  };
+
+  const toggleDropdown = (categoryName: string) => {
+    setDropdownStates(prev => ({
+      ...prev,
+      [categoryName]: !prev[categoryName]
+    }));
+  };
 
   useEffect(() => {
     loadProducts();
@@ -142,12 +165,30 @@ const RentalProducts = () => {
                           </Button>
                         </Link>
                         {firstProduct && (
-                          <Button 
-                            className="w-full"
-                            onClick={() => handleRentProduct(firstProduct)}
-                          >
-                            Broneeri kohe
-                          </Button>
+                          <div className="relative inline-block w-full">
+                            <Button 
+                              className="w-full flex items-center justify-center gap-2"
+                              onClick={() => toggleDropdown(category.name)}
+                            >
+                              <MapPin className="w-4 h-4" />
+                              Broneeri kohe
+                              <ChevronDown className="w-4 h-4" />
+                            </Button>
+                            
+                            {dropdownStates[category.name] && (
+                              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[120px]">
+                                {cities.map((city) => (
+                                  <button
+                                    key={city.name}
+                                    onClick={() => handleCityClick(city)}
+                                    className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-primary hover:text-primary-foreground transition-all duration-200 first:rounded-t-lg last:rounded-b-lg"
+                                  >
+                                    {city.name}
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+                          </div>
                         )}
                       </div>
                     </div>

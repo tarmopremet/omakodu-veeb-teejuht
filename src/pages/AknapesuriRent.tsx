@@ -1,10 +1,15 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Footer } from "@/components/Footer";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
+import { MapPin, ChevronDown } from "lucide-react";
 
 const AknapesuriRent = () => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
+
   const cities = [
     { name: "Tallinn", href: "/tallinn" },
     { name: "Tartu", href: "/tartu" },
@@ -12,6 +17,11 @@ const AknapesuriRent = () => {
     { name: "Rakvere", href: "/rakvere" },
     { name: "Saku", href: "/saku" }
   ];
+
+  const handleCityClick = (city: typeof cities[0]) => {
+    navigate(city.href);
+    setShowDropdown(false);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -35,9 +45,30 @@ const AknapesuriRent = () => {
             <p className="text-xl font-medium text-gray-800 mb-4">
               Hind: 2,5 EUR/1h ja 14,99 EUR/24h
             </p>
-            <Button className="bg-primary hover:bg-primary-hover text-primary-foreground px-6 py-3 rounded-full">
-              Broneeri kohe
-            </Button>
+            <div className="relative inline-block">
+              <Button 
+                className="bg-primary hover:bg-primary-hover text-primary-foreground px-6 py-3 rounded-full flex items-center gap-2"
+                onClick={() => setShowDropdown(!showDropdown)}
+              >
+                <MapPin className="w-4 h-4" />
+                Broneeri kohe
+                <ChevronDown className="w-4 h-4" />
+              </Button>
+              
+              {showDropdown && (
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[120px]">
+                  {cities.map((city) => (
+                    <button
+                      key={city.name}
+                      onClick={() => handleCityClick(city)}
+                      className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-primary hover:text-primary-foreground transition-all duration-200 first:rounded-t-lg last:rounded-b-lg"
+                    >
+                      {city.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* City Links */}
