@@ -35,7 +35,7 @@ export const RendiIseHeader = () => {
                 </button>
               </div>
             ) : (
-              <Link to="/auth" className="flex items-center gap-1 hover:underline bg-white/20 px-3 py-1 rounded-full">
+              <Link to="/auth" className="flex items-center gap-1 hover:underline bg-white/30 hover:bg-white/40 px-4 py-2 rounded-full border border-white/40 backdrop-blur-sm transition-all duration-200">
                 <LogIn className="w-4 h-4" />
                 <span className="font-semibold">Logi sisse</span>
               </Link>
