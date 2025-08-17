@@ -5,12 +5,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Users, Package, TrendingUp, LogOut } from 'lucide-react';
+import { Calendar, Users, Package, TrendingUp, LogOut, Images } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdminBookings } from '@/components/admin/AdminBookings';
 import { AdminDashboard } from '@/components/admin/AdminDashboard';
 import { AdminProducts } from '@/components/admin/AdminProducts';
 import AdminUsers from '@/components/admin/AdminUsers';
+import { ImageManager } from '@/components/admin/ImageManager';
 
 export const AdminPage = () => {
   const navigate = useNavigate();
@@ -71,7 +72,7 @@ export const AdminPage = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
+          <TabsList className="grid w-full grid-cols-5 mb-8">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
               Ülevaade
@@ -83,6 +84,10 @@ export const AdminPage = () => {
             <TabsTrigger value="products" className="flex items-center gap-2">
               <Package className="h-4 w-4" />
               Tooted
+            </TabsTrigger>
+            <TabsTrigger value="images" className="flex items-center gap-2">
+              <Images className="h-4 w-4" />
+              Pildid
             </TabsTrigger>
             <TabsTrigger value="users" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
@@ -100,6 +105,18 @@ export const AdminPage = () => {
 
           <TabsContent value="products">
             <AdminProducts />
+          </TabsContent>
+
+          <TabsContent value="images">
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight mb-2">Pildi haldus</h2>
+                <p className="text-muted-foreground">
+                  Laadige üles ja hallake toote pilte. Pildid salvestatakse Supabase Storage'sse.
+                </p>
+              </div>
+              <ImageManager />
+            </div>
           </TabsContent>
 
           <TabsContent value="users">
