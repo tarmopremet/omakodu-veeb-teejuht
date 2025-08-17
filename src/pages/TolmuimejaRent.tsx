@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Footer } from "@/components/Footer";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { MapPin, ChevronDown } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const TolmuimejaRent = () => {
+  const [images, setImages] = useState<Array<{id: string; image_url: string; alt_text?: string}>>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
 
@@ -22,6 +24,20 @@ const TolmuimejaRent = () => {
     navigate(city.href);
     setShowDropdown(false);
   };
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const { data } = await supabase
+        .from('page_images')
+        .select('id, image_url, alt_text')
+        .eq('page_name', 'tolmuimeja')
+        .eq('is_active', true)
+        .order('display_order');
+      
+      if (data) setImages(data);
+    };
+    fetchImages();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -121,6 +137,25 @@ const TolmuimejaRent = () => {
               </div>
             </div>
           </section>
+
+          {/* Product Images */}
+          {images.length > 0 && (
+            <section className="mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {images.map((image) => (
+                  <Card key={image.id} className="overflow-hidden">
+                    <CardContent className="p-0">
+                      <img 
+                        src={image.image_url} 
+                        alt={image.alt_text || "Tolmuimeja rent"} 
+                        className="w-full h-64 object-cover"
+                      />
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Additional Info */}
           <section className="bg-gray-50 p-6 rounded-lg">

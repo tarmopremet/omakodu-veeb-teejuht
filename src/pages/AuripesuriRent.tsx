@@ -1,12 +1,13 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Footer } from "@/components/Footer";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
-import aurupesuriImage from "@/assets/steam-cleaner.jpg";
-import karcherSteamImage from "@/assets/steam-cleaner-karcher.jpg";
+import { supabase } from "@/integrations/supabase/client";
 
 const AuripesuriRent = () => {
+  const [images, setImages] = useState<Array<{id: string; image_url: string; alt_text?: string}>>([]);
   const cities = [
     { name: "Tallinn", href: "/tallinn" },
     { name: "Tartu", href: "/tartu" },
@@ -14,6 +15,20 @@ const AuripesuriRent = () => {
     { name: "Rakvere", href: "/rakvere" },
     { name: "Saku", href: "/saku" }
   ];
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const { data } = await supabase
+        .from('page_images')
+        .select('id, image_url, alt_text')
+        .eq('page_name', 'aurupesur')
+        .eq('is_active', true)
+        .order('display_order');
+      
+      if (data) setImages(data);
+    };
+    fetchImages();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -90,28 +105,23 @@ const AuripesuriRent = () => {
           </section>
 
           {/* Product Images */}
-          <section className="mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="overflow-hidden">
-                <CardContent className="p-0">
-                  <img 
-                    src={aurupesuriImage} 
-                    alt="Aurupesuri rent - professionaalne seade" 
-                    className="w-full h-64 object-cover"
-                  />
-                </CardContent>
-              </Card>
-              <Card className="overflow-hidden">
-                <CardContent className="p-0">
-                  <img 
-                    src={karcherSteamImage} 
-                    alt="Aurupesuri rent - Kärcher seade" 
-                    className="w-full h-64 object-cover"
-                  />
-                </CardContent>
-              </Card>
-            </div>
-          </section>
+          {images.length > 0 && (
+            <section className="mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {images.map((image) => (
+                  <Card key={image.id} className="overflow-hidden">
+                    <CardContent className="p-0">
+                      <img 
+                        src={image.image_url} 
+                        alt={image.alt_text || "Aurupesuri rent"} 
+                        className="w-full h-64 object-cover"
+                      />
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Additional Info */}
           <section className="bg-gray-50 p-6 rounded-lg">
