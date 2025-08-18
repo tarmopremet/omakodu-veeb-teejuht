@@ -6,6 +6,10 @@ import { Footer } from "@/components/Footer";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { MapPin, ChevronDown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useSEO } from "@/hooks/useSEO";
+import { generateProductSEO } from "@/components/SEOHead";
+import { useTracking } from "@/components/TrackingProvider";
+import { trackRentalView } from "@/lib/tracking";
 
 interface PageImage {
   id: string;
@@ -20,10 +24,22 @@ const TekstiilipesuriRent = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [pageImages, setPageImages] = useState<PageImage[]>([]);
   const navigate = useNavigate();
+  const { trackEvent, trackPageView } = useTracking();
+
+  // SEO setup
+  useSEO(generateProductSEO(
+    'Tekstiilipesuri Rent',
+    'Rent kvaliteetset tekstiilipesurit diivanite, toolide ja madratsitude puhastamiseks. Alates 25€/päev. Kiire kohaletoimetamine kogu Eestis.',
+    25,
+    'Tekstiilipesur'
+  ));
 
   useEffect(() => {
     loadPageImages();
-  }, []);
+    // Track page view and product view
+    trackPageView('/tekstiilipesuri-rent', 'Tekstiilipesuri Rent');
+    trackRentalView('tekstiilipesur-001', 'Tekstiilipesur', 'Tekstiilipesurid');
+  }, [trackPageView]);
 
   const loadPageImages = async () => {
     try {
@@ -55,6 +71,18 @@ const TekstiilipesuriRent = () => {
   ];
 
   const handleCityClick = (city: typeof cities[0]) => {
+    // Track city selection for textile cleaner booking
+    trackEvent({
+      action: 'rental_city_select',
+      category: 'tekstiilipesur',
+      label: city.name,
+      custom_parameters: {
+        product_type: 'tekstiilipesur',
+        source: 'product_page_dropdown',
+        destination: city.href
+      }
+    });
+
     navigate(city.href);
     setShowDropdown(false);
   };

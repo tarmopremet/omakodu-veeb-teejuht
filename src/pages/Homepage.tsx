@@ -1,15 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, ChevronDown } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
+import { useSEO } from "@/hooks/useSEO";
+import { generateHomepageSEO } from "@/components/SEOHead";
+import { useTracking } from "@/components/TrackingProvider";
 
 const Homepage = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
   const navigate = useNavigate();
+  const { trackEvent, trackPageView } = useTracking();
+
+  // SEO setup
+  useSEO(generateHomepageSEO());
+
+  // Track page view on component mount
+  useEffect(() => {
+    trackPageView('/', 'Homepage - Koristusvahendite Rent');
+  }, [trackPageView]);
 
   const cities = [
     { name: "Tallinn", href: "/tallinn" },
@@ -20,6 +32,17 @@ const Homepage = () => {
   ];
 
   const handleCityClick = (city: typeof cities[0]) => {
+    // Track city selection
+    trackEvent({
+      action: 'select_city',
+      category: 'navigation',
+      label: city.name,
+      custom_parameters: {
+        source: 'homepage_dropdown',
+        destination: city.href
+      }
+    });
+
     navigate(city.href);
     setShowDropdown1(false);
     setShowDropdown2(false);
