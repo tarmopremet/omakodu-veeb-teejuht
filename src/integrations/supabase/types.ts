@@ -80,6 +80,77 @@ export type Database = {
         }
         Relationships: []
       }
+      lockers: {
+        Row: {
+          created_at: string | null
+          hub_id: string
+          id: number
+          last_opened_at: string | null
+          name: string
+          relay_id: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          hub_id: string
+          id?: number
+          last_opened_at?: string | null
+          name: string
+          relay_id: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          hub_id?: string
+          id?: number
+          last_opened_at?: string | null
+          name?: string
+          relay_id?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      open_logs: {
+        Row: {
+          action: string
+          created_at: string | null
+          id: number
+          locker_id: number | null
+          meta: Json | null
+          timestamp: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string | null
+          id?: number
+          locker_id?: number | null
+          meta?: Json | null
+          timestamp?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string | null
+          id?: number
+          locker_id?: number | null
+          meta?: Json | null
+          timestamp?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "open_logs_locker_id_fkey"
+            columns: ["locker_id"]
+            isOneToOne: false
+            referencedRelation: "lockers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       page_images: {
         Row: {
           alt_text: string | null
@@ -247,6 +318,47 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      reservations: {
+        Row: {
+          created_at: string | null
+          end_at: string
+          id: number
+          locker_id: number | null
+          start_at: string
+          status: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          end_at: string
+          id?: number
+          locker_id?: number | null
+          start_at: string
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          end_at?: string
+          id?: number
+          locker_id?: number | null
+          start_at?: string
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reservations_locker_id_fkey"
+            columns: ["locker_id"]
+            isOneToOne: false
+            referencedRelation: "lockers"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       sales_products: {
         Row: {
