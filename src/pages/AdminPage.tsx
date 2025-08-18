@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Users, Package, TrendingUp, LogOut, Images } from 'lucide-react';
+import { Calendar, Users, Package, TrendingUp, LogOut, Images, Lock, BookOpen, Activity } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdminBookings } from '@/components/admin/AdminBookings';
 import { AdminDashboard } from '@/components/admin/AdminDashboard';
@@ -13,6 +13,9 @@ import { AdminProducts } from '@/components/admin/AdminProducts';
 import AdminUsers from '@/components/admin/AdminUsers';
 import { ImageManager } from '@/components/admin/ImageManager';
 import { PageImageManager } from '@/components/admin/PageImageManager';
+import { AdminLockers } from '@/components/admin/AdminLockers';
+import { AdminReservations } from '@/components/admin/AdminReservations';
+import { AdminOpenLogs } from '@/components/admin/AdminOpenLogs';
 
 export const AdminPage = () => {
   const navigate = useNavigate();
@@ -73,7 +76,7 @@ export const AdminPage = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard" className="w-full">
-          <TabsList className="grid w-full grid-cols-6 mb-8">
+          <TabsList className="grid w-full grid-cols-9 mb-8">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
               Ülevaade
@@ -97,6 +100,18 @@ export const AdminPage = () => {
             <TabsTrigger value="users" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               Kasutajad
+            </TabsTrigger>
+            <TabsTrigger value="lockers" className="flex items-center gap-2">
+              <Lock className="h-4 w-4" />
+              Kapid
+            </TabsTrigger>
+            <TabsTrigger value="reservations" className="flex items-center gap-2">
+              <BookOpen className="h-4 w-4" />
+              Reservatsioonid
+            </TabsTrigger>
+            <TabsTrigger value="logs" className="flex items-center gap-2">
+              <Activity className="h-4 w-4" />
+              Logid
             </TabsTrigger>
           </TabsList>
 
@@ -138,6 +153,18 @@ export const AdminPage = () => {
 
           <TabsContent value="users">
             <AdminUsers />
+          </TabsContent>
+
+          <TabsContent value="lockers">
+            <AdminLockers />
+          </TabsContent>
+
+          <TabsContent value="reservations">
+            <AdminReservations />
+          </TabsContent>
+
+          <TabsContent value="logs">
+            <AdminOpenLogs />
           </TabsContent>
         </Tabs>
       </main>
