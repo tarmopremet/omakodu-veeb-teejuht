@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Users, Package, TrendingUp, LogOut, Images, Lock, BookOpen, Activity } from 'lucide-react';
+import { Calendar, Users, Package, TrendingUp, LogOut, Images, Lock, BookOpen, Activity, BarChart3 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdminBookings } from '@/components/admin/AdminBookings';
 import { AdminDashboard } from '@/components/admin/AdminDashboard';
@@ -16,6 +16,7 @@ import { PageImageManager } from '@/components/admin/PageImageManager';
 import { AdminLockers } from '@/components/admin/AdminLockers';
 import { AdminReservations } from '@/components/admin/AdminReservations';
 import { AdminOpenLogs } from '@/components/admin/AdminOpenLogs';
+import { TrackingConfig } from '@/components/TrackingConfig';
 
 export const AdminPage = () => {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ export const AdminPage = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 xl:grid-cols-9 mb-8 gap-2">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 xl:grid-cols-10 mb-8 gap-2">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
               Ülevaade
@@ -112,6 +113,10 @@ export const AdminPage = () => {
             <TabsTrigger value="logs" className="flex items-center gap-2">
               <Activity className="h-4 w-4" />
               Logid
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              Analüütika
             </TabsTrigger>
           </TabsList>
 
@@ -165,6 +170,18 @@ export const AdminPage = () => {
 
           <TabsContent value="logs">
             <AdminOpenLogs />
+          </TabsContent>
+
+          <TabsContent value="analytics">
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight mb-2">Analüütika ja Jälgimine</h2>
+                <p className="text-muted-foreground">
+                  Seadista Google Analytics, Facebook Pixel ja teisi jälgimise teenuseid oma veebilehe jaoks.
+                </p>
+              </div>
+              <TrackingConfig />
+            </div>
           </TabsContent>
         </Tabs>
       </main>
