@@ -33,6 +33,7 @@ interface Product {
   is_active: boolean;
   images?: string[];
   created_at: string;
+  locker_door?: number;
 }
 
 export const AdminProducts = () => {
@@ -205,6 +206,7 @@ export const AdminProducts = () => {
                 <TableHead>Toode</TableHead>
                 <TableHead>Kategooria</TableHead>
                 <TableHead>Asukoht</TableHead>
+                <TableHead>Kapi uks</TableHead>
                 <TableHead>Hind/tund</TableHead>
                 <TableHead>Hind/päev</TableHead>
                 <TableHead>Staatus</TableHead>
@@ -228,6 +230,15 @@ export const AdminProducts = () => {
                     <Badge variant="outline">{product.category}</Badge>
                   </TableCell>
                   <TableCell>{product.location}</TableCell>
+                  <TableCell>
+                    {product.locker_door ? (
+                      <Badge variant="secondary">
+                        Uks {product.locker_door}{product.locker_door === 9 ? " (Sikupilli)" : ""}
+                      </Badge>
+                    ) : (
+                      <span className="text-muted-foreground">-</span>
+                    )}
+                  </TableCell>
                   <TableCell>€{product.price_per_hour}</TableCell>
                   <TableCell>
                     {product.price_per_day ? `€${product.price_per_day}` : '-'}

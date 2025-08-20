@@ -47,6 +47,7 @@ const productSchema = z.object({
   meta_description: z.string().optional(),
   meta_keywords: z.string().optional(),
   video_url: z.string().optional(),
+  locker_door: z.number().min(1, "Kapi uks peab olema 1-9 vahel").max(9, "Kapi uks peab olema 1-9 vahel").optional(),
 });
 
 type ProductFormData = z.infer<typeof productSchema>;
@@ -68,6 +69,7 @@ interface Product {
   meta_keywords?: string;
   images?: string[];
   video_url?: string;
+  locker_door?: number;
 }
 
 interface ProductDialogProps {
@@ -133,6 +135,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
       meta_description: "",
       meta_keywords: "",
       video_url: "",
+      locker_door: undefined,
     },
   });
 
@@ -153,6 +156,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         meta_description: product.meta_description || "",
         meta_keywords: product.meta_keywords || "",
         video_url: product.video_url || "",
+        locker_door: product.locker_door || undefined,
       });
       setImages(product.images || []);
     } else if (!product && open) {
@@ -171,6 +175,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         meta_description: "",
         meta_keywords: "",
         video_url: "",
+        locker_door: undefined,
       });
       setImages([]);
     }
@@ -249,6 +254,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         meta_keywords: data.meta_keywords || null,
         images: images.length > 0 ? images : null,
         video_url: data.video_url || null,
+        locker_door: data.locker_door || null,
       };
 
       if (product?.id) {
@@ -356,7 +362,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <FormField
                 control={form.control}
                 name="location"
@@ -378,6 +384,34 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
                       </SelectContent>
                     </Select>
                     <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="locker_door"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Kapi uks</FormLabel>
+                    <Select onValueChange={(value) => field.onChange(value ? parseInt(value) : undefined)} value={field.value ? field.value.toString() : ""}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Vali kapi uks" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Array.from({ length: 9 }, (_, i) => i + 1).map((door) => (
+                          <SelectItem key={door} value={door.toString()}>
+                            Uks {door} {door === 9 ? "(Sikupilli)" : ""}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                    <p className="text-xs text-gray-500">
+                      Uksed 1-8 tavalistele kappidele, uks 9 Sikupilli kapile
+                    </p>
                   </FormItem>
                 )}
               />
