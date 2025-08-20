@@ -47,7 +47,7 @@ const productSchema = z.object({
   meta_description: z.string().optional(),
   meta_keywords: z.string().optional(),
   video_url: z.string().optional(),
-  locker_door: z.number().min(1, "Kapi uks peab olema 1-9 vahel").max(9, "Kapi uks peab olema 1-9 vahel").optional(),
+  locker_doors: z.array(z.number().min(1).max(9)).max(2, "Maksimaalselt 2 kapi ust").optional(),
 });
 
 type ProductFormData = z.infer<typeof productSchema>;
@@ -69,7 +69,7 @@ interface Product {
   meta_keywords?: string;
   images?: string[];
   video_url?: string;
-  locker_door?: number;
+  locker_doors?: number[];
 }
 
 interface ProductDialogProps {
@@ -116,6 +116,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<string[]>([]);
   const [uploadingImages, setUploadingImages] = useState(false);
+  const [selectedDoors, setSelectedDoors] = useState<number[]>([]);
   const { toast } = useToast();
 
   const form = useForm<ProductFormData>({
@@ -135,7 +136,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
       meta_description: "",
       meta_keywords: "",
       video_url: "",
-      locker_door: undefined,
+      locker_doors: [],
     },
   });
 
@@ -156,8 +157,9 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         meta_description: product.meta_description || "",
         meta_keywords: product.meta_keywords || "",
         video_url: product.video_url || "",
-        locker_door: product.locker_door || undefined,
+        locker_doors: product.locker_doors || [],
       });
+      setSelectedDoors(product.locker_doors || []);
       setImages(product.images || []);
     } else if (!product && open) {
       form.reset({
@@ -175,8 +177,9 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         meta_description: "",
         meta_keywords: "",
         video_url: "",
-        locker_door: undefined,
+        locker_doors: [],
       });
+      setSelectedDoors([]);
       setImages([]);
     }
   }, [product, open, form]);
@@ -254,7 +257,7 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
         meta_keywords: data.meta_keywords || null,
         images: images.length > 0 ? images : null,
         video_url: data.video_url || null,
-        locker_door: data.locker_door || null,
+        locker_doors: selectedDoors.length > 0 ? selectedDoors : null,
       };
 
       if (product?.id) {
@@ -390,27 +393,49 @@ export function ProductDialog({ product, onProductSaved, trigger }: ProductDialo
 
               <FormField
                 control={form.control}
-                name="locker_door"
+                name="locker_doors"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Kapi uks</FormLabel>
-                    <Select onValueChange={(value) => field.onChange(value ? parseInt(value) : undefined)} value={field.value ? field.value.toString() : ""}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Vali kapi uks" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
+                    <FormLabel>Kapi uksed (max 2)</FormLabel>
+                    <div className="space-y-2">
+                      <div className="grid grid-cols-3 gap-2">
                         {Array.from({ length: 9 }, (_, i) => i + 1).map((door) => (
-                          <SelectItem key={door} value={door.toString()}>
-                            Uks {door} {door === 9 ? "(Sikupilli)" : ""}
-                          </SelectItem>
+                          <div key={door} className="flex items-center space-x-2">
+                            <input
+                              type="checkbox"
+                              id={`door-${door}`}
+                              checked={selectedDoors.includes(door)}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  if (selectedDoors.length < 2) {
+                                    const newDoors = [...selectedDoors, door];
+                                    setSelectedDoors(newDoors);
+                                    field.onChange(newDoors);
+                                  }
+                                } else {
+                                  const newDoors = selectedDoors.filter(d => d !== door);
+                                  setSelectedDoors(newDoors);
+                                  field.onChange(newDoors);
+                                }
+                              }}
+                              disabled={!selectedDoors.includes(door) && selectedDoors.length >= 2}
+                              className="rounded border-gray-300"
+                            />
+                            <label htmlFor={`door-${door}`} className="text-sm">
+                              Uks {door} {door === 9 ? "(Sikupilli)" : ""}
+                            </label>
+                          </div>
                         ))}
-                      </SelectContent>
-                    </Select>
+                      </div>
+                      {selectedDoors.length > 0 && (
+                        <div className="text-sm text-muted-foreground">
+                          Valitud: {selectedDoors.map(d => `Uks ${d}`).join(", ")}
+                        </div>
+                      )}
+                    </div>
                     <FormMessage />
                     <p className="text-xs text-gray-500">
-                      Uksed 1-8 tavalistele kappidele, uks 9 Sikupilli kapile
+                      Vali kuni 2 kapi ust. Mõlemad uksed avanevad korraga.
                     </p>
                   </FormItem>
                 )}

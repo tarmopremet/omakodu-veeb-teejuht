@@ -226,7 +226,7 @@ export type Database = {
           images: string[] | null
           is_active: boolean
           location: string
-          locker_door: number | null
+          locker_doors: number[] | null
           manual_text: string | null
           manual_url: string | null
           meta_description: string | null
@@ -249,7 +249,7 @@ export type Database = {
           images?: string[] | null
           is_active?: boolean
           location: string
-          locker_door?: number | null
+          locker_doors?: number[] | null
           manual_text?: string | null
           manual_url?: string | null
           meta_description?: string | null
@@ -272,7 +272,7 @@ export type Database = {
           images?: string[] | null
           is_active?: boolean
           location?: string
-          locker_door?: number | null
+          locker_doors?: number[] | null
           manual_text?: string | null
           manual_url?: string | null
           meta_description?: string | null

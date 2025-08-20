@@ -33,7 +33,7 @@ interface Product {
   is_active: boolean;
   images?: string[];
   created_at: string;
-  locker_door?: number;
+  locker_doors?: number[];
 }
 
 export const AdminProducts = () => {
@@ -231,10 +231,14 @@ export const AdminProducts = () => {
                   </TableCell>
                   <TableCell>{product.location}</TableCell>
                   <TableCell>
-                    {product.locker_door ? (
-                      <Badge variant="secondary">
-                        Uks {product.locker_door}{product.locker_door === 9 ? " (Sikupilli)" : ""}
-                      </Badge>
+                    {product.locker_doors && product.locker_doors.length > 0 ? (
+                      <div className="flex gap-1 flex-wrap">
+                        {product.locker_doors.map((door) => (
+                          <Badge key={door} variant="secondary" className="text-xs">
+                            Uks {door}{door === 9 ? " (S)" : ""}
+                          </Badge>
+                        ))}
+                      </div>
                     ) : (
                       <span className="text-muted-foreground">-</span>
                     )}
