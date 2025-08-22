@@ -148,81 +148,93 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* How Rendiise Works - with images and arrows */}
-      <section className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-light text-gray-800 mb-4">
-            Kuidas Rendiise töötab?
-          </h2>
+      {/* Kuidas Rendilse töötab */}
+      <section className="py-10 text-center">
+        <h2 className="text-2xl font-bold mb-8">Kuidas Rendilse töötab?</h2>
+        <div className="flex flex-col md:flex-row justify-center gap-10 max-w-5xl mx-auto">
+          <div>
+            <img src="https://img.icons8.com/ios/50/000000/warehouse.png" className="mx-auto mb-3" />
+            <p className="font-semibold">Väli saade ja asutont</p>
+            <p className="text-sm text-gray-500">Vlat woss lsyzlel la kebod pobdäd.</p>
+          </div>
+          <div>
+            <img src="https://img.icons8.com/ios/50/000000/calendar.png" className="mx-auto mb-3" />
+            <p className="font-semibold">Broneeri veebis</p>
+            <p className="text-sm text-gray-500">Mattuidn agetisu ja sakal koosie.</p>
+          </div>
+          <div>
+            <img src="https://img.icons8.com/ios/50/000000/sofa.png" className="mx-auto mb-3" />
+            <p className="font-semibold">Kasuta kodus</p>
+            <p className="text-sm text-gray-500">Kagenpal suti'le inre gnake kveteou pronoulunersäd.</p>
+          </div>
+          <div>
+            <img src="https://img.icons8.com/ios/50/000000/smartphone.png" className="mx-auto mb-3" />
+            <p className="font-semibold">Taseeta nutiäppi</p>
+            <p className="text-sm text-gray-500">Tagetak eastu mamäl sanstau.</p>
+          </div>
         </div>
-        
-        <div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-4xl mx-auto">
-          {/* Step 1: Vali seade ja asukoht */}
-          <div className="text-center flex-1">
-            <div className="w-24 h-24 mx-auto mb-4 rounded-lg overflow-hidden bg-gray-100">
-              <img 
-                src="/lovable-uploads/1df18946-6bda-4219-b803-f1f4a7719f3e.png" 
-                alt="Vali seade"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h3 className="text-lg font-medium text-gray-800 mb-2">Vali seade ja asukoht</h3>
-            <p className="text-sm text-gray-600">Vaata veebilehel seadmeid ja leia sobiv asukoht lähedalt</p>
+      </section>
+
+      {/* Miks valida Rendilse */}
+      <section className="py-10 bg-gray-50 text-center">
+        <h2 className="text-2xl font-bold mb-8">Miks valida Rendilse?</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <div className="p-6 bg-white rounded-xl shadow">
+            <img src="https://img.icons8.com/ios/50/000000/vacuum-cleaner.png" className="mx-auto mb-3" />
+            <p className="font-semibold">Tekstiilipesur</p>
+            <p className="text-sm text-gray-500">Teestii washez mainsatetea ja vostm.</p>
           </div>
-          
-          {/* Arrow 1 */}
-          <div className="hidden md:block text-2xl text-gray-400">
-            →
+          <div className="p-6 bg-white rounded-xl shadow">
+            <img src="https://img.icons8.com/ios/50/000000/window-cleaner.png" className="mx-auto mb-3" />
+            <p className="font-semibold">Aknapesurobot</p>
+            <p className="text-sm text-gray-500">Valirue kobskä ja kormkuenua ker tedinametu.</p>
           </div>
-          
-          {/* Step 2: Broneeri veebis */}
-          <div className="text-center flex-1">
-            <div className="w-24 h-24 mx-auto mb-4 rounded-lg overflow-hidden bg-gray-100">
-              <img 
-                src="/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png" 
-                alt="Broneeri veebis"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h3 className="text-lg font-medium text-gray-800 mb-2">Broneeri veebis</h3>
-            <p className="text-sm text-gray-600">Vali kuupäev ja kellaaeg ning maksa kaardiga</p>
+          <div className="p-6 bg-white rounded-xl shadow">
+            <img src="https://img.icons8.com/ios/50/000000/steam-cleaner.png" className="mx-auto mb-3" />
+            <p className="font-semibold">Aurupesur</p>
+            <p className="text-sm text-gray-500">Erilanldas, uridkone vedstipokelleta.</p>
           </div>
-          
-          {/* Arrow 2 */}
-          <div className="hidden md:block text-2xl text-gray-400">
-            →
+          <div className="p-6 bg-white rounded-xl shadow">
+            <img src="https://img.icons8.com/ios/50/000000/floor-cleaner.png" className="mx-auto mb-3" />
+            <p className="font-semibold">Tolmuimeja</p>
+            <p className="text-sm text-gray-500">Muglý oride valffi purttae ja pautaemïs.</p>
           </div>
-          
-          {/* Step 3: Kasuta kodus */}
-          <div className="text-center flex-1">
-            <div className="w-24 h-24 mx-auto mb-4 rounded-lg overflow-hidden bg-gray-100">
-              <img 
-                src="/lovable-uploads/df0e8fbf-70e2-43c9-85f7-287560a031d1.png" 
-                alt="Kasuta kodus"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h3 className="text-lg font-medium text-gray-800 mb-2">Kasuta kodus</h3>
-            <p className="text-sm text-gray-600">Võta seade nutikappidest ja kasuta vastavalt vajadusele</p>
+        </div>
+      </section>
+
+      {/* Mida kliendid räägivad */}
+      <section className="py-10 text-center">
+        <h2 className="text-2xl font-bold mb-8">Mida kliendid räägivad?</h2>
+        <div className="flex flex-col md:flex-row justify-center gap-8 max-w-4xl mx-auto">
+          <div className="p-6 border rounded-lg shadow w-full md:w-1/2">
+            <p className="text-yellow-500 text-xl">★★★★★</p>
+            <p className="font-semibold mt-2">Kui kaua saan seadet rentida?</p>
+            <p className="text-sm text-gray-500 mt-1">Kadi, Tallinn</p>
           </div>
-          
-          {/* Arrow 3 */}
-          <div className="hidden md:block text-2xl text-gray-400">
-            →
+          <div className="p-6 border rounded-lg shadow w-full md:w-1/2">
+            <p className="text-yellow-500 text-xl">★★★★★</p>
+            <p className="font-semibold mt-2">Kas seadmed on puhastatud ja hooldatud?</p>
+            <p className="text-sm text-gray-500 mt-1">Martin, Tartu</p>
           </div>
-          
-          {/* Step 4: Tagasta nutikappi */}
-          <div className="text-center flex-1">
-            <div className="w-24 h-24 mx-auto mb-4 rounded-lg overflow-hidden bg-gray-100">
-              <img 
-                src="/lovable-uploads/df0e8fbf-70e2-43c9-85f7-287560a031d1.png"
-                alt="Tagasta nutikappi"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <h3 className="text-lg font-medium text-gray-800 mb-2">Tagasta nutikappi</h3>
-            <p className="text-sm text-gray-600">Tagasta seade samasse või ükskõik millisesse nutikappi</p>
-          </div>
+        </div>
+      </section>
+
+      {/* Korduma kippuvad küsimused */}
+      <section className="py-10 bg-gray-50">
+        <h2 className="text-2xl font-bold text-center mb-6">Korduma kippuvad küsimused</h2>
+        <div className="max-w-3xl mx-auto space-y-3">
+          <details className="bg-white shadow rounded p-4 cursor-pointer">
+            <summary className="font-semibold">Kui kaua saan seadet rentida?</summary>
+          </details>
+          <details className="bg-white shadow rounded p-4 cursor-pointer">
+            <summary className="font-semibold">Kas hinnas sisaldub puhastusvahend?</summary>
+          </details>
+          <details className="bg-white shadow rounded p-4 cursor-pointer">
+            <summary className="font-semibold">Kas seadmed on puhastatud ja hooldatud?</summary>
+          </details>
+          <details className="bg-white shadow rounded p-4 cursor-pointer">
+            <summary className="font-semibold">Kus nutiäpid asuvad?</summary>
+          </details>
         </div>
       </section>
 
