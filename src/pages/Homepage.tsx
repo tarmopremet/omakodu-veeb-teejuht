@@ -462,26 +462,6 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* Company Logos */}
-      <section className="bg-gray-50 py-8">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center justify-center max-w-md mx-auto">
-            <div className="text-center">
-              <a href="https://www.rendiise.ee" target="_blank" rel="noopener">
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <p className="text-gray-600">Rendiise.ee</p>
-                </div>
-              </a>
-            </div>
-            <div className="text-center">
-              <a href="https://rentster.ee/" target="_blank" rel="noopener">
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <p className="text-gray-600">Rentster.ee</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
       {/* Korduma kippuvad küsimused */}
       <section className="py-10 bg-gray-50">
         <h2 className="text-2xl font-bold text-center mb-6">Korduma kippuvad küsimused</h2>
@@ -499,8 +479,6 @@ const Homepage = () => {
             <summary className="font-semibold">Kus nutiäpid asuvad?</summary>
           </details>
         </div>
-      </section>
-
       </section>
 
       <Footer />
