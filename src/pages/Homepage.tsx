@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, ChevronDown } from "lucide-react";
+import { MapPin, ChevronDown, ShowerHead, Monitor, Zap, CircleDot } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { useSEO } from "@/hooks/useSEO";
@@ -181,59 +181,61 @@ const Homepage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           <div className="p-6 bg-white rounded-xl shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M3 8h18l-2 9H5L3 8Z"/>
-                <path d="M3 8L2 4H1"/>
-                <path d="M8 12h8"/>
-                <circle cx="9" cy="20" r="1"/>
-                <circle cx="20" cy="20" r="1"/>
-              </svg>
+              <ShowerHead className="w-8 h-8" />
             </div>
             <p className="font-semibold">Tekstiilipesur</p>
-            <p className="text-sm text-gray-500">Teestli vaasiez mainsattetageja vostm.</p>
+            <p className="text-sm text-gray-500">Tekstii vaaside mainsatete ja vostim.</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="3" y="3" width="18" height="14" rx="2"/>
-                <path d="M8 21h8"/>
-                <path d="M12 17v4"/>
-                <path d="M7 7h10v6H7z"/>
-              </svg>
+              <Monitor className="w-8 h-8" />
             </div>
             <p className="font-semibold">Aknapesurobot</p>
-            <p className="text-sm text-gray-500">Välirue kobsetu ja kormukenas ker tedhamestu</p>
+            <p className="text-sm text-gray-500">Valiue kobsetu ja kormukerud ker tedinamestu</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M12 2L8 7h8l-4-5z"/>
-                <path d="M8 7v10a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V7"/>
-                <path d="M10 12h4"/>
-                <circle cx="12" cy="19" r="1"/>
-              </svg>
+              <Zap className="w-8 h-8" />
             </div>
             <p className="font-semibold">Aurupesur</p>
             <p className="text-sm text-gray-500">Eriianaldas, uridikone vedstipokelleta</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="M21 21l-4.35-4.35"/>
-                <circle cx="11" cy="8" r="2"/>
-              </svg>
+              <CircleDot className="w-8 h-8" />
             </div>
             <p className="font-semibold">Tolmuimeja</p>
-            <p className="text-sm text-gray-500">Mugiv örjde valfii puuttaeja peutaimis</p>
+            <p className="text-sm text-gray-500">Mugiv örjde valfii puuttae ja peutaimis</p>
           </div>
         </div>
       </section>
 
 
-      {/* Feature Strip */}
+      {/* Video Section */}
       <section className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="flex justify-center">
+          <div className="w-full max-w-4xl">
+            <div className="relative pb-[56.25%] h-0 rounded-lg overflow-hidden">
+              <iframe
+                src="https://www.youtube.com/embed/4Fb3fDTeDWg"
+                className="absolute top-0 left-0 w-full h-full"
+                allowFullScreen
+                title="Rendiise video"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Strip */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-light text-gray-800 mb-4">
+            Miks valida RendiIse?
+          </h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="text-center p-6 shadow-sm">
             <CardContent className="p-0">
               <div className="text-4xl mb-4">🛋️</div>
@@ -264,63 +266,6 @@ const Homepage = () => {
                 <a href="/parnu" className="text-primary hover:underline">Pärnu</a>,{" "}
                 <a href="/rakvere" className="text-primary hover:underline">Rakvere</a>,{" "}
                 <a href="/saku" className="text-primary hover:underline">Saku</a>.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Video Section */}
-      <section className="container mx-auto px-4 py-8">
-        <div className="flex justify-center">
-          <div className="w-full max-w-4xl">
-            <div className="relative pb-[56.25%] h-0 rounded-lg overflow-hidden">
-              <iframe
-                src="https://www.youtube.com/embed/4Fb3fDTeDWg"
-                className="absolute top-0 left-0 w-full h-full"
-                allowFullScreen
-                title="Rendiise video"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Rendiise - Company Benefits */}
-      <section className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-light text-gray-800 mb-4">
-            Miks valida Rendiise?
-          </h2>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="text-center p-6 shadow-sm">
-            <CardContent className="p-0">
-              <div className="text-4xl mb-4">🕐</div>
-              <h4 className="font-medium text-gray-800 mb-2">24/7 avatud paljudes kohtades</h4>
-              <p className="text-sm text-gray-600">
-                Rendi seadmed, siis kui Sul vaja on, isegi pühade ajal.
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="text-center p-6 shadow-sm">
-            <CardContent className="p-0">
-              <div className="text-4xl mb-4">🛡️</div>
-              <h4 className="font-medium text-gray-800 mb-2">Garanteeritud kvaliteet</h4>
-              <p className="text-sm text-gray-600">
-                Kõik seadmed on professionaalsed ja regulaarselt hooldatud.
-              </p>
-            </CardContent>
-          </Card>
-          
-          <Card className="text-center p-6 shadow-sm">
-            <CardContent className="p-0">
-              <div className="text-4xl mb-4">🏆</div>
-              <h4 className="font-medium text-gray-800 mb-2">Eesti esimene puhastusseadmete nutirent</h4>
-              <p className="text-sm text-gray-600">
-                Tekstiilipesurid, aurupesurid, tolmuimejad, aknapesurobotid, aknapesurid.
               </p>
             </CardContent>
           </Card>
