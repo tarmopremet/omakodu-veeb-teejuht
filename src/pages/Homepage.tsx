@@ -255,6 +255,25 @@ const Homepage = () => {
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" aria-label="Aurupesur" className="w-8 h-8">
+                {/* handle / pole */}
+                <path d="M40 86V52c0-6 4-10 10-10s10 4 10 10v34" />
+                {/* head */}
+                <rect x="28" y="86" width="44" height="14" rx="7" />
+                {/* boiler / tank */}
+                <rect x="78" y="76" width="30" height="24" rx="8" />
+                {/* wheels */}
+                <circle cx="40" cy="110" r="6" />
+                <circle cx="60" cy="110" r="6" />
+                {/* steam puffs */}
+                <path d="M92 50c-6 0-10-4-10-8s4-8 10-8m8 16c6 0 10-4 10-8s-4-8-10-8" />
+              </svg>
+            </div>
+            <p className="font-semibold">Aurupesur</p>
+            <p className="text-sm text-gray-500">Eriianaldas, uridikone vedstipokelleta</p>
+          </div>
+          <div className="p-6 bg-white rounded-xl shadow">
+            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" aria-label="Aknapesurobot" className="w-8 h-8">
                 {/* spray / motion lines */}
                 <path d="M18 54h18" />
@@ -270,20 +289,6 @@ const Homepage = () => {
             </div>
             <p className="font-semibold">Aknapesurobot</p>
             <p className="text-sm text-gray-500">Valiue kobsetu ja kormukerud ker tedinamestu</p>
-          </div>
-          <div className="p-6 bg-white rounded-xl shadow">
-            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M12 3v6"/>
-                <path d="M8 9h8"/>
-                <path d="M6 12c0 4 2 7 6 7s6-3 6-7"/>
-                <circle cx="10" cy="16" r="1"/>
-                <circle cx="14" cy="16" r="1"/>
-                <path d="M12 9c-2 0-3 1-3 3v4c0 1 1 2 3 2s3-1 3-2v-4c0-2-1-3-3-3z"/>
-              </svg>
-            </div>
-            <p className="font-semibold">Aurupesur</p>
-            <p className="text-sm text-gray-500">Eriianaldas, uridikone vedstipokelleta</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
