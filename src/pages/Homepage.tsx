@@ -202,26 +202,46 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* Kuidas Rendilse töötab */}
       <section className="py-10 text-center">
-        <h2 className="text-2xl font-bold mb-8">Kuidas Rendilse töötab?</h2>
-        <div className="flex flex-col md:flex-row justify-center gap-10 max-w-5xl mx-auto">
-          <div>
+        <h2 className="text-2xl font-bold mb-8">Kuidas Rendiise töötab?</h2>
+        <div className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-4 max-w-5xl mx-auto">
+          <div className="flex flex-col items-center">
             <img src="https://img.icons8.com/ios/50/000000/warehouse.png" className="mx-auto mb-3" />
             <p className="font-semibold">Vali seade ja asukoht</p>
             <p className="text-sm text-gray-500">Leia lähim nutikapp..</p>
           </div>
-          <div>
+          
+          <div className="hidden md:block text-primary">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+          
+          <div className="flex flex-col items-center">
             <img src="https://img.icons8.com/ios/50/000000/calendar.png" className="mx-auto mb-3" />
             <p className="font-semibold">Broneeri ja ava kapp</p>
             <p className="text-sm text-gray-500">Kõik toimub mugavalt veebis</p>
           </div>
-          <div>
+          
+          <div className="hidden md:block text-primary">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+          
+          <div className="flex flex-col items-center">
             <img src="https://img.icons8.com/ios/50/000000/sofa.png" className="mx-auto mb-3" />
             <p className="font-semibold">Puhasta kodu</p>
             <p className="text-sm text-gray-500">Naudi tulemust.</p>
           </div>
-          <div>
+          
+          <div className="hidden md:block text-primary">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+          
+          <div className="flex flex-col items-center">
             <img src="https://img.icons8.com/ios/50/000000/smartphone.png" className="mx-auto mb-3" />
             <p className="font-semibold">Tagasta kappi</p>
             <p className="text-sm text-gray-500">kui oled valmis, kasvõi samal päeval.</p>
