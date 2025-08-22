@@ -8,6 +8,7 @@ import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { useSEO } from "@/hooks/useSEO";
 import { generateHomepageSEO } from "@/components/SEOHead";
 import { useTracking } from "@/components/TrackingProvider";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const Homepage = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
@@ -485,20 +486,32 @@ const Homepage = () => {
       {/* Korduma kippuvad küsimused */}
       <section className="py-10 bg-gray-50">
         <h2 className="text-2xl font-bold text-center mb-6">Korduma kippuvad küsimused</h2>
-        <div className="max-w-3xl mx-auto space-y-3">
-          <details className="bg-white shadow rounded p-4 cursor-pointer">
-            <summary className="font-semibold">Kui kaua saan seadet rentida?</summary>
-          </details>
-          <details className="bg-white shadow rounded p-4 cursor-pointer">
-            <summary className="font-semibold">Kas hinnas sisaldub puhastusvahend?</summary>
-          </details>
-          <details className="bg-white shadow rounded p-4 cursor-pointer">
-            <summary className="font-semibold">Kas seadmed on puhastatud ja hooldatud?</summary>
-          </details>
-          <details className="bg-white shadow rounded p-4 cursor-pointer">
-            <summary className="font-semibold">Kus nutiäpid asuvad?</summary>
-          </details>
-        </div>
+        <Accordion type="single" collapsible className="max-w-3xl mx-auto">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>Kui kaua saan seadet rentida?</AccordionTrigger>
+            <AccordionContent>
+              Tavarent on 24 tundi, kuid saad broneeringut pikendada, kui kapis on vabu aegu. Soovi korral võid tagastada ka varem – maksad vaid kasutatud aja eest vastavalt hinnakirjale.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2">
+            <AccordionTrigger>Kas hinnas sisaldub puhastusvahend?</AccordionTrigger>
+            <AccordionContent>
+              Tekstiilipesuriga on kaasas esmane puhastuskontsentraat (tavaliselt piisab 1–2 puhastuseks). Vajadusel saad lisakoguse kätte samast nutikapist või tellida juurde.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3">
+            <AccordionTrigger>Kas seadmed on puhastatud ja hooldatud?</AccordionTrigger>
+            <AccordionContent>
+              Jah. Pärast iga renti puhastame ja desinfitseerime seadmed ning kontrollime tarvikud. Nii jõuab sinuni töökindel ja hügieeniline seade.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-4">
+            <AccordionTrigger>Kus nutikapid asuvad?</AccordionTrigger>
+            <AccordionContent>
+              Meie kapid asuvad suuremates linnades: <a href="/tallinn" className="text-primary hover:underline">Tallinn</a>, <a href="/tartu" className="text-primary hover:underline">Tartu</a>, <a href="/parnu" className="text-primary hover:underline">Pärnu</a>, <a href="/rakvere" className="text-primary hover:underline">Rakvere</a> ja <a href="/saku" className="text-primary hover:underline">Saku</a>.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </section>
 
       <Footer />
