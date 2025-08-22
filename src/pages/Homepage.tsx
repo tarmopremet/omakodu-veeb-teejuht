@@ -235,11 +235,19 @@ const Homepage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           <div className="p-6 bg-white rounded-xl shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M8 19a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h1a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4z"/>
-                <path d="M13 12h7"/>
-                <path d="M17 8v8"/>
-                <circle cx="8" cy="12" r="2"/>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" aria-label="Tekstiilipesur" className="w-8 h-8">
+                {/* wand */}
+                <path d="M28 94V50c0-8 6-14 14-14s14 6 14 14" />
+                <path d="M56 86H36" />
+                {/* head */}
+                <rect x="20" y="86" width="40" height="18" rx="9" />
+                {/* hose to canister */}
+                <path d="M60 94c10 0 18 8 18 18" />
+                {/* canister body */}
+                <rect x="78" y="90" width="32" height="22" rx="6" />
+                {/* wheels */}
+                <circle cx="86" cy="116" r="6" />
+                <circle cx="106" cy="116" r="6" />
               </svg>
             </div>
             <p className="font-semibold">Tekstiilipesur</p>
