@@ -80,6 +80,33 @@ export type Database = {
         }
         Relationships: []
       }
+      image_metadata: {
+        Row: {
+          alt_text: string | null
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string
+          updated_at: string
+        }
+        Insert: {
+          alt_text?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url: string
+          updated_at?: string
+        }
+        Update: {
+          alt_text?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       lockers: {
         Row: {
           created_at: string | null

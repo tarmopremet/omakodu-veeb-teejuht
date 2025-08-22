@@ -269,11 +269,11 @@ export const PageImageManager = () => {
                     />
                   </div>
                   <div>
-                    <Label>Alt tekst/Kirjeldus</Label>
+                    <Label>Alt tekst/Kirjeldus *</Label>
                     <Input
                       value={image.alt_text || ""}
                       onChange={(e) => updateImage(image.id, 'alt_text', e.target.value)}
-                      placeholder={image.content_type === 'video' ? 'Video kirjeldus' : 'Pildi kirjeldus'}
+                      placeholder={image.content_type === 'video' ? 'Video kirjeldus (SEO jaoks)' : 'Pildi kirjeldus (SEO jaoks)'}
                     />
                   </div>
                 </div>
