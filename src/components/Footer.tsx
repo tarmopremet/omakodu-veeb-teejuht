@@ -1,10 +1,10 @@
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Facebook, Instagram } from "lucide-react";
 
 export const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white py-12 mt-16">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div>
             <h3 className="text-xl font-bold mb-4">Kontaktid</h3>
@@ -43,6 +43,32 @@ export const Footer = () => {
               </a>
               <a href="/rendieeskiri" className="text-gray-300 hover:text-white block">
                 Rendieeskiri
+              </a>
+            </div>
+          </div>
+
+          {/* Social Media */}
+          <div>
+            <h3 className="text-xl font-bold mb-4">Jälgi meid</h3>
+            <div className="space-y-3">
+              <a 
+                href="https://www.facebook.com/rendiise" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+              >
+                <Facebook className="w-5 h-5 text-blue-400" />
+                <span>Facebook</span>
+              </a>
+              
+              <a 
+                href="https://www.instagram.com/rendiise" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+              >
+                <Instagram className="w-5 h-5 text-pink-400" />
+                <span>Instagram</span>
               </a>
             </div>
           </div>
