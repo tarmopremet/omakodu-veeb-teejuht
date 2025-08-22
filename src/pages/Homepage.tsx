@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { MapPin, ChevronDown, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
@@ -483,21 +484,59 @@ const Homepage = () => {
       </section>
 
       {/* Korduma kippuvad küsimused */}
-      <section className="py-10 bg-gray-50">
-        <h2 className="text-2xl font-bold text-center mb-6">Korduma kippuvad küsimused</h2>
-        <div className="max-w-3xl mx-auto space-y-3">
-          <details className="bg-white shadow rounded p-4 cursor-pointer">
-            <summary className="font-semibold">Kui kaua saan seadet rentida?</summary>
-          </details>
-          <details className="bg-white shadow rounded p-4 cursor-pointer">
-            <summary className="font-semibold">Kas hinnas sisaldub puhastusvahend?</summary>
-          </details>
-          <details className="bg-white shadow rounded p-4 cursor-pointer">
-            <summary className="font-semibold">Kas seadmed on puhastatud ja hooldatud?</summary>
-          </details>
-          <details className="bg-white shadow rounded p-4 cursor-pointer">
-            <summary className="font-semibold">Kus nutiäpid asuvad?</summary>
-          </details>
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-light text-gray-800 text-center mb-12">
+            Korduma kippuvad küsimused
+          </h2>
+          <div className="max-w-3xl mx-auto">
+            <Accordion type="single" collapsible className="w-full space-y-4">
+              <AccordionItem value="item-1" className="bg-white rounded-lg border shadow-sm">
+                <AccordionTrigger className="px-6 py-4 text-left font-medium hover:no-underline">
+                  Kui kaua saan seadet rentida?
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4 text-gray-600">
+                  Saate rentida seadet 1 tunnist kuni mitmeks päevaks. Minimaalse rendi aeg on 1 tund ja maksimaalse pikkust ei ole piiratud.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-2" className="bg-white rounded-lg border shadow-sm">
+                <AccordionTrigger className="px-6 py-4 text-left font-medium hover:no-underline">
+                  Kas hinnas sisaldub puhastusvahend?
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4 text-gray-600">
+                  Jah, kõigi seadmete hinnas sisaldub ka vajalik puhastusvahend. Teil ei ole vaja eraldi puhastusvahendeid osta.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-3" className="bg-white rounded-lg border shadow-sm">
+                <AccordionTrigger className="px-6 py-4 text-left font-medium hover:no-underline">
+                  Kas seadmed on puhastatud ja hooldatud?
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4 text-gray-600">
+                  Jah, kõik meie seadmed on hoolikalt puhastatud ja hooldatud pärast iga kasutamist. Garanteerime, et saate alati puhta ja korralikult töötava seadme.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-4" className="bg-white rounded-lg border shadow-sm">
+                <AccordionTrigger className="px-6 py-4 text-left font-medium hover:no-underline">
+                  Kus nutikapid asuvad?
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4 text-gray-600">
+                  Meie nutikapid asuvad Tallinnas, Tartus, Pärnus, Rakveres ja Saku kandis. Täpse asukoha leiate meie veebilehelt või äpist.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-5" className="bg-white rounded-lg border shadow-sm">
+                <AccordionTrigger className="px-6 py-4 text-left font-medium hover:no-underline">
+                  Kuidas toimub rentimine?
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4 text-gray-600">
+                  Rentimine käib läbi meie nutikappide. Valige sobiv seade veebilehelt, makske eest ja saate SMS-i teel koodi, millega saate seadme nutikapi külge koheselt kätte.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
         </div>
       </section>
 
