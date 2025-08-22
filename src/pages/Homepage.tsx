@@ -176,50 +176,6 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* Miks valida Rendilse */}
-      <section className="py-10 bg-gray-50 text-center">
-        <h2 className="text-2xl font-bold mb-8">Miks valida Rendilse?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-          <div className="p-6 bg-white rounded-xl shadow">
-            <img src="https://img.icons8.com/ios/50/000000/vacuum-cleaner.png" className="mx-auto mb-3" />
-            <p className="font-semibold">Tekstiilipesur</p>
-            <p className="text-sm text-gray-500">Teestii washez mainsatetea ja vostm.</p>
-          </div>
-          <div className="p-6 bg-white rounded-xl shadow">
-            <img src="https://img.icons8.com/ios/50/000000/window-cleaner.png" className="mx-auto mb-3" />
-            <p className="font-semibold">Aknapesurobot</p>
-            <p className="text-sm text-gray-500">Valirue kobskä ja kormkuenua ker tedinametu.</p>
-          </div>
-          <div className="p-6 bg-white rounded-xl shadow">
-            <img src="https://img.icons8.com/ios/50/000000/steam-cleaner.png" className="mx-auto mb-3" />
-            <p className="font-semibold">Aurupesur</p>
-            <p className="text-sm text-gray-500">Erilanldas, uridkone vedstipokelleta.</p>
-          </div>
-          <div className="p-6 bg-white rounded-xl shadow">
-            <img src="https://img.icons8.com/ios/50/000000/floor-cleaner.png" className="mx-auto mb-3" />
-            <p className="font-semibold">Tolmuimeja</p>
-            <p className="text-sm text-gray-500">Muglý oride valffi purttae ja pautaemïs.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Mida kliendid räägivad */}
-      <section className="py-10 text-center">
-        <h2 className="text-2xl font-bold mb-8">Mida kliendid räägivad?</h2>
-        <div className="flex flex-col md:flex-row justify-center gap-8 max-w-4xl mx-auto">
-          <div className="p-6 border rounded-lg shadow w-full md:w-1/2">
-            <p className="text-yellow-500 text-xl">★★★★★</p>
-            <p className="font-semibold mt-2">Kui kaua saan seadet rentida?</p>
-            <p className="text-sm text-gray-500 mt-1">Kadi, Tallinn</p>
-          </div>
-          <div className="p-6 border rounded-lg shadow w-full md:w-1/2">
-            <p className="text-yellow-500 text-xl">★★★★★</p>
-            <p className="font-semibold mt-2">Kas seadmed on puhastatud ja hooldatud?</p>
-            <p className="text-sm text-gray-500 mt-1">Martin, Tartu</p>
-          </div>
-        </div>
-      </section>
-
       {/* Korduma kippuvad küsimused */}
       <section className="py-10 bg-gray-50">
         <h2 className="text-2xl font-bold text-center mb-6">Korduma kippuvad küsimused</h2>
