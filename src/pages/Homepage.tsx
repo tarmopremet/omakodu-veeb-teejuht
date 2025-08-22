@@ -502,8 +502,7 @@ const Homepage = () => {
           <AccordionItem value="item-3">
             <AccordionTrigger>Kas seadmed on puhastatud ja hooldatud?</AccordionTrigger>
             <AccordionContent>
-              Jah. Pärast iga renti puhastame ja desinfitseerime seadmed ning kontrollime tarvikud. Nii jõuab sinuni töökindel ja hügieeniline seade.
-            </AccordionContent>
+              Jah. Hooldame regulaarselt kõiki seadmeid. Kuna tegemist on nutirendiga, siis puhtus oleneb eelmisest kliendist. Kui soovid, et ka sinu pesur oleks puhas, siis ole viisakas järgmise köiendi vastu ja puhasta pesur alati peale töötamist.            </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-4">
             <AccordionTrigger>Kus nutikapid asuvad?</AccordionTrigger>
