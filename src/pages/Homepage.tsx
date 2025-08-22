@@ -202,68 +202,6 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* Klientide arvamused */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-light text-gray-800 mb-4">
-              Klientide arvamused
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <Card className="p-6 shadow-sm">
-              <CardContent className="p-0">
-                <div className="flex items-center mb-4">
-                  <div className="flex text-yellow-400">
-                    {'★'.repeat(5)}
-                  </div>
-                </div>
-                <p className="text-gray-600 mb-4">
-                  "Tekstiilipesur tegi imelist tööd! Diivan sai täiesti uue hingamise. Soovitan soojalt!"
-                </p>
-                <div className="text-sm text-gray-500">
-                  <span className="font-medium">Kadi</span> • Tallinn
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="p-6 shadow-sm">
-              <CardContent className="p-0">
-                <div className="flex items-center mb-4">
-                  <div className="flex text-yellow-400">
-                    {'★'.repeat(5)}
-                  </div>
-                </div>
-                <p className="text-gray-600 mb-4">
-                  "Nutikas süsteem! Sain seadme kätte 24/7 ja täiesti mugavalt. Aurupesur puhastab fantastiliselt."
-                </p>
-                <div className="text-sm text-gray-500">
-                  <span className="font-medium">Martin</span> • Tartu
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="p-6 shadow-sm">
-              <CardContent className="p-0">
-                <div className="flex items-center mb-4">
-                  <div className="flex text-yellow-400">
-                    {'★'.repeat(5)}
-                  </div>
-                </div>
-                <p className="text-gray-600 mb-4">
-                  "Odavam kui koristajat kutsuda! Seade oli puhas ja töökindel. Kindlasti kasutan uuesti."
-                </p>
-                <div className="text-sm text-gray-500">
-                  <span className="font-medium">Anne</span> • Pärnu
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-
 
       {/* Feature Strip */}
       <section className="container mx-auto px-4 py-8">
@@ -408,62 +346,6 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="bg-gray-50 py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-light text-gray-800 mb-4">
-              Korduma kippuvad küsimused
-            </h2>
-          </div>
-          
-          <div className="max-w-3xl mx-auto space-y-4">
-            <Card className="p-6">
-              <CardContent className="p-0">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-lg font-medium text-gray-800">Kui kaua saab seadet rentida?</h4>
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="p-6">
-              <CardContent className="p-0">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-lg font-medium text-gray-800">Kas hinnas sisaldub puhastusvahend?</h4>
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="p-6">
-              <CardContent className="p-0">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-lg font-medium text-gray-800">Kas seadmed on puhastatatud ja hooldatud?</h4>
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="p-6">
-              <CardContent className="p-0">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-lg font-medium text-gray-800">Kus nutikapid asuvad?</h4>
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* Final CTA */}
       <section className="container mx-auto px-4 py-16">
