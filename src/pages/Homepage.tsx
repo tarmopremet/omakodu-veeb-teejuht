@@ -271,7 +271,7 @@ const Homepage = () => {
               </svg>
             </div>
             <p className="font-semibold">Tekstiilipesur</p>
-            <p className="text-sm text-gray-500">Tekstii vaaside mainsatete ja vostim.</p>
+            <p className="text-sm text-gray-500">Diivanite, vaipade ja madratsite sügavpuhastuseks.</p>
           </Link>
           <Link to="/aurupesuri-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
@@ -290,7 +290,7 @@ const Homepage = () => {
               </svg>
             </div>
             <p className="font-semibold">Aurupesur</p>
-            <p className="text-sm text-gray-500">Eriianaldas, uridikone vedstipokelleta</p>
+            <p className="text-sm text-gray-500">Eemaldab mustuse ja bakterid kemikaalideta.</p>
           </Link>
           <Link to="/aknapesuroboti-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
@@ -308,7 +308,7 @@ const Homepage = () => {
               </svg>
             </div>
             <p className="font-semibold">Aknapesurobot</p>
-            <p className="text-sm text-gray-500">Valiue kobsetu ja kormukerud ker tedinamestu</p>
+            <p className="text-sm text-gray-500">Säravad aknad ilma pingutuseta.u</p>
           </Link>
           <Link to="/tolmuimeja-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
@@ -325,7 +325,7 @@ const Homepage = () => {
               </svg>
             </div>
             <p className="font-semibold">Tolmuimeja</p>
-            <p className="text-sm text-gray-500">Mugiv örjde valfii puuttae ja peutaimis</p>
+            <p className="text-sm text-gray-500">Igapäevaseks või suurpuhastuseks.</p>
           </Link>
         </div>
       </section>
