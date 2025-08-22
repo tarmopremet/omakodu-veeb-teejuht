@@ -148,7 +148,84 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* Products grid with real images - exactly like reference */}
+      {/* How Rendiise Works - with images and arrows */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-light text-gray-800 mb-4">
+            Kuidas Rendiise töötab?
+          </h2>
+        </div>
+        
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-4xl mx-auto">
+          {/* Step 1: Vali seade ja asukoht */}
+          <div className="text-center flex-1">
+            <div className="w-24 h-24 mx-auto mb-4 rounded-lg overflow-hidden bg-gray-100">
+              <img 
+                src="/lovable-uploads/1df18946-6bda-4219-b803-f1f4a7719f3e.png" 
+                alt="Vali seade"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h3 className="text-lg font-medium text-gray-800 mb-2">Vali seade ja asukoht</h3>
+            <p className="text-sm text-gray-600">Vaata veebilehel seadmeid ja leia sobiv asukoht lähedalt</p>
+          </div>
+          
+          {/* Arrow 1 */}
+          <div className="hidden md:block text-2xl text-gray-400">
+            →
+          </div>
+          
+          {/* Step 2: Broneeri veebis */}
+          <div className="text-center flex-1">
+            <div className="w-24 h-24 mx-auto mb-4 rounded-lg overflow-hidden bg-gray-100">
+              <img 
+                src="/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png" 
+                alt="Broneeri veebis"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h3 className="text-lg font-medium text-gray-800 mb-2">Broneeri veebis</h3>
+            <p className="text-sm text-gray-600">Vali kuupäev ja kellaaeg ning maksa kaardiga</p>
+          </div>
+          
+          {/* Arrow 2 */}
+          <div className="hidden md:block text-2xl text-gray-400">
+            →
+          </div>
+          
+          {/* Step 3: Kasuta kodus */}
+          <div className="text-center flex-1">
+            <div className="w-24 h-24 mx-auto mb-4 rounded-lg overflow-hidden bg-gray-100">
+              <img 
+                src="/src/assets/cleaning-equipment-hero.jpg" 
+                alt="Kasuta kodus"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h3 className="text-lg font-medium text-gray-800 mb-2">Kasuta kodus</h3>
+            <p className="text-sm text-gray-600">Võta seade nutikappidest ja kasuta vastavalt vajadusele</p>
+          </div>
+          
+          {/* Arrow 3 */}
+          <div className="hidden md:block text-2xl text-gray-400">
+            →
+          </div>
+          
+          {/* Step 4: Tagasta nutikappi */}
+          <div className="text-center flex-1">
+            <div className="w-24 h-24 mx-auto mb-4 rounded-lg overflow-hidden bg-gray-100">
+              <img 
+                src="/src/assets/hero-apartment.jpg" 
+                alt="Tagasta nutikappi"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h3 className="text-lg font-medium text-gray-800 mb-2">Tagasta nutikappi</h3>
+            <p className="text-sm text-gray-600">Tagasta seade samasse või ükskõik millisesse nutikappi</p>
+          </div>
+        </div>
+      </section>
+
       <section className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {/* Tekstiilipesur */}
