@@ -255,12 +255,17 @@ const Homepage = () => {
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="2" y="4" width="20" height="12" rx="2"/>
-                <path d="M8 16v4"/>
-                <path d="M16 16v4"/>
-                <path d="M12 8l3 3-3 3"/>
-                <circle cx="18" cy="7" r="1"/>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" aria-label="Aknapesurobot" className="w-8 h-8">
+                {/* spray / motion lines */}
+                <path d="M18 54h18" />
+                <path d="M18 42h14" />
+                <path d="M18 66h14" />
+                {/* robot body */}
+                <path d="M52 90h24c10 0 18-8 18-18V60c0-14-12-26-26-26s-26 12-26 26v12c0 10 8 18 18 18z" />
+                {/* eye / sensor */}
+                <circle cx="68" cy="56" r="6" />
+                {/* base bumper */}
+                <rect x="44" y="90" width="48" height="14" rx="7" />
               </svg>
             </div>
             <p className="font-semibold">Aknapesurobot</p>
