@@ -180,24 +180,52 @@ const Homepage = () => {
         <h2 className="text-2xl font-bold mb-8">Mida saab rentida?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           <div className="p-6 bg-white rounded-xl shadow">
-            <img src="/src/assets/wurth-textile-cleaner.jpg" alt="Tekstiilipesur" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
+            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M3 8h18l-2 9H5L3 8Z"/>
+                <path d="M3 8L2 4H1"/>
+                <path d="M8 12h8"/>
+                <circle cx="9" cy="20" r="1"/>
+                <circle cx="20" cy="20" r="1"/>
+              </svg>
+            </div>
             <p className="font-semibold">Tekstiilipesur</p>
-            <p className="text-sm text-gray-500">Diivanite, vaipade ja madratsite sügavpuhastuseks.</p>
+            <p className="text-sm text-gray-500">Teestli vaasiez mainsattetageja vostm.</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
-            <img src="/src/assets/window-robot-new.jpg" alt="Aknapesurobot" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
+            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="3" y="3" width="18" height="14" rx="2"/>
+                <path d="M8 21h8"/>
+                <path d="M12 17v4"/>
+                <path d="M7 7h10v6H7z"/>
+              </svg>
+            </div>
             <p className="font-semibold">Aknapesurobot</p>
-            <p className="text-sm text-gray-500">Säravad aknad ilma pingutuseta.</p>
+            <p className="text-sm text-gray-500">Välirue kobsetu ja kormukenas ker tedhamestu</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
-            <img src="/src/assets/steam-cleaner-karcher.jpg" alt="Aurupesur" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
+            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M12 2L8 7h8l-4-5z"/>
+                <path d="M8 7v10a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V7"/>
+                <path d="M10 12h4"/>
+                <circle cx="12" cy="19" r="1"/>
+              </svg>
+            </div>
             <p className="font-semibold">Aurupesur</p>
-            <p className="text-sm text-gray-500">Eemaldab mustuse ja bakterid kemikaalideta.</p>
+            <p className="text-sm text-gray-500">Eriianaldas, uridikone vedstipokelleta</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
-            <img src="/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png" alt="Tolmuimeja" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
+            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+                <circle cx="11" cy="8" r="2"/>
+              </svg>
+            </div>
             <p className="font-semibold">Tolmuimeja</p>
-            <p className="text-sm text-gray-500">Igapäevaseks või suurpuhastuseks.</p>
+            <p className="text-sm text-gray-500">Mugiv örjde valfii puuttaeja peutaimis</p>
           </div>
         </div>
       </section>
