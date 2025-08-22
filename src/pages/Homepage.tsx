@@ -234,22 +234,53 @@ const Homepage = () => {
         <h2 className="text-2xl font-bold mb-8">Mida saab rentida?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           <div className="p-6 bg-white rounded-xl shadow">
-            <img src="/src/assets/wurth-textile-cleaner.jpg" alt="Tekstiilipesur" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
+            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M8 19a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h1a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4z"/>
+                <path d="M13 12h7"/>
+                <path d="M17 8v8"/>
+                <circle cx="8" cy="12" r="2"/>
+              </svg>
+            </div>
             <p className="font-semibold">Tekstiilipesur</p>
             <p className="text-sm text-gray-500">Tekstii vaaside mainsatete ja vostim.</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
-            <img src="/src/assets/window-robot-new.jpg" alt="Aknapesurobot" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
+            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="2" y="4" width="20" height="12" rx="2"/>
+                <path d="M8 16v4"/>
+                <path d="M16 16v4"/>
+                <path d="M12 8l3 3-3 3"/>
+                <circle cx="18" cy="7" r="1"/>
+              </svg>
+            </div>
             <p className="font-semibold">Aknapesurobot</p>
             <p className="text-sm text-gray-500">Valiue kobsetu ja kormukerud ker tedinamestu</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
-            <img src="/src/assets/steam-cleaner-karcher.jpg" alt="Aurupesur" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
+            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M12 3v6"/>
+                <path d="M8 9h8"/>
+                <path d="M6 12c0 4 2 7 6 7s6-3 6-7"/>
+                <circle cx="10" cy="16" r="1"/>
+                <circle cx="14" cy="16" r="1"/>
+                <path d="M12 9c-2 0-3 1-3 3v4c0 1 1 2 3 2s3-1 3-2v-4c0-2-1-3-3-3z"/>
+              </svg>
+            </div>
             <p className="font-semibold">Aurupesur</p>
             <p className="text-sm text-gray-500">Eriianaldas, uridikone vedstipokelleta</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
-            <img src="/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png" alt="Tolmuimeja" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
+            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+                <circle cx="11" cy="8" r="2"/>
+                <path d="M8 14h6"/>
+              </svg>
+            </div>
             <p className="font-semibold">Tolmuimeja</p>
             <p className="text-sm text-gray-500">Mugiv örjde valfii puuttae ja peutaimis</p>
           </div>
