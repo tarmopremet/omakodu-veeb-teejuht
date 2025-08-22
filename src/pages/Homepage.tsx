@@ -13,7 +13,8 @@ const Homepage = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
   const navigate = useNavigate();
-  const { trackEvent, trackPageView } = useTracking();
+  const { trackEvent, trackPageView } =
+    useTracking();
 
   // SEO setup
   useSEO(generateHomepageSEO());
@@ -154,8 +155,8 @@ const Homepage = () => {
         <div className="flex flex-col md:flex-row justify-center gap-10 max-w-5xl mx-auto">
           <div>
             <img src="https://img.icons8.com/ios/50/000000/warehouse.png" className="mx-auto mb-3" />
-            <p className="font-semibold">Väli saade ja asutont</p>
-            <p className="text-sm text-gray-500">Vlat woss lsyzlel la kebod pobdäd.</p>
+            <p className="font-semibold">Vali saade ja asukoht</p>
+            <p className="text-sm text-gray-500">Tallinn, Tartu, Pärnu, Rakvere</p>
           </div>
           <div>
             <img src="https://img.icons8.com/ios/50/000000/calendar.png" className="mx-auto mb-3" />
