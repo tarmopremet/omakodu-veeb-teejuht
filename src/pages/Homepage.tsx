@@ -257,7 +257,7 @@ const Homepage = () => {
           <Link to="/tekstiilipesuri-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
               <img 
-                src="/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png" 
+                src="/lovable-uploads/4dd08dda-950c-4d38-b527-9e0a53649ad9.png" 
                 alt="Tekstiilipesur" 
                 className="w-12 h-12 object-contain rounded"
               />
@@ -268,7 +268,7 @@ const Homepage = () => {
           <Link to="/aurupesuri-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
               <img 
-                src="/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png" 
+                src="/lovable-uploads/d1b26aab-eee2-4caa-8c59-c03fe030b6e9.png" 
                 alt="Aurupesur" 
                 className="w-12 h-12 object-contain rounded"
               />
@@ -279,7 +279,7 @@ const Homepage = () => {
           <Link to="/aknapesuroboti-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
               <img 
-                src="/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png" 
+                src="/lovable-uploads/8ee54b86-4c92-48d5-b2c2-15dc1fdf9360.png" 
                 alt="Aknapesurobot" 
                 className="w-12 h-12 object-contain rounded"
               />
