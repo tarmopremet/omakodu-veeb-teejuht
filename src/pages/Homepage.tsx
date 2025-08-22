@@ -257,7 +257,7 @@ const Homepage = () => {
           <Link to="/tekstiilipesuri-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
               <img 
-                src="/lovable-uploads/4dd08dda-950c-4d38-b527-9e0a53649ad9.png" 
+                src="/lovable-uploads/fd313741-c4a9-46c1-a39b-8590778e7d63.png" 
                 alt="Tekstiilipesur" 
                 className="w-12 h-12 object-contain rounded"
               />
@@ -289,17 +289,11 @@ const Homepage = () => {
           </Link>
           <Link to="/tolmuimeja-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" aria-label="Tolmuimeja" className="w-8 h-8">
-                {/* handle */}
-                <path d="M74 18v56" />
-                <path d="M74 18c10 0 18 8 18 18v24" />
-                {/* base */}
-                <rect x="34" y="90" width="68" height="14" rx="7" />
-                {/* body curve */}
-                <path d="M92 60c-14 0-26 12-26 26v4" />
-                {/* wheel */}
-                <circle cx="48" cy="116" r="6" />
-              </svg>
+              <img 
+                src="/lovable-uploads/69cbbbfd-8983-483b-acf2-0c1ec50af274.png" 
+                alt="Tolmuimeja" 
+                className="w-12 h-12 object-contain rounded"
+              />
             </div>
             <p className="font-semibold">Tolmuimeja</p>
             <p className="text-sm text-gray-500">Igapäevaseks või suurpuhastuseks.</p>
