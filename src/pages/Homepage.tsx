@@ -13,8 +13,7 @@ const Homepage = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
   const navigate = useNavigate();
-  const { trackEvent, trackPageView } =
-    useTracking();
+  const { trackEvent, trackPageView } = useTracking();
 
   // SEO setup
   useSEO(generateHomepageSEO());
@@ -155,23 +154,23 @@ const Homepage = () => {
         <div className="flex flex-col md:flex-row justify-center gap-10 max-w-5xl mx-auto">
           <div>
             <img src="https://img.icons8.com/ios/50/000000/warehouse.png" className="mx-auto mb-3" />
-            <p className="font-semibold">Vali saade ja asukoht</p>
-            <p className="text-sm text-gray-500">Leia lähim nutikapp.</p>
+            <p className="font-semibold">Väli saade ja asutont</p>
+            <p className="text-sm text-gray-500">Vlat woss lsyzlel la kebod pobdäd.</p>
           </div>
           <div>
             <img src="https://img.icons8.com/ios/50/000000/calendar.png" className="mx-auto mb-3" />
             <p className="font-semibold">Broneeri veebis</p>
-            <p className="text-sm text-gray-500">Kõik toimub mugavalt veebis.</p>
+            <p className="text-sm text-gray-500">Mattuidn agetisu ja sakal koosie.</p>
           </div>
           <div>
             <img src="https://img.icons8.com/ios/50/000000/sofa.png" className="mx-auto mb-3" />
-            <p className="font-semibold">Puhasta kodu</p>
-            <p className="text-sm text-gray-500">Naudi tulemust.</p>
+            <p className="font-semibold">Kasuta kodus</p>
+            <p className="text-sm text-gray-500">Kagenpal suti'le inre gnake kveteou pronoulunersäd.</p>
           </div>
           <div>
             <img src="https://img.icons8.com/ios/50/000000/smartphone.png" className="mx-auto mb-3" />
-            <p className="font-semibold">Tagasta nutikappi</p>
-            <p className="text-sm text-gray-500">Kui oled valmis, kasvõi samal päeval.</p>
+            <p className="font-semibold">Taseeta nutiäppi</p>
+            <p className="text-sm text-gray-500">Tagetak eastu mamäl sanstau.</p>
           </div>
         </div>
       </section>
