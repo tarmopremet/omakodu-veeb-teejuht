@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, ChevronDown, ShowerHead, Monitor, Zap, CircleDot } from "lucide-react";
+import { MapPin, ChevronDown, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { RendiIseHeader } from "@/components/RendiIseHeader";
 import { useSEO } from "@/hooks/useSEO";
@@ -12,8 +12,10 @@ import { useTracking } from "@/components/TrackingProvider";
 const Homepage = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const navigate = useNavigate();
   const { trackEvent, trackPageView } = useTracking();
+  const testimonialRef = useRef<HTMLDivElement>(null);
 
   // SEO setup
   useSEO(generateHomepageSEO());
@@ -47,6 +49,58 @@ const Homepage = () => {
     setShowDropdown1(false);
     setShowDropdown2(false);
   };
+
+  const testimonials = [
+    {
+      name: "Kadri",
+      location: "Tallinn", 
+      rating: 5,
+      text: "Väga hea teenus ja kvaliteetsed seadmed. Soovitan soojalt!"
+    },
+    {
+      name: "Martin",
+      location: "Tartu",
+      rating: 5, 
+      text: "Lihtne kasutada ja väga efektiivne. Tekstiilipesur tegi imelisi tulemusi!"
+    },
+    {
+      name: "Liis",
+      location: "Pärnu",
+      rating: 5,
+      text: "Suurepärane lahendus! Nutikapp oli väga mugav ja seade toimis täiuslikult."
+    },
+    {
+      name: "Andres", 
+      location: "Rakvere",
+      rating: 5,
+      text: "Üllatavalt hea kvaliteet ja taskukohane hind. Kindlasti kasutan veel!"
+    },
+    {
+      name: "Kristi",
+      location: "Tallinn",
+      rating: 5, 
+      text: "Aurupesur oli täpselt see, mida vajasin. Mugav broneerimine ja kasutamine."
+    },
+    {
+      name: "Toomas",
+      location: "Tartu", 
+      rating: 5,
+      text: "24/7 ligipääs on suurepärane! Sain seadme kätte just siis, kui vaja oli."
+    }
+  ];
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(nextTestimonial, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const DropdownButton = ({ 
     showDropdown, 
@@ -180,30 +234,22 @@ const Homepage = () => {
         <h2 className="text-2xl font-bold mb-8">Mida saab rentida?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           <div className="p-6 bg-white rounded-xl shadow">
-            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <ShowerHead className="w-8 h-8" />
-            </div>
+            <img src="/src/assets/wurth-textile-cleaner.jpg" alt="Tekstiilipesur" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
             <p className="font-semibold">Tekstiilipesur</p>
             <p className="text-sm text-gray-500">Tekstii vaaside mainsatete ja vostim.</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
-            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <Monitor className="w-8 h-8" />
-            </div>
+            <img src="/src/assets/window-robot-new.jpg" alt="Aknapesurobot" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
             <p className="font-semibold">Aknapesurobot</p>
             <p className="text-sm text-gray-500">Valiue kobsetu ja kormukerud ker tedinamestu</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
-            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <Zap className="w-8 h-8" />
-            </div>
+            <img src="/src/assets/steam-cleaner-karcher.jpg" alt="Aurupesur" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
             <p className="font-semibold">Aurupesur</p>
             <p className="text-sm text-gray-500">Eriianaldas, uridikone vedstipokelleta</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
-            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <CircleDot className="w-8 h-8" />
-            </div>
+            <img src="/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png" alt="Tolmuimeja" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
             <p className="font-semibold">Tolmuimeja</p>
             <p className="text-sm text-gray-500">Mugiv örjde valfii puuttae ja peutaimis</p>
           </div>
@@ -272,8 +318,8 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* Customer Testimonials */}
-      <section className="py-16">
+      {/* Customer Testimonials Carousel */}
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-light text-gray-800 mb-4">
@@ -281,40 +327,64 @@ const Homepage = () => {
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="p-8 text-center">
-              <CardContent className="p-0">
-                <div className="flex justify-center mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                    </svg>
-                  ))}
-                </div>
-                <h4 className="text-xl font-medium text-gray-800 mb-2">Kui kaua saab seanet rentida?</h4>
-                <p className="text-gray-600 mb-6">
-                  "Väga hea teenus ja kvaliteetsed seadmed. Soovitan soojalt!"
-                </p>
-                <p className="font-medium">Kadri, Tallinn</p>
-              </CardContent>
-            </Card>
+          <div className="relative max-w-4xl mx-auto">
+            <div 
+              ref={testimonialRef}
+              className="overflow-hidden"
+            >
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
+              >
+                {testimonials.map((testimonial, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-4">
+                    <Card className="p-8 text-center max-w-2xl mx-auto">
+                      <CardContent className="p-0">
+                        <div className="flex justify-center mb-4">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                          ))}
+                        </div>
+                        <p className="text-gray-600 mb-6 text-lg italic">
+                          "{testimonial.text}"
+                        </p>
+                        <p className="font-medium text-gray-800">
+                          {testimonial.name}, {testimonial.location}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            </div>
             
-            <Card className="p-8 text-center">
-              <CardContent className="p-0">
-                <div className="flex justify-center mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                    </svg>
-                  ))}
-                </div>
-                <h4 className="text-xl font-medium text-gray-800 mb-2">Kas seadmed on puhastatatud ja hooldatud?</h4>
-                <p className="text-gray-600 mb-6">
-                  "Lihtne kasutada ja väga efektiivne. Tekstiilipesur tegi imelisi tulemusi!"
-                </p>
-                <p className="font-medium">Martin, Tartu</p>
-              </CardContent>
-            </Card>
+            {/* Navigation buttons */}
+            <button
+              onClick={prevTestimonial}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow"
+            >
+              <ChevronLeft className="w-6 h-6 text-gray-600" />
+            </button>
+            
+            <button
+              onClick={nextTestimonial}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow"
+            >
+              <ChevronRight className="w-6 h-6 text-gray-600" />
+            </button>
+            
+            {/* Dots indicator */}
+            <div className="flex justify-center mt-8 space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    index === currentTestimonial ? 'bg-primary' : 'bg-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
