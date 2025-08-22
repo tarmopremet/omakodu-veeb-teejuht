@@ -233,7 +233,7 @@ const Homepage = () => {
       <section className="py-10 bg-gray-50 text-center">
         <h2 className="text-2xl font-bold mb-8">Mida saab rentida?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-          <div className="p-6 bg-white rounded-xl shadow">
+          <Link to="/tekstiilipesuri-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" aria-label="Tekstiilipesur" className="w-8 h-8">
                 {/* wand */}
@@ -252,8 +252,8 @@ const Homepage = () => {
             </div>
             <p className="font-semibold">Tekstiilipesur</p>
             <p className="text-sm text-gray-500">Tekstii vaaside mainsatete ja vostim.</p>
-          </div>
-          <div className="p-6 bg-white rounded-xl shadow">
+          </Link>
+          <Link to="/aurupesuri-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" aria-label="Aurupesur" className="w-8 h-8">
                 {/* handle / pole */}
@@ -271,8 +271,8 @@ const Homepage = () => {
             </div>
             <p className="font-semibold">Aurupesur</p>
             <p className="text-sm text-gray-500">Eriianaldas, uridikone vedstipokelleta</p>
-          </div>
-          <div className="p-6 bg-white rounded-xl shadow">
+          </Link>
+          <Link to="/aknapesuroboti-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" aria-label="Aknapesurobot" className="w-8 h-8">
                 {/* spray / motion lines */}
@@ -289,19 +289,24 @@ const Homepage = () => {
             </div>
             <p className="font-semibold">Aknapesurobot</p>
             <p className="text-sm text-gray-500">Valiue kobsetu ja kormukerud ker tedinamestu</p>
-          </div>
-          <div className="p-6 bg-white rounded-xl shadow">
+          </Link>
+          <Link to="/tolmuimeja-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="M21 21l-4.35-4.35"/>
-                <circle cx="11" cy="8" r="2"/>
-                <path d="M8 14h6"/>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" aria-label="Tolmuimeja" className="w-8 h-8">
+                {/* handle */}
+                <path d="M74 18v56" />
+                <path d="M74 18c10 0 18 8 18 18v24" />
+                {/* base */}
+                <rect x="34" y="90" width="68" height="14" rx="7" />
+                {/* body curve */}
+                <path d="M92 60c-14 0-26 12-26 26v4" />
+                {/* wheel */}
+                <circle cx="48" cy="116" r="6" />
               </svg>
             </div>
             <p className="font-semibold">Tolmuimeja</p>
             <p className="text-sm text-gray-500">Mugiv örjde valfii puuttae ja peutaimis</p>
-          </div>
+          </Link>
         </div>
       </section>
 
