@@ -490,13 +490,13 @@ const Homepage = () => {
           <AccordionItem value="item-1">
             <AccordionTrigger>Kui kaua saan seadet rentida?</AccordionTrigger>
             <AccordionContent>
-              Tavarent on 24 tundi, kuid saad broneeringut pikendada, kui kapis on vabu aegu. Soovi korral võid tagastada ka varem – maksad vaid kasutatud aja eest vastavalt hinnakirjale.
+              Rentida saad nii ühe tunni kauppa kui ka 24 h. Oleneb vajadusest. Saad broneeringut ka pikendada, kui on vabu aegu.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
             <AccordionTrigger>Kas hinnas sisaldub puhastusvahend?</AccordionTrigger>
             <AccordionContent>
-              Tekstiilipesuriga on kaasas esmane puhastuskontsentraat (tavaliselt piisab 1–2 puhastuseks). Vajadusel saad lisakoguse kätte samast nutikapist või tellida juurde.
+              Tekstiilipesuriga on kaasas 2 puhastustabletti. Need saad eraldi avatud kapist võtta (tavaliselt piisab 2 tabletist ühe toote puhastuseks). Vajadusel saad lisakoguse osta eraldi.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
