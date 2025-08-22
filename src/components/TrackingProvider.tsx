@@ -22,9 +22,9 @@ export const TrackingProvider: React.FC<TrackingProviderProps> = ({ children, co
     const defaultConfig: TrackingConfig = {
       // These would typically come from environment variables
       // For now using placeholder values that can be configured
-      googleAnalyticsId: config?.googleAnalyticsId || process.env.VITE_GA_TRACKING_ID || 'G-XXXXXXXXXX',
-      facebookPixelId: config?.facebookPixelId || process.env.VITE_FB_PIXEL_ID || '000000000000000',
-      googleTagManagerId: config?.googleTagManagerId || process.env.VITE_GTM_ID || 'GTM-XXXXXXX',
+      googleAnalyticsId: config?.googleAnalyticsId || import.meta.env.VITE_GA_TRACKING_ID || 'G-XXXXXXXXXX',
+      facebookPixelId: config?.facebookPixelId || import.meta.env.VITE_FB_PIXEL_ID || '000000000000000',
+      googleTagManagerId: config?.googleTagManagerId || import.meta.env.VITE_GTM_ID || 'GTM-XXXXXXX',
     };
 
     // Only initialize if we have at least one tracking ID
