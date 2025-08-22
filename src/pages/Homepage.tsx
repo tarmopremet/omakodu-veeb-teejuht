@@ -202,41 +202,67 @@ const Homepage = () => {
         </div>
       </section>
 
-      {/* Mida kliendid räägivad */}
-      <section className="py-10 text-center">
-        <h2 className="text-2xl font-bold mb-8">Mida kliendid räägivad?</h2>
-        <div className="flex flex-col md:flex-row justify-center gap-8 max-w-4xl mx-auto">
-          <div className="p-6 border rounded-lg shadow w-full md:w-1/2">
-            <p className="text-yellow-500 text-xl">★★★★★</p>
-            <p className="font-semibold mt-2">Kui kaua saan seadet rentida?</p>
-            <p className="text-sm text-gray-500 mt-1">Kadi, Tallinn</p>
+      {/* Klientide arvamused */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-light text-gray-800 mb-4">
+              Klientide arvamused
+            </h2>
           </div>
-          <div className="p-6 border rounded-lg shadow w-full md:w-1/2">
-            <p className="text-yellow-500 text-xl">★★★★★</p>
-            <p className="font-semibold mt-2">Kas seadmed on puhastatud ja hooldatud?</p>
-            <p className="text-sm text-gray-500 mt-1">Martin, Tartu</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <Card className="p-6 shadow-sm">
+              <CardContent className="p-0">
+                <div className="flex items-center mb-4">
+                  <div className="flex text-yellow-400">
+                    {'★'.repeat(5)}
+                  </div>
+                </div>
+                <p className="text-gray-600 mb-4">
+                  "Tekstiilipesur tegi imelist tööd! Diivan sai täiesti uue hingamise. Soovitan soojalt!"
+                </p>
+                <div className="text-sm text-gray-500">
+                  <span className="font-medium">Kadi</span> • Tallinn
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="p-6 shadow-sm">
+              <CardContent className="p-0">
+                <div className="flex items-center mb-4">
+                  <div className="flex text-yellow-400">
+                    {'★'.repeat(5)}
+                  </div>
+                </div>
+                <p className="text-gray-600 mb-4">
+                  "Nutikas süsteem! Sain seadme kätte 24/7 ja täiesti mugavalt. Aurupesur puhastab fantastiliselt."
+                </p>
+                <div className="text-sm text-gray-500">
+                  <span className="font-medium">Martin</span> • Tartu
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="p-6 shadow-sm">
+              <CardContent className="p-0">
+                <div className="flex items-center mb-4">
+                  <div className="flex text-yellow-400">
+                    {'★'.repeat(5)}
+                  </div>
+                </div>
+                <p className="text-gray-600 mb-4">
+                  "Odavam kui koristajat kutsuda! Seade oli puhas ja töökindel. Kindlasti kasutan uuesti."
+                </p>
+                <div className="text-sm text-gray-500">
+                  <span className="font-medium">Anne</span> • Pärnu
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* Korduma kippuvad küsimused */}
-      <section className="py-10 bg-gray-50">
-        <h2 className="text-2xl font-bold text-center mb-6">Korduma kippuvad küsimused</h2>
-        <div className="max-w-3xl mx-auto space-y-3">
-          <details className="bg-white shadow rounded p-4 cursor-pointer">
-            <summary className="font-semibold">Kui kaua saan seadet rentida?</summary>
-          </details>
-          <details className="bg-white shadow rounded p-4 cursor-pointer">
-            <summary className="font-semibold">Kas hinnas sisaldub puhastusvahend?</summary>
-          </details>
-          <details className="bg-white shadow rounded p-4 cursor-pointer">
-            <summary className="font-semibold">Kas seadmed on puhastatud ja hooldatud?</summary>
-          </details>
-          <details className="bg-white shadow rounded p-4 cursor-pointer">
-            <summary className="font-semibold">Kus nutiäpid asuvad?</summary>
-          </details>
-        </div>
-      </section>
 
 
       {/* Feature Strip */}
@@ -477,6 +503,25 @@ const Homepage = () => {
             </div>
           </div>
         </div>
+      {/* Korduma kippuvad küsimused */}
+      <section className="py-10 bg-gray-50">
+        <h2 className="text-2xl font-bold text-center mb-6">Korduma kippuvad küsimused</h2>
+        <div className="max-w-3xl mx-auto space-y-3">
+          <details className="bg-white shadow rounded p-4 cursor-pointer">
+            <summary className="font-semibold">Kui kaua saan seadet rentida?</summary>
+          </details>
+          <details className="bg-white shadow rounded p-4 cursor-pointer">
+            <summary className="font-semibold">Kas hinnas sisaldub puhastusvahend?</summary>
+          </details>
+          <details className="bg-white shadow rounded p-4 cursor-pointer">
+            <summary className="font-semibold">Kas seadmed on puhastatud ja hooldatud?</summary>
+          </details>
+          <details className="bg-white shadow rounded p-4 cursor-pointer">
+            <summary className="font-semibold">Kus nutiäpid asuvad?</summary>
+          </details>
+        </div>
+      </section>
+
       </section>
 
       <Footer />
