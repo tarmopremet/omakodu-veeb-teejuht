@@ -197,7 +197,7 @@ const Homepage = () => {
           <div className="text-center flex-1">
             <div className="w-24 h-24 mx-auto mb-4 rounded-lg overflow-hidden bg-gray-100">
               <img 
-                src="/src/assets/cleaning-equipment-hero.jpg" 
+                src="/lovable-uploads/df0e8fbf-70e2-43c9-85f7-287560a031d1.png" 
                 alt="Kasuta kodus"
                 className="w-full h-full object-cover"
               />
@@ -215,7 +215,7 @@ const Homepage = () => {
           <div className="text-center flex-1">
             <div className="w-24 h-24 mx-auto mb-4 rounded-lg overflow-hidden bg-gray-100">
               <img 
-                src="/src/assets/hero-apartment.jpg" 
+                src="/lovable-uploads/df0e8fbf-70e2-43c9-85f7-287560a031d1.png"
                 alt="Tagasta nutikappi"
                 className="w-full h-full object-cover"
               />
