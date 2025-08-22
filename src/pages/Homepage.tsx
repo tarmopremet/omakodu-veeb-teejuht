@@ -156,22 +156,22 @@ const Homepage = () => {
           <div>
             <img src="https://img.icons8.com/ios/50/000000/warehouse.png" className="mx-auto mb-3" />
             <p className="font-semibold">Vali saade ja asukoht</p>
-            <p className="text-sm text-gray-500">Tallinn, Tartu, Pärnu, Rakvere</p>
+            <p className="text-sm text-gray-500">Leia lähim nutikapp.</p>
           </div>
           <div>
             <img src="https://img.icons8.com/ios/50/000000/calendar.png" className="mx-auto mb-3" />
             <p className="font-semibold">Broneeri veebis</p>
-            <p className="text-sm text-gray-500">Mattuidn agetisu ja sakal koosie.</p>
+            <p className="text-sm text-gray-500">Kõik toimub mugavalt veebis.</p>
           </div>
           <div>
             <img src="https://img.icons8.com/ios/50/000000/sofa.png" className="mx-auto mb-3" />
-            <p className="font-semibold">Kasuta kodus</p>
-            <p className="text-sm text-gray-500">Kagenpal suti'le inre gnake kveteou pronoulunersäd.</p>
+            <p className="font-semibold">Puhasta kodu</p>
+            <p className="text-sm text-gray-500">Naudi tulemust.</p>
           </div>
           <div>
             <img src="https://img.icons8.com/ios/50/000000/smartphone.png" className="mx-auto mb-3" />
-            <p className="font-semibold">Taseeta nutiäppi</p>
-            <p className="text-sm text-gray-500">Tagetak eastu mamäl sanstau.</p>
+            <p className="font-semibold">Tagasta nutikappi</p>
+            <p className="text-sm text-gray-500">Kui oled valmis, kasvõi samal päeval.</p>
           </div>
         </div>
       </section>
