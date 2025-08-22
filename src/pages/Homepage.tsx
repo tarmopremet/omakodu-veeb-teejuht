@@ -9,9 +9,6 @@ import { useSEO } from "@/hooks/useSEO";
 import { generateHomepageSEO } from "@/components/SEOHead";
 import { useTracking } from "@/components/TrackingProvider";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import wurthCleaner from "@/assets/wurth-textile-cleaner.jpg";
-import steamCleaner from "@/assets/steam-cleaner-karcher.jpg";
-import windowRobot from "@/assets/window-robot-new.jpg";
 
 const Homepage = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
@@ -260,7 +257,7 @@ const Homepage = () => {
           <Link to="/tekstiilipesuri-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
               <img 
-                src={wurthCleaner} 
+                src="/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png" 
                 alt="Tekstiilipesur" 
                 className="w-12 h-12 object-contain rounded"
               />
@@ -271,7 +268,7 @@ const Homepage = () => {
           <Link to="/aurupesuri-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
               <img 
-                src={steamCleaner} 
+                src="/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png" 
                 alt="Aurupesur" 
                 className="w-12 h-12 object-contain rounded"
               />
@@ -282,7 +279,7 @@ const Homepage = () => {
           <Link to="/aknapesuroboti-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
               <img 
-                src={windowRobot} 
+                src="/lovable-uploads/6e499b97-cfc1-4c42-9c13-54c706a3f46d.png" 
                 alt="Aknapesurobot" 
                 className="w-12 h-12 object-contain rounded"
               />
