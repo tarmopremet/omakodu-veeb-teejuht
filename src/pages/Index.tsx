@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
-import { RendiIseHeader } from "@/components/RendiIseHeader";
+import { RendiIseHeader } from "@/fcomponents/RendiIseHeader";
 import { Footer } from "@/components/Footer";
 import { RentalFilters } from "@/components/RentalFilters";
 import { RentalProductCard } from "@/components/RentalProductCard";
