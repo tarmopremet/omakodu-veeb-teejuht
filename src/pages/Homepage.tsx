@@ -177,27 +177,27 @@ const Homepage = () => {
 
       {/* Miks valida Rendilse */}
       <section className="py-10 bg-gray-50 text-center">
-        <h2 className="text-2xl font-bold mb-8">Miks valida Rendilse?</h2>
+        <h2 className="text-2xl font-bold mb-8">Mida saab rentida?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           <div className="p-6 bg-white rounded-xl shadow">
             <img src="https://img.icons8.com/ios/50/000000/vacuum-cleaner.png" className="mx-auto mb-3" />
             <p className="font-semibold">Tekstiilipesur</p>
-            <p className="text-sm text-gray-500">Teestii washez mainsatetea ja vostm.</p>
+            <p className="text-sm text-gray-500">Diivanite, vaipade ja madratsite sügavpuhastuseks.</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
             <img src="https://img.icons8.com/ios/50/000000/window-cleaner.png" className="mx-auto mb-3" />
             <p className="font-semibold">Aknapesurobot</p>
-            <p className="text-sm text-gray-500">Valirue kobskä ja kormkuenua ker tedinametu.</p>
+            <p className="text-sm text-gray-500">Säravad aknad ilma pingutuseta.</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
             <img src="https://img.icons8.com/ios/50/000000/steam-cleaner.png" className="mx-auto mb-3" />
             <p className="font-semibold">Aurupesur</p>
-            <p className="text-sm text-gray-500">Erilanldas, uridkone vedstipokelleta.</p>
+            <p className="text-sm text-gray-500">Eemaldab mustuse ja bakterid kemikaalideta.</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
             <img src="https://img.icons8.com/ios/50/000000/floor-cleaner.png" className="mx-auto mb-3" />
             <p className="font-semibold">Tolmuimeja</p>
-            <p className="text-sm text-gray-500">Muglý oride valffi purttae ja pautaemïs.</p>
+            <p className="text-sm text-gray-500">Igapäevaseks või suurpuhastuseks.</p>
           </div>
         </div>
       </section>
