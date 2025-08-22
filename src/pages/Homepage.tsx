@@ -9,6 +9,9 @@ import { useSEO } from "@/hooks/useSEO";
 import { generateHomepageSEO } from "@/components/SEOHead";
 import { useTracking } from "@/components/TrackingProvider";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import wurthCleaner from "@/assets/wurth-textile-cleaner.jpg";
+import steamCleaner from "@/assets/steam-cleaner-karcher.jpg";
+import windowRobot from "@/assets/window-robot-new.jpg";
 
 const Homepage = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
@@ -256,57 +259,33 @@ const Homepage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           <Link to="/tekstiilipesuri-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" aria-label="Tekstiilipesur" className="w-8 h-8">
-                {/* wand */}
-                <path d="M28 94V50c0-8 6-14 14-14s14 6 14 14" />
-                <path d="M56 86H36" />
-                {/* head */}
-                <rect x="20" y="86" width="40" height="18" rx="9" />
-                {/* hose to canister */}
-                <path d="M60 94c10 0 18 8 18 18" />
-                {/* canister body */}
-                <rect x="78" y="90" width="32" height="22" rx="6" />
-                {/* wheels */}
-                <circle cx="86" cy="116" r="6" />
-                <circle cx="106" cy="116" r="6" />
-              </svg>
+              <img 
+                src={wurthCleaner} 
+                alt="Tekstiilipesur" 
+                className="w-12 h-12 object-contain rounded"
+              />
             </div>
             <p className="font-semibold">Tekstiilipesur</p>
             <p className="text-sm text-gray-500">Diivanite, vaipade ja madratsite sügavpuhastuseks.</p>
           </Link>
           <Link to="/aurupesuri-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" aria-label="Aurupesur" className="w-8 h-8">
-                {/* handle / pole */}
-                <path d="M40 86V52c0-6 4-10 10-10s10 4 10 10v34" />
-                {/* head */}
-                <rect x="28" y="86" width="44" height="14" rx="7" />
-                {/* boiler / tank */}
-                <rect x="78" y="76" width="30" height="24" rx="8" />
-                {/* wheels */}
-                <circle cx="40" cy="110" r="6" />
-                <circle cx="60" cy="110" r="6" />
-                {/* steam puffs */}
-                <path d="M92 50c-6 0-10-4-10-8s4-8 10-8m8 16c6 0 10-4 10-8s-4-8-10-8" />
-              </svg>
+              <img 
+                src={steamCleaner} 
+                alt="Aurupesur" 
+                className="w-12 h-12 object-contain rounded"
+              />
             </div>
             <p className="font-semibold">Aurupesur</p>
             <p className="text-sm text-gray-500">Eemaldab mustuse ja bakterid kemikaalideta.</p>
           </Link>
           <Link to="/aknapesuroboti-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" aria-label="Aknapesurobot" className="w-8 h-8">
-                {/* spray / motion lines */}
-                <path d="M18 54h18" />
-                <path d="M18 42h14" />
-                <path d="M18 66h14" />
-                {/* robot body */}
-                <path d="M52 90h24c10 0 18-8 18-18V60c0-14-12-26-26-26s-26 12-26 26v12c0 10 8 18 18 18z" />
-                {/* eye / sensor */}
-                <circle cx="68" cy="56" r="6" />
-                {/* base bumper */}
-                <rect x="44" y="90" width="48" height="14" rx="7" />
-              </svg>
+              <img 
+                src={windowRobot} 
+                alt="Aknapesurobot" 
+                className="w-12 h-12 object-contain rounded"
+              />
             </div>
             <p className="font-semibold">Aknapesurobot</p>
             <p className="text-sm text-gray-500">Säravad aknad ilma pingutuseta.</p>
