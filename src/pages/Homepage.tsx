@@ -90,11 +90,11 @@ const Homepage = () => {
   ];
 
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    setCurrentTestimonial((prev) => (prev + 3) % testimonials.length);
   };
 
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentTestimonial((prev) => (prev - 3 + testimonials.length) % testimonials.length);
   };
 
   useEffect(() => {
@@ -358,28 +358,28 @@ const Homepage = () => {
             </h2>
           </div>
           
-          <div className="relative max-w-4xl mx-auto">
+          <div className="relative max-w-6xl mx-auto">
             <div 
               ref={testimonialRef}
               className="overflow-hidden"
             >
               <div 
                 className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
+                style={{ transform: `translateX(-${(currentTestimonial / 3) * 100}%)` }}
               >
                 {testimonials.map((testimonial, index) => (
-                  <div key={index} className="w-full flex-shrink-0 px-4">
-                    <Card className="p-8 text-center max-w-2xl mx-auto">
-                      <CardContent className="p-0">
+                  <div key={index} className="w-full md:w-1/3 flex-shrink-0 px-2">
+                    <Card className="p-6 text-center h-full">
+                      <CardContent className="p-0 flex flex-col h-full">
                         <div className="flex justify-center mb-4">
                           {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                            <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                           ))}
                         </div>
-                        <p className="text-gray-600 mb-6 text-lg italic">
+                        <p className="text-gray-600 mb-4 text-sm italic flex-grow">
                           "{testimonial.text}"
                         </p>
-                        <p className="font-medium text-gray-800">
+                        <p className="font-medium text-gray-800 text-sm">
                           {testimonial.name}, {testimonial.location}
                         </p>
                       </CardContent>
@@ -392,26 +392,26 @@ const Homepage = () => {
             {/* Navigation buttons */}
             <button
               onClick={prevTestimonial}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow"
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow z-10"
             >
-              <ChevronLeft className="w-6 h-6 text-gray-600" />
+              <ChevronLeft className="w-5 h-5 text-gray-600" />
             </button>
             
             <button
               onClick={nextTestimonial}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow z-10"
             >
-              <ChevronRight className="w-6 h-6 text-gray-600" />
+              <ChevronRight className="w-5 h-5 text-gray-600" />
             </button>
             
             {/* Dots indicator */}
-            <div className="flex justify-center mt-8 space-x-2">
-              {testimonials.map((_, index) => (
+            <div className="flex justify-center mt-6 space-x-2">
+              {Array.from({ length: Math.ceil(testimonials.length / 3) }).map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    index === currentTestimonial ? 'bg-primary' : 'bg-gray-300'
+                  onClick={() => setCurrentTestimonial(index * 3)}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    Math.floor(currentTestimonial / 3) === index ? 'bg-primary' : 'bg-gray-300'
                   }`}
                 />
               ))}
