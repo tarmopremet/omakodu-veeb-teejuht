@@ -180,17 +180,17 @@ const Homepage = () => {
         <h2 className="text-2xl font-bold mb-8">Mida saab rentida?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           <div className="p-6 bg-white rounded-xl shadow">
-            <img src="/src/assets/textile-cleaner.jpg" alt="Tekstiilipesur" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
+            <img src="/src/assets/wurth-textile-cleaner.jpg" alt="Tekstiilipesur" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
             <p className="font-semibold">Tekstiilipesur</p>
             <p className="text-sm text-gray-500">Diivanite, vaipade ja madratsite sügavpuhastuseks.</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
-            <img src="/src/assets/window-robot.jpg" alt="Aknapesurobot" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
+            <img src="/src/assets/window-robot-new.jpg" alt="Aknapesurobot" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
             <p className="font-semibold">Aknapesurobot</p>
             <p className="text-sm text-gray-500">Säravad aknad ilma pingutuseta.</p>
           </div>
           <div className="p-6 bg-white rounded-xl shadow">
-            <img src="/src/assets/steam-cleaner.jpg" alt="Aurupesur" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
+            <img src="/src/assets/steam-cleaner-karcher.jpg" alt="Aurupesur" className="mx-auto mb-3 w-20 h-20 object-cover rounded-lg" />
             <p className="font-semibold">Aurupesur</p>
             <p className="text-sm text-gray-500">Eemaldab mustuse ja bakterid kemikaalideta.</p>
           </div>
