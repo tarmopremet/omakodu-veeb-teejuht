@@ -19,6 +19,30 @@ export const RendiIseHeader = () => {
     { name: "Saku", href: "/saku" }
   ];
 
+  const cityLocations = {
+    "Tallinn": [
+      { name: "Kristiine Keskus", href: "/tallinn#kristiine" },
+      { name: "Sikupilli Prisma", href: "/tallinn#sikupilli" },
+      { name: "Lasnamäe Prisma", href: "/tallinn#lasnamae" },
+      { name: "Kadaka Selver", href: "/tallinn#kadaka" },
+      { name: "Pirita Selver", href: "/tallinn#pirita" },
+      { name: "Järve Keskus", href: "/tallinn#jarve" }
+    ],
+    "Tartu": [
+      { name: "Sõbra Prisma", href: "/tartu#sobra" },
+      { name: "Annelinna Keskus", href: "/tartu#annelinn" }
+    ],
+    "Pärnu": [
+      { name: "Port Artur", href: "/parnu#port-artur" }
+    ],
+    "Rakvere": [
+      { name: "Aqva Keskus", href: "/rakvere#aqva" }
+    ],
+    "Saku": [
+      { name: "Saku Suurhall", href: "/saku#suurhall" }
+    ]
+  } as const;
+
   // Get current city from URL
   const getCurrentCity = () => {
     const path = location.pathname;
@@ -27,8 +51,10 @@ export const RendiIseHeader = () => {
 
   const currentCity = getCurrentCity();
   
-  // Show only current city if on a city-specific page, otherwise show all cities
-  const citiesToShow = currentCity ? [currentCity] : allCities;
+  // Show specific locations for current city, or all cities if not on a city page
+  const itemsToShow = currentCity 
+    ? cityLocations[currentCity.name as keyof typeof cityLocations] || []
+    : allCities;
   
   return (
     <>
@@ -109,15 +135,15 @@ export const RendiIseHeader = () => {
               </button>
               
               {showLocationDropdown && (
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[120px]">
-                  {citiesToShow.map((city) => (
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[180px]">
+                  {itemsToShow.map((item) => (
                     <Link
-                      key={city.name}
-                      to={city.href}
+                      key={item.name}
+                      to={item.href}
                       onClick={() => setShowLocationDropdown(false)}
                       className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-primary hover:text-primary-foreground transition-all duration-200 first:rounded-t-lg last:rounded-b-lg"
                     >
-                      {city.name}
+                      {item.name}
                     </Link>
                   ))}
                 </div>
