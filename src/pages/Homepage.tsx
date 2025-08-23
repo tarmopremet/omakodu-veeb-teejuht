@@ -166,32 +166,32 @@ const Homepage = () => {
             
             {/* Lisatud tööriistad ja teenused - Parandatud mobiili jaoks */}
             <div className="space-y-3 mb-8">
-              <div className="flex items-center">
-                <span className="text-primary font-bold mr-2 w-2 h-2 rounded-full bg-primary flex-shrink-0"></span>
+              <div className="flex items-start">
+                <span className="text-primary font-bold mr-3 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-2"></span>
                 <Link to="/tekstiilipesuri-rent" className="text-gray-700 hover:text-primary transition-colors">
                   tekstiilipesuri rent
                 </Link>
               </div>
-              <div className="flex items-center">
-                <span className="text-primary font-bold mr-2 w-2 h-2 rounded-full bg-primary flex-shrink-0"></span>
+              <div className="flex items-start">
+                <span className="text-primary font-bold mr-3 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-2"></span>
                 <Link to="/aurupesuri-rent" className="text-gray-700 hover:text-primary transition-colors">
                   aurupesuri rent
                 </Link>
               </div>
-              <div className="flex items-center">
-                <span className="text-primary font-bold mr-2 w-2 h-2 rounded-full bg-primary flex-shrink-0"></span>
+              <div className="flex items-start">
+                <span className="text-primary font-bold mr-3 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-2"></span>
                 <Link to="/aknapesuroboti-rent" className="text-gray-700 hover:text-primary transition-colors">
                   aknapesuroboti rent
                 </Link>
               </div>
-              <div className="flex items-center">
-                <span className="text-primary font-bold mr-2 w-2 h-2 rounded-full bg-primary flex-shrink-0"></span>
+              <div className="flex items-start">
+                <span className="text-primary font-bold mr-3 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-2"></span>
                 <Link to="/tolmuimeja-rent" className="text-gray-700 hover:text-primary transition-colors">
                   tolmuimeja rent
                 </Link>
               </div>
-              <div className="flex items-center">
-                <span className="text-primary font-bold mr-2 w-2 h-2 rounded-full bg-primary flex-shrink-0"></span>
+              <div className="flex items-start">
+                <span className="text-primary font-bold mr-3 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-2"></span>
                 <Link to="/aknapesuri-rent" className="text-gray-700 hover:text-primary transition-colors">
                   aknapesuri rent
                 </Link>
@@ -307,16 +307,17 @@ const Homepage = () => {
 
 
       {/* Video Section - Parandatud mobiili nähtavuse jaoks */}
-      <section className="container mx-auto px-4 py-8 block">
+      <section className="container mx-auto px-4 py-8">
         <div className="flex justify-center">
           <div className="w-full max-w-4xl">
             <div className="relative pb-[56.25%] h-0 rounded-lg overflow-hidden bg-gray-100">
               <iframe
-                src="https://www.youtube.com/embed/4Fb3fDTeDWg"
+                src="https://www.youtube.com/embed/4Fb3fDTeDWg?autoplay=0&mute=0&controls=1&playsinline=1"
                 className="absolute top-0 left-0 w-full h-full border-0"
                 allowFullScreen
                 title="Rendiise video"
                 loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 style={{ minHeight: '200px' }}
               />
             </div>
