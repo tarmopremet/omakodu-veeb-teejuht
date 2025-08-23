@@ -204,66 +204,68 @@ export const AdminReservations = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>ID</TableHead>
-                <TableHead>Kasutaja</TableHead>
-                <TableHead>Kapp</TableHead>
-                <TableHead>Algus</TableHead>
-                <TableHead>Lõpp</TableHead>
-                <TableHead>Olek</TableHead>
-                <TableHead>Loodud</TableHead>
-                <TableHead>Tegevused</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredReservations.map((reservation) => (
-                <TableRow key={reservation.id}>
-                  <TableCell className="font-medium">#{reservation.id}</TableCell>
-                  <TableCell>{reservation.user_id || 'Määramata'}</TableCell>
-                  <TableCell>{getLockerName(reservation.locker_id)}</TableCell>
-                  <TableCell>
-                    {new Date(reservation.start_at).toLocaleString('et-EE')}
-                  </TableCell>
-                  <TableCell>
-                    {new Date(reservation.end_at).toLocaleString('et-EE')}
-                  </TableCell>
-                  <TableCell>{getStatusBadge(reservation.status)}</TableCell>
-                  <TableCell>
-                    {new Date(reservation.created_at).toLocaleString('et-EE')}
-                  </TableCell>
-                  <TableCell>
-                    <Select
-                      value={reservation.status}
-                      onValueChange={(newStatus) => updateReservationStatus(reservation.id, newStatus)}
-                    >
-                      <SelectTrigger className="w-[120px]">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="pending">Ootel</SelectItem>
-                        <SelectItem value="confirmed">Kinnitatud</SelectItem>
-                        <SelectItem value="active">Aktiivne</SelectItem>
-                        <SelectItem value="completed">Lõpetatud</SelectItem>
-                        <SelectItem value="cancelled">Tühistatud</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </TableCell>
-                </TableRow>
-              ))}
-              {filteredReservations.length === 0 && (
+          <div className="w-full overflow-x-auto">
+            <Table className="min-w-[900px]">
+              <TableHeader>
                 <TableRow>
-                  <TableCell colSpan={8} className="text-center py-8">
-                    {statusFilter === 'all' 
-                      ? 'Ühtegi reservatsiooni pole veel tehtud'
-                      : `Ühtegi ${statusFilter} olekuga reservatsiooni ei leitud`
-                    }
-                  </TableCell>
+                  <TableHead>ID</TableHead>
+                  <TableHead>Kasutaja</TableHead>
+                  <TableHead>Kapp</TableHead>
+                  <TableHead>Algus</TableHead>
+                  <TableHead>Lõpp</TableHead>
+                  <TableHead>Olek</TableHead>
+                  <TableHead>Loodud</TableHead>
+                  <TableHead>Tegevused</TableHead>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {filteredReservations.map((reservation) => (
+                  <TableRow key={reservation.id}>
+                    <TableCell className="font-medium">#{reservation.id}</TableCell>
+                    <TableCell>{reservation.user_id || 'Määramata'}</TableCell>
+                    <TableCell>{getLockerName(reservation.locker_id)}</TableCell>
+                    <TableCell>
+                      {new Date(reservation.start_at).toLocaleString('et-EE')}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(reservation.end_at).toLocaleString('et-EE')}
+                    </TableCell>
+                    <TableCell>{getStatusBadge(reservation.status)}</TableCell>
+                    <TableCell>
+                      {new Date(reservation.created_at).toLocaleString('et-EE')}
+                    </TableCell>
+                    <TableCell>
+                      <Select
+                        value={reservation.status}
+                        onValueChange={(newStatus) => updateReservationStatus(reservation.id, newStatus)}
+                      >
+                        <SelectTrigger className="w-[140px]">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="pending">Ootel</SelectItem>
+                          <SelectItem value="confirmed">Kinnitatud</SelectItem>
+                          <SelectItem value="active">Aktiivne</SelectItem>
+                          <SelectItem value="completed">Lõpetatud</SelectItem>
+                          <SelectItem value="cancelled">Tühistatud</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {filteredReservations.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={8} className="text-center py-8">
+                      {statusFilter === 'all' 
+                        ? 'Ühtegi reservatsiooni pole veel tehtud'
+                        : `Ühtegi ${statusFilter} olekuga reservatsiooni ei leitud`
+                      }
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>

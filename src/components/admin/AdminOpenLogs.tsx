@@ -129,7 +129,7 @@ export const AdminOpenLogs = () => {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Kokku tegevusi</CardTitle>
@@ -202,54 +202,56 @@ export const AdminOpenLogs = () => {
           </div>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Aeg</TableHead>
-                <TableHead>Kapp</TableHead>
-                <TableHead>Kasutaja</TableHead>
-                <TableHead>Tegevus</TableHead>
-                <TableHead>Lisainfo</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredLogs.map((log) => (
-                <TableRow key={log.id}>
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span className="font-medium">
-                        {new Date(log.timestamp).toLocaleString('et-EE')}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>{getLockerName(log.locker_id)}</TableCell>
-                  <TableCell>{log.user_id || 'Süsteem'}</TableCell>
-                  <TableCell>{getActionBadge(log.action)}</TableCell>
-                  <TableCell>
-                    {log.meta ? (
-                      <div className="text-sm text-muted-foreground">
-                        <pre className="max-w-xs overflow-hidden text-ellipsis">
-                          {JSON.stringify(log.meta, null, 2)}
-                        </pre>
-                      </div>
-                    ) : (
-                      '-'
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
-              {filteredLogs.length === 0 && (
+          <div className="w-full overflow-x-auto">
+            <Table className="min-w-[800px]">
+              <TableHeader>
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center py-8">
-                    {searchTerm || actionFilter !== 'all' 
-                      ? 'Filtritele vastavaid logisid ei leitud'
-                      : 'Ühtegi tegevust pole veel logitud'
-                    }
-                  </TableCell>
+                  <TableHead>Aeg</TableHead>
+                  <TableHead>Kapp</TableHead>
+                  <TableHead>Kasutaja</TableHead>
+                  <TableHead>Tegevus</TableHead>
+                  <TableHead>Lisainfo</TableHead>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {filteredLogs.map((log) => (
+                  <TableRow key={log.id}>
+                    <TableCell>
+                      <div className="flex flex-col">
+                        <span className="font-medium">
+                          {new Date(log.timestamp).toLocaleString('et-EE')}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell>{getLockerName(log.locker_id)}</TableCell>
+                    <TableCell>{log.user_id || 'Süsteem'}</TableCell>
+                    <TableCell>{getActionBadge(log.action)}</TableCell>
+                    <TableCell>
+                      {log.meta ? (
+                        <div className="text-sm text-muted-foreground">
+                          <pre className="max-w-xs overflow-hidden text-ellipsis">
+                            {JSON.stringify(log.meta, null, 2)}
+                          </pre>
+                        </div>
+                      ) : (
+                        '-'
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {filteredLogs.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={5} className="text-center py-8">
+                      {searchTerm || actionFilter !== 'all' 
+                        ? 'Filtritele vastavaid logisid ei leitud'
+                        : 'Ühtegi tegevust pole veel logitud'
+                      }
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>

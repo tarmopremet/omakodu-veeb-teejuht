@@ -79,7 +79,7 @@ export const AdminPage = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 xl:grid-cols-12 mb-8 gap-2">
+          <TabsList className="flex w-full overflow-x-auto whitespace-nowrap gap-2 mb-8">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
               Ülevaade

@@ -194,8 +194,8 @@ export const AdminBookings = () => {
           </Select>
         </div>
 
-        <div className="rounded-md border">
-          <Table>
+        <div className="w-full overflow-x-auto rounded-md border">
+          <Table className="min-w-[900px]">
             <TableHeader>
               <TableRow>
                 <TableHead>Klient</TableHead>

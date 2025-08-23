@@ -312,11 +312,12 @@ const Homepage = () => {
           <div className="w-full max-w-4xl">
             <div className="relative pb-[56.25%] h-0 rounded-lg overflow-hidden bg-gray-100">
               <iframe
-                src="https://www.youtube.com/embed/4Fb3fDTeDWg?autoplay=0&mute=0&controls=1&playsinline=1"
+                src="https://www.youtube-nocookie.com/embed/4Fb3fDTeDWg?autoplay=0&mute=0&controls=1&playsinline=1"
                 className="absolute top-0 left-0 w-full h-full border-0"
                 allowFullScreen
                 title="Rendiise video"
                 loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 style={{ minHeight: '200px' }}
               />

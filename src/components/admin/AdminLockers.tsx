@@ -246,80 +246,82 @@ export const AdminLockers = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Nimi</TableHead>
-                <TableHead>Hub ID</TableHead>
-                <TableHead>Relay ID</TableHead>
-                <TableHead>Olek</TableHead>
-                <TableHead>Viimati avatud</TableHead>
-                <TableHead>Tegevused</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {lockers.map((locker) => (
-                <TableRow key={locker.id}>
-                  <TableCell className="font-medium">{locker.name}</TableCell>
-                  <TableCell>{locker.hub_id}</TableCell>
-                  <TableCell>{locker.relay_id}</TableCell>
-                  <TableCell>
-                    <Badge variant={locker.status === 'closed' ? 'secondary' : 'default'}>
-                      {locker.status === 'closed' ? (
-                        <>
-                          <Lock className="mr-1 h-3 w-3" />
-                          Suletud
-                        </>
-                      ) : (
-                        <>
-                          <Unlock className="mr-1 h-3 w-3" />
-                          Avatud
-                        </>
-                      )}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    {locker.last_opened_at 
-                      ? new Date(locker.last_opened_at).toLocaleString('et-EE')
-                      : 'Pole avatud'
-                    }
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleOpenLocker(locker)}
-                      >
-                        <Unlock className="h-3 w-3" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleEdit(locker)}
-                      >
-                        <Edit2 className="h-3 w-3" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleDelete(locker.id)}
-                      >
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-              {lockers.length === 0 && (
+          <div className="w-full overflow-x-auto">
+            <Table className="min-w-[720px]">
+              <TableHeader>
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center py-8">
-                    Ühtegi kappi pole veel lisatud
-                  </TableCell>
+                  <TableHead>Nimi</TableHead>
+                  <TableHead>Hub ID</TableHead>
+                  <TableHead>Relay ID</TableHead>
+                  <TableHead>Olek</TableHead>
+                  <TableHead>Viimati avatud</TableHead>
+                  <TableHead>Tegevused</TableHead>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {lockers.map((locker) => (
+                  <TableRow key={locker.id}>
+                    <TableCell className="font-medium">{locker.name}</TableCell>
+                    <TableCell>{locker.hub_id}</TableCell>
+                    <TableCell>{locker.relay_id}</TableCell>
+                    <TableCell>
+                      <Badge variant={locker.status === 'closed' ? 'secondary' : 'default'}>
+                        {locker.status === 'closed' ? (
+                          <>
+                            <Lock className="mr-1 h-3 w-3" />
+                            Suletud
+                          </>
+                        ) : (
+                          <>
+                            <Unlock className="mr-1 h-3 w-3" />
+                            Avatud
+                          </>
+                        )}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      {locker.last_opened_at 
+                        ? new Date(locker.last_opened_at).toLocaleString('et-EE')
+                        : 'Pole avatud'
+                      }
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleOpenLocker(locker)}
+                        >
+                          <Unlock className="h-3 w-3" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleEdit(locker)}
+                        >
+                          <Edit2 className="h-3 w-3" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleDelete(locker.id)}
+                        >
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {lockers.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={6} className="text-center py-8">
+                      Ühtegi kappi pole veel lisatud
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>
