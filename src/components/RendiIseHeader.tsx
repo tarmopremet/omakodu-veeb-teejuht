@@ -72,6 +72,9 @@ export const RendiIseHeader = () => {
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" />
                 <span>{user.email}</span>
+                <Link to="/dashboard" className="hover:underline">
+                  Tellimused
+                </Link>
                 {isAdmin && (
                   <Link to="/admin" className="hover:underline">
                     Admin

@@ -19,6 +19,7 @@ import SalesProducts from "./pages/SalesProducts";
 import { AuthPage } from "./pages/AuthPage";
 import { AdminPage } from "./pages/AdminPage";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
+import { UserDashboard } from "./components/UserDashboard";
 import NotFound from "./pages/NotFound";
 import TekstiilipesuriRent from "./pages/TekstiilipesuriRent";
 import AurupesuriRent from "./pages/AurupesuriRent";
@@ -62,6 +63,7 @@ const App = () => (
             <Route path="/aknapesuri-rent" element={<AknapesuriRent />} />
             <Route path="/kasutajatingimused" element={<TermsAndConditions />} />
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/dashboard" element={<UserDashboard />} />
             <Route path="/admin" element={<AdminPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
