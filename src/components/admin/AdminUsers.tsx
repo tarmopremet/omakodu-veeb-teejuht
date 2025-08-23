@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Search, Eye, EyeOff } from "lucide-react";
+import { Search, Eye, EyeOff, Upload, Download } from "lucide-react";
 
 interface UserProfile {
   id: string;
@@ -95,6 +95,113 @@ export default function AdminUsers() {
     }
   };
 
+  const exportUsers = () => {
+    const csvContent = [
+      ['Nimi', 'Email', 'Telefon', 'Isikukood', 'Roll', 'Staatus', 'Broneeringud', 'Loodud'].join(','),
+      ...users.map(user => [
+        user.full_name || '',
+        user.user_id || '',
+        user.phone_number || '',
+        user.personal_code || '',
+        user.role || 'user',
+        user.is_active ? 'Aktiivne' : 'Peidetud',
+        user.bookings_count || 0,
+        new Date(user.created_at).toLocaleDateString('et-EE')
+      ].join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `kasutajad_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const lines = text.split('\n').filter(line => line.trim());
+      const headers = lines[0].split(',').map(h => h.trim());
+      
+      if (lines.length < 2) {
+        toast({
+          title: "Viga",
+          description: "CSV fail peab sisaldama vähemalt ühte kasutajat",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      let importCount = 0;
+      let errorCount = 0;
+
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',').map(v => v.trim());
+        
+        if (values.length >= 3) {
+          try {
+            // Create a temporary user account
+            const tempEmail = `import_user_${Date.now()}_${i}@temp.com`;
+            const { data: authData, error: authError } = await supabase.auth.signUp({
+              email: tempEmail,
+              password: 'TempPassword123!',
+              options: {
+                data: {
+                  full_name: values[0] || 'Importitud kasutaja'
+                }
+              }
+            });
+
+            if (authError) throw authError;
+
+            if (authData.user) {
+              // Update profile with real data
+              const { error: profileError } = await supabase
+                .from('profiles')
+                .update({
+                  full_name: values[0] || 'Importitud kasutaja',
+                  phone_number: values[2] || null,
+                  personal_code: values[3] || null,
+                  is_active: true
+                })
+                .eq('user_id', authData.user.id);
+
+              if (profileError) throw profileError;
+              importCount++;
+            }
+          } catch (error) {
+            console.error(`Viga kasutaja ${i} importimisel:`, error);
+            errorCount++;
+          }
+        }
+      }
+
+      toast({
+        title: "Import lõpetatud",
+        description: `Imporditud: ${importCount} kasutajat. Vigu: ${errorCount}`,
+      });
+
+      fetchUsers();
+    } catch (error) {
+      console.error("Error importing users:", error);
+      toast({
+        title: "Viga",
+        description: "Kasutajate importimine ebaõnnestus",
+        variant: "destructive",
+      });
+    }
+
+    // Reset file input
+    event.target.value = '';
+  };
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -162,23 +269,50 @@ export default function AdminUsers() {
           />
         </div>
         
-        <Button
-          variant={showInactive ? "default" : "outline"}
-          onClick={() => setShowInactive(!showInactive)}
-          className="whitespace-nowrap"
-        >
-          {showInactive ? (
-            <>
-              <EyeOff className="h-4 w-4 mr-2" />
-              Näita peidetud
-            </>
-          ) : (
-            <>
-              <Eye className="h-4 w-4 mr-2" />
-              Näita aktiivseid
-            </>
-          )}
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={exportUsers}
+            className="whitespace-nowrap"
+          >
+            <Download className="h-4 w-4 mr-2" />
+            Ekspordi CSV
+          </Button>
+          
+          <label htmlFor="import-users">
+            <Button variant="outline" className="whitespace-nowrap cursor-pointer" asChild>
+              <span>
+                <Upload className="h-4 w-4 mr-2" />
+                Impordi CSV
+              </span>
+            </Button>
+            <input
+              id="import-users"
+              type="file"
+              accept=".csv"
+              onChange={handleFileUpload}
+              className="hidden"
+            />
+          </label>
+          
+          <Button
+            variant={showInactive ? "default" : "outline"}
+            onClick={() => setShowInactive(!showInactive)}
+            className="whitespace-nowrap"
+          >
+            {showInactive ? (
+              <>
+                <EyeOff className="h-4 w-4 mr-2" />
+                Näita peidetud
+              </>
+            ) : (
+              <>
+                <Eye className="h-4 w-4 mr-2" />
+                Näita aktiivseid
+              </>
+            )}
+          </Button>
+        </div>
       </div>
 
       <Card>
