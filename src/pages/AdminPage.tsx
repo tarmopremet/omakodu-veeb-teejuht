@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Users, Package, TrendingUp, LogOut, Images, Lock, BookOpen, Activity, BarChart3 } from 'lucide-react';
+import { Calendar, Users, Package, TrendingUp, LogOut, Images, Lock, BookOpen, Activity, BarChart3, Settings } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdminBookings } from '@/components/admin/AdminBookings';
 import { AdminDashboard } from '@/components/admin/AdminDashboard';
@@ -17,6 +17,7 @@ import { AdminLockers } from '@/components/admin/AdminLockers';
 import { AdminReservations } from '@/components/admin/AdminReservations';
 import { AdminOpenLogs } from '@/components/admin/AdminOpenLogs';
 import { TrackingConfig } from '@/components/TrackingConfig';
+import { AdminSettings } from '@/components/admin/AdminSettings';
 
 export const AdminPage = () => {
   const navigate = useNavigate();
@@ -77,7 +78,7 @@ export const AdminPage = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 xl:grid-cols-10 mb-8 gap-2">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 xl:grid-cols-11 mb-8 gap-2">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
               Ülevaade
@@ -117,6 +118,10 @@ export const AdminPage = () => {
             <TabsTrigger value="analytics" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
               Analüütika
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="flex items-center gap-2">
+              <Settings className="h-4 w-4" />
+              Seaded
             </TabsTrigger>
           </TabsList>
 
@@ -181,6 +186,18 @@ export const AdminPage = () => {
                 </p>
               </div>
               <TrackingConfig />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="settings">
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight mb-2">Saidi seaded</h2>
+                <p className="text-muted-foreground">
+                  Halda sotsiaalmeedia linke, kontaktandmeid ja muid saidi seadeid.
+                </p>
+              </div>
+              <AdminSettings />
             </div>
           </TabsContent>
         </Tabs>
