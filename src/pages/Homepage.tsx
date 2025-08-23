@@ -91,11 +91,15 @@ const Homepage = () => {
   ];
 
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 3) % testimonials.length);
+    const isMobile = window.innerWidth < 768;
+    const step = isMobile ? 1 : 3;
+    setCurrentTestimonial((prev) => (prev + step) % testimonials.length);
   };
 
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 3 + testimonials.length) % testimonials.length);
+    const isMobile = window.innerWidth < 768;
+    const step = isMobile ? 1 : 3;
+    setCurrentTestimonial((prev) => (prev - step + testimonials.length) % testimonials.length);
   };
 
   useEffect(() => {
@@ -160,34 +164,34 @@ const Homepage = () => {
               Puhastusseadmete nutirent Eestis
             </h1>
             
-            {/* Lisatud tööriistad ja teenused */}
+            {/* Lisatud tööriistad ja teenused - Parandatud mobiili jaoks */}
             <div className="space-y-3 mb-8">
               <div className="flex items-center">
-                <span className="text-primary font-bold mr-2">•</span>
+                <span className="text-primary font-bold mr-2 flex items-center justify-center">•</span>
                 <Link to="/tekstiilipesuri-rent" className="text-gray-700 hover:text-primary transition-colors">
                   tekstiilipesuri rent
                 </Link>
               </div>
               <div className="flex items-center">
-                <span className="text-primary font-bold mr-2">•</span>
+                <span className="text-primary font-bold mr-2 flex items-center justify-center">•</span>
                 <Link to="/aurupesuri-rent" className="text-gray-700 hover:text-primary transition-colors">
                   aurupesuri rent
                 </Link>
               </div>
               <div className="flex items-center">
-                <span className="text-primary font-bold mr-2">•</span>
+                <span className="text-primary font-bold mr-2 flex items-center justify-center">•</span>
                 <Link to="/aknapesuroboti-rent" className="text-gray-700 hover:text-primary transition-colors">
                   aknapesuroboti rent
                 </Link>
               </div>
               <div className="flex items-center">
-                <span className="text-primary font-bold mr-2">•</span>
+                <span className="text-primary font-bold mr-2 flex items-center justify-center">•</span>
                 <Link to="/tolmuimeja-rent" className="text-gray-700 hover:text-primary transition-colors">
                   tolmuimeja rent
                 </Link>
               </div>
               <div className="flex items-center">
-                <span className="text-primary font-bold mr-2">•</span>
+                <span className="text-primary font-bold mr-2 flex items-center justify-center">•</span>
                 <Link to="/aknapesuri-rent" className="text-gray-700 hover:text-primary transition-colors">
                   aknapesuri rent
                 </Link>
@@ -302,16 +306,18 @@ const Homepage = () => {
       </section>
 
 
-      {/* Video Section */}
-      <section className="container mx-auto px-4 py-8">
+      {/* Video Section - Parandatud mobiili nähtavuse jaoks */}
+      <section className="container mx-auto px-4 py-8 block">
         <div className="flex justify-center">
           <div className="w-full max-w-4xl">
-            <div className="relative pb-[56.25%] h-0 rounded-lg overflow-hidden">
+            <div className="relative pb-[56.25%] h-0 rounded-lg overflow-hidden bg-gray-100">
               <iframe
                 src="https://www.youtube.com/embed/4Fb3fDTeDWg"
-                className="absolute top-0 left-0 w-full h-full"
+                className="absolute top-0 left-0 w-full h-full border-0"
                 allowFullScreen
                 title="Rendiise video"
+                loading="lazy"
+                style={{ minHeight: '200px' }}
               />
             </div>
           </div>
@@ -379,11 +385,13 @@ const Homepage = () => {
             >
               <div 
                 className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${(currentTestimonial / 3) * 100}%)` }}
+                style={{ 
+                  transform: `translateX(-${(currentTestimonial / (window.innerWidth < 768 ? 1 : 3)) * 100}%)` 
+                }}
               >
                 {testimonials.map((testimonial, index) => (
                   <div key={index} className="w-full md:w-1/3 flex-shrink-0 px-2">
-                    <Card className="p-6 text-center h-full">
+                    <Card className="p-6 text-center h-full animate-fade-in">
                       <CardContent className="p-0 flex flex-col h-full">
                         <div className="flex justify-center mb-4">
                           {[...Array(testimonial.rating)].map((_, i) => (
@@ -418,14 +426,17 @@ const Homepage = () => {
               <ChevronRight className="w-5 h-5 text-gray-600" />
             </button>
             
-            {/* Dots indicator */}
+            {/* Dots indicator - parandatud mobiili jaoks */}
             <div className="flex justify-center mt-6 space-x-2">
-              {Array.from({ length: Math.ceil(testimonials.length / 3) }).map((_, index) => (
+              {Array.from({ 
+                length: window.innerWidth < 768 ? testimonials.length : Math.ceil(testimonials.length / 3) 
+              }).map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentTestimonial(index * 3)}
+                  onClick={() => setCurrentTestimonial(window.innerWidth < 768 ? index : index * 3)}
                   className={`w-2 h-2 rounded-full transition-colors ${
-                    Math.floor(currentTestimonial / 3) === index ? 'bg-primary' : 'bg-gray-300'
+                    (window.innerWidth < 768 ? currentTestimonial : Math.floor(currentTestimonial / 3)) === index 
+                      ? 'bg-primary' : 'bg-gray-300'
                   }`}
                 />
               ))}
