@@ -18,6 +18,7 @@ import { AdminReservations } from '@/components/admin/AdminReservations';
 import { AdminOpenLogs } from '@/components/admin/AdminOpenLogs';
 import { TrackingConfig } from '@/components/TrackingConfig';
 import { AdminSettings } from '@/components/admin/AdminSettings';
+import { HubSimulator } from '@/components/admin/HubSimulator';
 
 export const AdminPage = () => {
   const navigate = useNavigate();
@@ -78,7 +79,7 @@ export const AdminPage = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 xl:grid-cols-11 mb-8 gap-2">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 xl:grid-cols-12 mb-8 gap-2">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
               Ülevaade
@@ -122,6 +123,10 @@ export const AdminPage = () => {
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="h-4 w-4" />
               Seaded
+            </TabsTrigger>
+            <TabsTrigger value="simulator" className="flex items-center gap-2">
+              <Settings className="h-4 w-4" />
+              HUB Simulator
             </TabsTrigger>
           </TabsList>
 
@@ -198,6 +203,18 @@ export const AdminPage = () => {
                 </p>
               </div>
               <AdminSettings />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="simulator">
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight mb-2">HUB Simulator</h2>
+                <p className="text-muted-foreground">
+                  Testi HUBi ja nutilukustuste süsteemi ilma päris riistvarata.
+                </p>
+              </div>
+              <HubSimulator />
             </div>
           </TabsContent>
         </Tabs>
