@@ -112,13 +112,20 @@ export const HubSimulator = () => {
 
   const createTestLockers = async () => {
     try {
-      const testLockers = [
-        { name: "Lukk A1", hub_id: selectedHub, relay_id: "A1" },
-        { name: "Lukk A2", hub_id: selectedHub, relay_id: "A2" },
-        { name: "Lukk B1", hub_id: selectedHub, relay_id: "B1" },
-        { name: "Lukk B2", hub_id: selectedHub, relay_id: "B2" },
-        { name: "Lukk C1", hub_id: selectedHub, relay_id: "C1" },
-      ];
+      const testLockers = [];
+      
+      // Loo 7 kappi, igaühes 8 luuki
+      const cabinets = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+      
+      for (const cabinet of cabinets) {
+        for (let door = 1; door <= 8; door++) {
+          testLockers.push({
+            name: `Kapp ${cabinet} - Luuk ${door}`,
+            hub_id: selectedHub,
+            relay_id: `${cabinet}${door}`
+          });
+        }
+      }
 
       const { error } = await supabase
         .from('lockers')
@@ -128,7 +135,7 @@ export const HubSimulator = () => {
 
       toast({
         title: "Õnnestus!",
-        description: "Test lukud on loodud",
+        description: `${testLockers.length} lukku on loodud (7 kappi x 8 luuki)`,
       });
 
       loadLockers();
@@ -247,7 +254,7 @@ export const HubSimulator = () => {
 
           <div className="flex gap-2">
             <Button onClick={createTestLockers} variant="outline">
-              Loo test lukud
+              Loo 56 lukku (7 kappi x 8 luuki)
             </Button>
             <Button onClick={clearAllLockers} variant="destructive">
               Kustuta kõik lukud
@@ -271,59 +278,74 @@ export const HubSimulator = () => {
           ) : lockers.length === 0 ? (
             <div className="text-center py-8">
               <p className="text-gray-500 mb-4">Lukustusi ei leitud</p>
+              <p className="text-sm text-gray-400 mb-4">
+                Loodetakse 7 kappi, igaühes 8 luuki (kokku 56 lukku)
+              </p>
               <Button onClick={createTestLockers}>
-                Loo test lukud
+                Loo 56 lukku
               </Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {lockers.map((locker) => (
-                <Card key={locker.id} className="border-2">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-semibold">{locker.name}</h3>
-                      <Badge 
-                        className={`${getStatusColor(locker.status)} text-white`}
-                      >
-                        {getStatusText(locker.status)}
-                      </Badge>
-                    </div>
+            <div className="space-y-6">
+              {/* Group lockers by cabinet */}
+              {['A', 'B', 'C', 'D', 'E', 'F', 'G'].map(cabinet => {
+                const cabinetLockers = lockers.filter(l => l.relay_id.startsWith(cabinet));
+                if (cabinetLockers.length === 0) return null;
+                
+                return (
+                  <div key={cabinet} className="border rounded-lg p-4">
+                    <h3 className="font-semibold mb-3 text-lg">Kapp {cabinet} ({cabinetLockers.length}/8 luuki)</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                      {cabinetLockers.sort((a, b) => a.relay_id.localeCompare(b.relay_id)).map((locker) => (
+                        <Card key={locker.id} className="border">
+                          <CardContent className="p-3">
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="font-medium text-sm">{locker.relay_id}</span>
+                              <Badge 
+                                className={`${getStatusColor(locker.status)} text-white text-xs`}
+                              >
+                                {getStatusText(locker.status)}
+                              </Badge>
+                            </div>
 
-                    <div className="space-y-2 text-sm text-gray-600 mb-4">
-                      <div>HUB: {locker.hub_id}</div>
-                      <div>Relay: {locker.relay_id}</div>
-                      {locker.last_opened_at && (
-                        <div>
-                          Viimati avatud: {new Date(locker.last_opened_at).toLocaleString('et-EE')}
-                        </div>
-                      )}
-                    </div>
+                            {locker.last_opened_at && (
+                              <div className="text-xs text-gray-500 mb-2">
+                                {new Date(locker.last_opened_at).toLocaleString('et-EE', {
+                                  month: '2-digit',
+                                  day: '2-digit',
+                                  hour: '2-digit',
+                                  minute: '2-digit'
+                                })}
+                              </div>
+                            )}
 
-                    <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        variant={locker.status === "open" ? "secondary" : "default"}
-                        onClick={() => simulateLockerAction(locker.id, "open")}
-                        disabled={hubStatus === "offline" || locker.status === "open"}
-                        className="flex-1"
-                      >
-                        <Unlock className="w-4 h-4 mr-1" />
-                        Ava
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant={locker.status === "closed" ? "secondary" : "default"}
-                        onClick={() => simulateLockerAction(locker.id, "close")}
-                        disabled={hubStatus === "offline" || locker.status === "closed"}
-                        className="flex-1"
-                      >
-                        <Lock className="w-4 h-4 mr-1" />
-                        Sulge
-                      </Button>
+                            <div className="flex gap-1">
+                              <Button
+                                size="sm"
+                                variant={locker.status === "open" ? "secondary" : "default"}
+                                onClick={() => simulateLockerAction(locker.id, "open")}
+                                disabled={hubStatus === "offline" || locker.status === "open"}
+                                className="flex-1 text-xs p-1 h-7"
+                              >
+                                <Unlock className="w-3 h-3" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant={locker.status === "closed" ? "secondary" : "default"}
+                                onClick={() => simulateLockerAction(locker.id, "close")}
+                                disabled={hubStatus === "offline" || locker.status === "closed"}
+                                className="flex-1 text-xs p-1 h-7"
+                              >
+                                <Lock className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
+                  </div>
+                );
+              })}
             </div>
           )}
         </CardContent>
@@ -338,21 +360,33 @@ export const HubSimulator = () => {
             <div className="bg-blue-50 p-3 rounded">
               <strong>Kuidas kasutada:</strong>
               <ul className="mt-2 space-y-1">
-                <li>1. Vali HUB ID (või loo uus)</li>
+                <li>1. Vali HUB ID või loo uus</li>
                 <li>2. Lülita HUB "Online" olekusse</li>
-                <li>3. Loo test lukud</li>
-                <li>4. Testi lukustuste avamist/sulgemist</li>
-                <li>5. Vaata "Logid" sektsioonis tegevuste ajalugu</li>
+                <li>3. Loo 56 lukku (7 kappi x 8 luuki igaühes)</li>
+                <li>4. Testi lukustuste avamist/sulgemist kappide kaupa</li>
+                <li>5. Vaata "Logid" sektsioonis kõigi tegevuste ajalugu</li>
+                <li>6. Admin paneelis "Kapid" sektsioonis saad siduda lukke toodetega</li>
               </ul>
             </div>
             
             <div className="bg-yellow-50 p-3 rounded">
-              <strong>Märkused:</strong>
+              <strong>Kappide struktuur:</strong>
               <ul className="mt-2 space-y-1">
-                <li>• Kõik tegevused logitakse andmebaasi</li>
-                <li>• Saad testida ilma päris riistvarata</li>
-                <li>• Lukke saab avada/sulgeda ainult kui HUB on "online"</li>
-                <li>• Ajalugu salvestatakse ja on nähtav admin paneeli logides</li>
+                <li>• Kapp A: luugid A1, A2, A3, A4, A5, A6, A7, A8</li>
+                <li>• Kapp B: luugid B1, B2, B3, B4, B5, B6, B7, B8</li>
+                <li>• ... jne kuni Kapp G</li>
+                <li>• Kokku 56 lukku</li>
+                <li>• Iga luuk saab olla seotud konkreetse tootega</li>
+              </ul>
+            </div>
+            
+            <div className="bg-green-50 p-3 rounded">
+              <strong>Toodete sidumine:</strong>
+              <ul className="mt-2 space-y-1">
+                <li>• Admin paneelis "Tooted" sektsioonis saad valida millised luugid kuuluvad tootele</li>
+                <li>• Klient rendib toote → süsteem määrab automaatselt vaba luugi</li>
+                <li>• Saad manuaalselt avada mis tahes luugi</li>
+                <li>• Kõik tegevused logitakse ja on jälgitavad</li>
               </ul>
             </div>
           </div>
