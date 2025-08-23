@@ -167,31 +167,31 @@ const Homepage = () => {
             {/* Lisatud tööriistad ja teenused - Parandatud mobiili jaoks */}
             <div className="space-y-3 mb-8">
               <div className="flex items-center">
-                <span className="text-primary font-bold mr-2 flex items-center justify-center">•</span>
+                <span className="text-primary font-bold mr-2 w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-1"></span>
                 <Link to="/tekstiilipesuri-rent" className="text-gray-700 hover:text-primary transition-colors">
                   tekstiilipesuri rent
                 </Link>
               </div>
               <div className="flex items-center">
-                <span className="text-primary font-bold mr-2 flex items-center justify-center">•</span>
+                <span className="text-primary font-bold mr-2 w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-1"></span>
                 <Link to="/aurupesuri-rent" className="text-gray-700 hover:text-primary transition-colors">
                   aurupesuri rent
                 </Link>
               </div>
               <div className="flex items-center">
-                <span className="text-primary font-bold mr-2 flex items-center justify-center">•</span>
+                <span className="text-primary font-bold mr-2 w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-1"></span>
                 <Link to="/aknapesuroboti-rent" className="text-gray-700 hover:text-primary transition-colors">
                   aknapesuroboti rent
                 </Link>
               </div>
               <div className="flex items-center">
-                <span className="text-primary font-bold mr-2 flex items-center justify-center">•</span>
+                <span className="text-primary font-bold mr-2 w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-1"></span>
                 <Link to="/tolmuimeja-rent" className="text-gray-700 hover:text-primary transition-colors">
                   tolmuimeja rent
                 </Link>
               </div>
               <div className="flex items-center">
-                <span className="text-primary font-bold mr-2 flex items-center justify-center">•</span>
+                <span className="text-primary font-bold mr-2 w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-1"></span>
                 <Link to="/aknapesuri-rent" className="text-gray-700 hover:text-primary transition-colors">
                   aknapesuri rent
                 </Link>
@@ -386,7 +386,7 @@ const Homepage = () => {
               <div 
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ 
-                  transform: `translateX(-${(currentTestimonial / (window.innerWidth < 768 ? 1 : 3)) * 100}%)` 
+                  transform: `translateX(-${currentTestimonial * (100 / (window.innerWidth < 768 ? 1 : 3))}%)` 
                 }}
               >
                 {testimonials.map((testimonial, index) => (
