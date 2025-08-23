@@ -48,7 +48,7 @@ export const PerformanceMonitor: React.FC<{ pageName: string }> = ({ pageName })
           category: 'performance',
           label: pageName,
           value: loadTime,
-          customParameters: {
+          custom_parameters: {
             ...metrics,
             userAgent: navigator.userAgent,
             screenResolution: `${screen.width}x${screen.height}`,
@@ -121,7 +121,7 @@ export const usePerformanceTracking = () => {
       category: 'performance',
       label: action,
       value: duration || 0,
-      customParameters: {
+      custom_parameters: {
         timestamp: new Date().toISOString()
       }
     });
@@ -133,7 +133,7 @@ export const usePerformanceTracking = () => {
       category: 'performance',
       label: endpoint,
       value: duration,
-      customParameters: {
+      custom_parameters: {
         status,
         timestamp: new Date().toISOString()
       }

@@ -10,6 +10,7 @@ import { OfflineDetector } from "./components/OfflineDetector";
 import { MobileOptimization } from "./components/MobileOptimization";
 import { SecurityHeader } from "./components/SecurityHeader";
 import { HealthIndicator } from "./hooks/useHealthCheck";
+import { ImageOptimizationProvider } from "./utils/imageOptimization";
 import Homepage from "./pages/Homepage";
 import Index from "./pages/Index";
 import Tartu from "./pages/Tartu";
@@ -38,7 +39,7 @@ const queryClient = new QueryClient({
       retry: 3,
       retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
       staleTime: 5 * 60 * 1000, // 5 minutes
-      cacheTime: 10 * 60 * 1000, // 10 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes (renamed from cacheTime)
       refetchOnWindowFocus: false,
       refetchOnReconnect: true,
     },
@@ -55,7 +56,8 @@ const App = () => (
       <AuthProvider>
         <TrackingProvider>
           <MobileOptimization>
-            <TooltipProvider>
+            <ImageOptimizationProvider>
+              <TooltipProvider>
               <OfflineDetector />
               <HealthIndicator />
               <Toaster />
@@ -93,7 +95,8 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
               </BrowserRouter>
-            </TooltipProvider>
+              </TooltipProvider>
+            </ImageOptimizationProvider>
           </MobileOptimization>
         </TrackingProvider>
       </AuthProvider>

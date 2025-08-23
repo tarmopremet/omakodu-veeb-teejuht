@@ -2,14 +2,24 @@ import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query
 import { useState, useCallback } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
-interface RetryableQueryOptions<T> extends Omit<UseQueryOptions<T>, 'retry' | 'retryDelay'> {
+interface RetryableQueryOptions<T> {
+  queryKey: readonly unknown[];
+  queryFn: () => Promise<T>;
   maxRetries?: number;
   retryDelay?: number | ((attempt: number) => number);
   showErrorToast?: boolean;
   fallbackData?: T;
+  enabled?: boolean;
+  staleTime?: number;
+  gcTime?: number;
 }
 
-interface RetryableQueryResult<T> extends UseQueryResult<T> {
+interface RetryableQueryResult<T> {
+  data: T | undefined;
+  error: Error | null;
+  isLoading: boolean;
+  isError: boolean;
+  refetch: () => void;
   retryCount: number;
   manualRetry: () => void;
 }
@@ -19,10 +29,9 @@ export const useRetryableQuery = <T>(
 ): RetryableQueryResult<T> => {
   const {
     maxRetries = 3,
-    retryDelay = (attempt) => Math.min(1000 * Math.pow(2, attempt), 30000), // Exponential backoff
+    retryDelay = (attempt) => Math.min(1000 * Math.pow(2, attempt), 30000),
     showErrorToast = true,
     fallbackData,
-    onError,
     ...queryOptions
   } = options;
 
@@ -48,12 +57,7 @@ export const useRetryableQuery = <T>(
       return true;
     },
     retryDelay: typeof retryDelay === 'function' ? retryDelay : () => retryDelay,
-    onError: (error: Error) => {
-      console.error('Query error:', error);
-      onError?.(error);
-    },
-    // Use fallback data if available
-    placeholderData: fallbackData,
+    placeholderData: fallbackData as any,
   });
 
   const manualRetry = useCallback(() => {

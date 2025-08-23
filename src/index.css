@@ -148,6 +148,11 @@
     height: auto;
   }
 
+  /* Optimized image loading */
+  .optimized-image {
+    transition: opacity 0.3s ease;
+  }
+
   /* Loading optimizations */
   .lazy-loading {
     opacity: 0;
@@ -156,6 +161,20 @@
 
   .lazy-loaded {
     opacity: 1;
+  }
+
+  /* Image optimization styles */
+  img[loading="lazy"] {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  /* Modern image formats support indicator */
+  .webp .optimized-image {
+    /* WebP is supported */
+  }
+
+  .no-webp .optimized-image {
+    /* WebP fallback styles */
   }
 
   /* Focus management for accessibility */

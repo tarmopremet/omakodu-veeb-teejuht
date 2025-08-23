@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTracking } from '@/components/TrackingProvider';
 import { useLocation } from 'react-router-dom';
 
@@ -55,7 +55,7 @@ export const useAnalytics = () => {
       action: 'equipment_view',
       category: 'product_engagement',
       label: equipmentName,
-      customParameters: {
+      custom_parameters: {
         equipment_category: category,
         equipment_location: location,
         timestamp: new Date().toISOString()
@@ -68,7 +68,7 @@ export const useAnalytics = () => {
       action: 'equipment_filter',
       category: 'product_discovery',
       label: `${filterType}:${filterValue}`,
-      customParameters: {
+      custom_parameters: {
         filter_type: filterType,
         filter_value: filterValue
       }
@@ -81,7 +81,7 @@ export const useAnalytics = () => {
       action: 'booking_start',
       category: 'conversion',
       label: equipmentName,
-      customParameters: {
+      custom_parameters: {
         equipment_name: equipmentName,
         booking_location: location,
         step: 'initiated'
@@ -94,7 +94,7 @@ export const useAnalytics = () => {
       action: 'booking_step',
       category: 'conversion_funnel',
       label: step,
-      customParameters: {
+      custom_parameters: {
         equipment_name: equipmentName,
         booking_step: step,
         ...data
@@ -111,20 +111,20 @@ export const useAnalytics = () => {
   }) => {
     userBehavior.current.conversionEvents.push('booking_complete');
     
-    trackRentalBooking({
-      equipment_name: bookingData.equipmentName,
-      location: bookingData.location,
-      duration_hours: bookingData.duration,
-      total_amount: bookingData.totalAmount,
-      booking_id: bookingData.bookingId
-    });
+    trackRentalBooking(
+      bookingData.bookingId,
+      bookingData.equipmentName,
+      bookingData.location,
+      bookingData.duration,
+      bookingData.totalAmount
+    );
 
     trackEvent({
       action: 'booking_complete',
       category: 'conversion',
       label: bookingData.equipmentName,
       value: bookingData.totalAmount,
-      customParameters: {
+      custom_parameters: {
         ...bookingData,
         conversion_type: 'rental_booking'
       }
@@ -134,16 +134,13 @@ export const useAnalytics = () => {
   const trackContactForm = (formType: string, source: string) => {
     userBehavior.current.conversionEvents.push('contact_form');
     
-    trackLead({
-      form_type: formType,
-      source: source
-    });
+    trackLead({ form_type: formType, source: source });
 
     trackEvent({
       action: 'contact_form_submit',
       category: 'lead_generation',
       label: formType,
-      customParameters: {
+      custom_parameters: {
         form_type: formType,
         source: source
       }
@@ -157,7 +154,7 @@ export const useAnalytics = () => {
       action: 'search',
       category: 'product_discovery',
       label: query,
-      customParameters: {
+      custom_parameters: {
         search_query: query,
         search_category: category,
         results_count: resultsCount
@@ -172,7 +169,7 @@ export const useAnalytics = () => {
       action: 'user_interaction',
       category: 'engagement',
       label: `${action}:${element}`,
-      customParameters: {
+      custom_parameters: {
         interaction_type: action,
         element: element,
         context: context,
@@ -187,7 +184,7 @@ export const useAnalytics = () => {
       category: 'conversion',
       label: step,
       value: value,
-      customParameters: {
+      custom_parameters: {
         funnel_step: step,
         session_interactions: userBehavior.current.interactions,
         session_page_views: userBehavior.current.pageViews
@@ -201,7 +198,7 @@ export const useAnalytics = () => {
       category: 'business_intelligence',
       label: metric,
       value: value,
-      customParameters: {
+      custom_parameters: {
         metric_name: metric,
         metric_value: value,
         ...context
@@ -219,7 +216,7 @@ export const useAnalytics = () => {
       category: 'session',
       label: 'session_end',
       value: sessionDuration,
-      customParameters: {
+      custom_parameters: {
         session_duration: sessionDuration,
         page_views: userBehavior.current.pageViews,
         interactions: userBehavior.current.interactions,

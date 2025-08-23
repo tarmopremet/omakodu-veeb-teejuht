@@ -164,31 +164,6 @@ export const MobileNavOptimization: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <div className="mobile-nav-optimized">
-      <style jsx>{`
-        .mobile-nav-optimized {
-          /* Optimize touch targets */
-        }
-        .mobile-nav-optimized button,
-        .mobile-nav-optimized a {
-          min-height: 44px; /* Apple's recommended touch target size */
-          min-width: 44px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        
-        /* Improve scrolling on mobile */
-        .mobile-nav-optimized * {
-          -webkit-tap-highlight-color: transparent;
-        }
-        
-        /* Better button feedback on touch */
-        .mobile-nav-optimized button:active,
-        .mobile-nav-optimized a:active {
-          transform: scale(0.98);
-          transition: transform 0.1s;
-        }
-      `}</style>
       {children}
     </div>
   );
