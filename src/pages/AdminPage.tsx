@@ -79,54 +79,54 @@ export const AdminPage = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="dashboard" className="w-full">
-          <TabsList className="flex w-full overflow-x-auto whitespace-nowrap gap-2 mb-8">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
-              <TrendingUp className="h-4 w-4" />
-              Ülevaade
+          <TabsList className="flex w-full overflow-x-auto whitespace-nowrap gap-2 mb-8 h-auto p-2">
+            <TabsTrigger value="dashboard" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <TrendingUp className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Ülevaade</span>
             </TabsTrigger>
-            <TabsTrigger value="bookings" className="flex items-center gap-2">
-              <Calendar className="h-4 w-4" />
-              Broneeringud
+            <TabsTrigger value="bookings" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <Calendar className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Broneeringud</span>
             </TabsTrigger>
-            <TabsTrigger value="products" className="flex items-center gap-2">
-              <Package className="h-4 w-4" />
-              Tooted
+            <TabsTrigger value="products" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <Package className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Tooted</span>
             </TabsTrigger>
-            <TabsTrigger value="images" className="flex items-center gap-2">
-              <Images className="h-4 w-4" />
-              Pildid
+            <TabsTrigger value="images" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <Images className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Pildid</span>
             </TabsTrigger>
-            <TabsTrigger value="pages" className="flex items-center gap-2">
-              <Images className="h-4 w-4" />
-              Leheküljed
+            <TabsTrigger value="pages" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <Images className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Leheküljed</span>
             </TabsTrigger>
-            <TabsTrigger value="users" className="flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              Kasutajad
+            <TabsTrigger value="users" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <Users className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Kasutajad</span>
             </TabsTrigger>
-            <TabsTrigger value="lockers" className="flex items-center gap-2">
-              <Lock className="h-4 w-4" />
-              Kapid
+            <TabsTrigger value="lockers" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <Lock className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Kapid</span>
             </TabsTrigger>
-            <TabsTrigger value="reservations" className="flex items-center gap-2">
-              <BookOpen className="h-4 w-4" />
-              Reservatsioonid
+            <TabsTrigger value="reservations" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <BookOpen className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Reservatsioonid</span>
             </TabsTrigger>
-            <TabsTrigger value="logs" className="flex items-center gap-2">
-              <Activity className="h-4 w-4" />
-              Logid
+            <TabsTrigger value="logs" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <Activity className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Logid</span>
             </TabsTrigger>
-            <TabsTrigger value="analytics" className="flex items-center gap-2">
-              <BarChart3 className="h-4 w-4" />
-              Analüütika
+            <TabsTrigger value="analytics" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <BarChart3 className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Analüütika</span>
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2">
-              <Settings className="h-4 w-4" />
-              Seaded
+            <TabsTrigger value="settings" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <Settings className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Seaded</span>
             </TabsTrigger>
-            <TabsTrigger value="simulator" className="flex items-center gap-2">
-              <Settings className="h-4 w-4" />
-              HUB Simulator
+            <TabsTrigger value="simulator" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <Settings className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">HUB Simulator</span>
             </TabsTrigger>
           </TabsList>
 
