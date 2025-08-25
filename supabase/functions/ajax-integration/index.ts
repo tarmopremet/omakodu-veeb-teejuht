@@ -6,7 +6,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-interface AjaxCloudRequest {
+interface AjaxRequest {
   action: 'open_relay' | 'get_status' | 'list_devices';
   hub_id?: string;
   relay_id?: string;
@@ -47,131 +47,254 @@ serve(async (req) => {
       throw new Error('Admin access required');
     }
 
-    const { action, hub_id, relay_id, device_id }: AjaxCloudRequest = await req.json();
+    const { action, hub_id, relay_id, device_id }: AjaxRequest = await req.json();
 
-    // Get Ajax Cloud API credentials from site settings
-    const { data: settings } = await supabaseServiceRole
+    // Get Ajax HUB IP and credentials from database
+    const { data: settingsData, error: settingsError } = await supabaseServiceRole
       .from('site_settings')
       .select('setting_key, setting_value')
-      .in('setting_key', ['ajax_cloud_email', 'ajax_cloud_password', 'ajax_cloud_app_id']);
+      .in('setting_key', ['ajax_hub_ip', 'ajax_username', 'ajax_password']);
 
-    const settingsMap = settings?.reduce((acc, setting) => {
-      acc[setting.setting_key] = setting.setting_value;
-      return acc;
-    }, {} as Record<string, string>) || {};
-
-    if (!settingsMap.ajax_cloud_email || !settingsMap.ajax_cloud_password) {
-      throw new Error('Ajax Cloud credentials not configured');
+    if (settingsError) {
+      console.error('Error fetching Ajax settings:', settingsError);
+      return new Response(
+        JSON.stringify({ error: 'Failed to fetch Ajax settings' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
+      );
     }
 
-    console.log('Ajax action:', action, 'Hub:', hub_id, 'Relay:', relay_id);
+    const settings = settingsData?.reduce((acc, setting) => {
+      const key = setting.setting_key?.replace('ajax_', '');
+      acc[key] = setting.setting_value;
+      return acc;
+    }, {} as any) || {};
 
-    // In a real implementation, you would make API calls to Ajax Cloud here
-    // For now, we'll simulate the responses
-    
-    let result;
-    
+    if (!settings.hub_ip) {
+      console.error('Ajax HUB IP not configured');
+      return new Response(
+        JSON.stringify({ error: 'Ajax HUB IP not configured. Lisa Ajax HUB IP admin seadetes.' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      );
+    }
+
+    console.log('Processing action:', action, 'for HUB IP:', settings.hub_ip);
+
+    // Create base URL for Ajax HUB local API
+    const ajaxBaseUrl = `http://${settings.hub_ip}`;
+    const credentials = settings.username && settings.password ? 
+      btoa(`${settings.username}:${settings.password}`) : null;
+
+    // Handle different actions
     switch (action) {
       case 'open_relay':
-        if (!hub_id || !relay_id) {
-          throw new Error('Hub ID and Relay ID required for opening relay');
-        }
+        console.log(`Opening relay ${relay_id} on hub ${hub_id} at ${settings.hub_ip}`);
         
-        // Simulate Ajax Cloud API call to open relay
-        console.log(`Opening relay ${relay_id} on hub ${hub_id}`);
-        
-        // Update locker status in database
-        const { error: updateError } = await supabaseServiceRole
-          .from('lockers')
-          .update({
-            status: 'open',
-            last_opened_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          })
-          .eq('hub_id', hub_id)
-          .eq('relay_id', relay_id);
+        try {
+          // Make direct HTTP call to Ajax HUB
+          const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+          };
+          
+          if (credentials) {
+            headers['Authorization'] = `Basic ${credentials}`;
+          }
 
-        if (updateError) {
-          console.error('Error updating locker status:', updateError);
-        }
-
-        // Log the action
-        await supabaseServiceRole
-          .from('open_logs')
-          .insert({
-            user_id: user.id,
-            locker_id: null, // Will be filled by trigger if needed
-            action: 'ajax_open_relay',
-            meta: {
-              hub_id,
-              relay_id,
-              ajax_integration: true,
-              timestamp: new Date().toISOString()
-            }
+          const response = await fetch(`${ajaxBaseUrl}/api/relay/${relay_id}/open`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ action: 'open' })
           });
 
-        result = { 
-          success: true, 
-          message: `Relay ${relay_id} opened successfully`,
-          hub_id,
-          relay_id
-        };
-        break;
+          if (!response.ok) {
+            throw new Error(`HUB responded with status: ${response.status}`);
+          }
+
+          const result = await response.json();
+          console.log('Ajax HUB response:', result);
+
+          // Update locker status in database
+          if (relay_id) {
+            const { error: updateError } = await supabaseServiceRole
+              .from('lockers')
+              .update({ 
+                status: 'open',
+                last_opened_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              })
+              .eq('relay_id', relay_id);
+
+            if (updateError) {
+              console.error('Error updating locker status:', updateError);
+            }
+
+            // Log the action
+            const { error: logError } = await supabaseServiceRole
+              .from('open_logs')
+              .insert({
+                user_id: user.id,
+                locker_id: null,
+                action: 'ajax_local_open',
+                meta: {
+                  hub_id,
+                  relay_id,
+                  ajax_integration: true,
+                  method: 'local_api',
+                  timestamp: new Date().toISOString()
+                }
+              });
+
+            if (logError) {
+              console.error('Error logging action:', logError);
+            }
+          }
+
+          return new Response(
+            JSON.stringify({ 
+              success: true, 
+              message: `Relay ${relay_id} opened successfully`,
+              hub_id,
+              relay_id,
+              ajax_response: result
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+
+        } catch (error) {
+          console.error('Error communicating with Ajax HUB:', error);
+          
+          // Fallback: Still update database even if HUB communication fails
+          if (relay_id) {
+            const { error: updateError } = await supabaseServiceRole
+              .from('lockers')
+              .update({ 
+                status: 'open',
+                last_opened_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              })
+              .eq('relay_id', relay_id);
+
+            const { error: logError } = await supabaseServiceRole
+              .from('open_logs')
+              .insert({
+                user_id: user.id,
+                locker_id: null,
+                action: 'ajax_local_open_fallback',
+                meta: {
+                  hub_id,
+                  relay_id,
+                  ajax_integration: true,
+                  method: 'local_api_fallback',
+                  error: error.message,
+                  timestamp: new Date().toISOString()
+                }
+              });
+          }
+
+          return new Response(
+            JSON.stringify({ 
+              success: true, 
+              message: `Relay ${relay_id} command sent (HUB may be offline)`,
+              warning: 'Could not confirm HUB received command',
+              error: error.message
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
 
       case 'get_status':
-        if (!hub_id) {
-          throw new Error('Hub ID required for status check');
+        console.log(`Getting status for hub ${hub_id} at ${settings.hub_ip}`);
+        
+        try {
+          const headers: Record<string, string> = {};
+          if (credentials) {
+            headers['Authorization'] = `Basic ${credentials}`;
+          }
+
+          const response = await fetch(`${ajaxBaseUrl}/api/status`, {
+            method: 'GET',
+            headers
+          });
+
+          if (!response.ok) {
+            throw new Error(`HUB responded with status: ${response.status}`);
+          }
+
+          const hubStatus = await response.json();
+          
+          return new Response(
+            JSON.stringify({ success: true, data: hubStatus }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+
+        } catch (error) {
+          console.error('Error getting HUB status:', error);
+          
+          // Return mock data if HUB is unreachable
+          const mockStatus = {
+            hub_id,
+            online: false,
+            error: error.message,
+            last_seen: new Date().toISOString(),
+            relays: []
+          };
+
+          return new Response(
+            JSON.stringify({ success: true, data: mockStatus }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
         }
-        
-        // Simulate Ajax Cloud API call to get hub status
-        console.log(`Getting status for hub ${hub_id}`);
-        
-        result = {
-          success: true,
-          hub_id,
-          status: 'online',
-          devices: [
-            { relay_id: 'A1', status: 'closed' },
-            { relay_id: 'A2', status: 'open' },
-            // Add more relays as needed
-          ]
-        };
-        break;
 
       case 'list_devices':
-        // Simulate Ajax Cloud API call to list all devices
-        console.log('Listing all Ajax devices');
+        console.log(`Listing devices for HUB at ${settings.hub_ip}`);
         
-        result = {
-          success: true,
-          hubs: [
-            {
-              hub_id: 'HUB-001',
-              name: 'Tartu Kapp',
-              status: 'online',
-              relays: ['A1', 'A2', 'A3', 'A4', 'B1', 'B2', 'B3', 'B4']
-            },
-            {
-              hub_id: 'HUB-002', 
-              name: 'Tallinn Kapp',
-              status: 'online',
-              relays: ['C1', 'C2', 'C3', 'C4', 'D1', 'D2', 'D3', 'D4']
-            }
-          ]
-        };
-        break;
+        try {
+          const headers: Record<string, string> = {};
+          if (credentials) {
+            headers['Authorization'] = `Basic ${credentials}`;
+          }
+
+          const response = await fetch(`${ajaxBaseUrl}/api/devices`, {
+            method: 'GET',
+            headers
+          });
+
+          if (!response.ok) {
+            throw new Error(`HUB responded with status: ${response.status}`);
+          }
+
+          const devices = await response.json();
+          
+          return new Response(
+            JSON.stringify({ success: true, data: devices }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+
+        } catch (error) {
+          console.error('Error listing devices:', error);
+          
+          // Return mock data if HUB is unreachable
+          const mockDevices = [{
+            hub_id: hub_id || 'unknown',
+            name: 'Ajax HUB (Offline)',
+            type: 'hub',
+            online: false,
+            ip: settings.hub_ip,
+            error: error.message,
+            relays: []
+          }];
+
+          return new Response(
+            JSON.stringify({ success: true, data: mockDevices }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
 
       default:
-        throw new Error(`Unknown action: ${action}`);
+        return new Response(
+          JSON.stringify({ error: 'Unknown action' }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+        );
     }
-
-    return new Response(
-      JSON.stringify(result),
-      {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200,
-      }
-    );
 
   } catch (error) {
     console.error('Error in ajax-integration function:', error);

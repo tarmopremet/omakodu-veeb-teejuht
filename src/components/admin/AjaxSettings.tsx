@@ -6,22 +6,22 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Settings, Wifi, WifiOff, RefreshCw, TestTube } from 'lucide-react';
+import { Settings, Wifi, WifiOff, RefreshCw, TestTube, Network } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
 interface AjaxSettings {
-  ajax_cloud_email: string;
-  ajax_cloud_password: string;
-  ajax_cloud_app_id: string;
+  ajax_hub_ip: string;
+  ajax_username: string;
+  ajax_password: string;
   ajax_hub_locations: string;
 }
 
 export const AjaxSettings: React.FC = () => {
   const [settings, setSettings] = useState<AjaxSettings>({
-    ajax_cloud_email: '',
-    ajax_cloud_password: '',
-    ajax_cloud_app_id: '',
+    ajax_hub_ip: '',
+    ajax_username: '',
+    ajax_password: '',
     ajax_hub_locations: ''
   });
   const [loading, setLoading] = useState(true);
@@ -83,7 +83,7 @@ export const AjaxSettings: React.FC = () => {
 
       toast({
         title: 'Seaded salvestatud',
-        description: 'Ajax Cloud seaded on edukalt salvestatud',
+        description: 'Ajax HUB seaded on edukalt salvestatud',
       });
     } catch (error: any) {
       toast({
@@ -109,7 +109,7 @@ export const AjaxSettings: React.FC = () => {
         setConnectionStatus('connected');
         toast({
           title: 'Ühendus töötab!',
-          description: `Leitud ${data.hubs?.length || 0} Ajax HUB-i`,
+          description: `Ajax HUB on kättesaadav IP: ${settings.ajax_hub_ip}`,
         });
       } else {
         setConnectionStatus('disconnected');
@@ -119,7 +119,7 @@ export const AjaxSettings: React.FC = () => {
       setConnectionStatus('disconnected');
       toast({
         title: 'Ühenduse viga',
-        description: error.message || 'Ajax Cloud ühendus ebaõnnestus',
+        description: error.message || 'Ajax HUB ühendus ebaõnnestus',
         variant: 'destructive',
       });
     } finally {
@@ -129,12 +129,12 @@ export const AjaxSettings: React.FC = () => {
 
   const getSettingDescription = (key: string): string => {
     switch (key) {
-      case 'ajax_cloud_email':
-        return 'Ajax Cloud konto email';
-      case 'ajax_cloud_password':
-        return 'Ajax Cloud konto parool';
-      case 'ajax_cloud_app_id':
-        return 'Ajax Cloud äppi ID (valikuline)';
+      case 'ajax_hub_ip':
+        return 'Ajax HUB IP aadress lokaalselt võrgus';
+      case 'ajax_username':
+        return 'Ajax HUB kasutajanimi (valikuline)';
+      case 'ajax_password':
+        return 'Ajax HUB parool (valikuline)';
       case 'ajax_hub_locations':
         return 'HUB-ide asukohad JSON formaadis';
       default:
@@ -165,9 +165,9 @@ export const AjaxSettings: React.FC = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">Ajax Integratsiooni seaded</h2>
+          <h2 className="text-2xl font-bold tracking-tight">Ajax Lokaalne Integratsioon</h2>
           <p className="text-muted-foreground">
-            Konfigureerige Ajax Cloud ühendus nutikappide juhtimiseks
+            Ühendage otse oma Ajax HUB'iga lokaalselt võrgus (ei vaja Cloud kontot)
           </p>
         </div>
         {getConnectionBadge()}
@@ -176,45 +176,51 @@ export const AjaxSettings: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Settings className="w-5 h-5" />
-            Ajax Cloud seaded
+            <Network className="w-5 h-5" />
+            Ajax HUB seaded
           </CardTitle>
           <CardDescription>
-            Sisestage oma Ajax Cloud konto andmed
+            Sisestage oma Ajax HUB'i võrgu andmed
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="ajax_cloud_email">Ajax Cloud Email *</Label>
+              <Label htmlFor="ajax_hub_ip">Ajax HUB IP aadress *</Label>
               <Input
-                id="ajax_cloud_email"
-                type="email"
-                value={settings.ajax_cloud_email}
-                onChange={(e) => setSettings(prev => ({ ...prev, ajax_cloud_email: e.target.value }))}
-                placeholder="your-email@example.com"
+                id="ajax_hub_ip"
+                type="text"
+                value={settings.ajax_hub_ip}
+                onChange={(e) => setSettings(prev => ({ ...prev, ajax_hub_ip: e.target.value }))}
+                placeholder="192.168.1.100"
+              />
+              <p className="text-sm text-muted-foreground">
+                Leiate HUB'i IP aadressi oma ruuteri administreerimislehelt või Ajax äpist
+              </p>
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="ajax_username">Kasutajanimi (valikuline)</Label>
+              <Input
+                id="ajax_username"
+                value={settings.ajax_username}
+                onChange={(e) => setSettings(prev => ({ ...prev, ajax_username: e.target.value }))}
+                placeholder="admin"
               />
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="ajax_cloud_password">Ajax Cloud Parool *</Label>
+              <Label htmlFor="ajax_password">Parool (valikuline)</Label>
               <Input
-                id="ajax_cloud_password"
+                id="ajax_password"
                 type="password"
-                value={settings.ajax_cloud_password}
-                onChange={(e) => setSettings(prev => ({ ...prev, ajax_cloud_password: e.target.value }))}
+                value={settings.ajax_password}
+                onChange={(e) => setSettings(prev => ({ ...prev, ajax_password: e.target.value }))}
                 placeholder="••••••••"
               />
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="ajax_cloud_app_id">Ajax Cloud App ID (valikuline)</Label>
-              <Input
-                id="ajax_cloud_app_id"
-                value={settings.ajax_cloud_app_id}
-                onChange={(e) => setSettings(prev => ({ ...prev, ajax_cloud_app_id: e.target.value }))}
-                placeholder="12345"
-              />
+              <p className="text-sm text-muted-foreground">
+                Vajalik ainult siis, kui HUB nõuab autentimist
+              </p>
             </div>
           </div>
 
@@ -242,10 +248,10 @@ export const AjaxSettings: React.FC = () => {
             <Button 
               variant="outline" 
               onClick={testConnection} 
-              disabled={testing || !settings.ajax_cloud_email || !settings.ajax_cloud_password}
+              disabled={testing || !settings.ajax_hub_ip}
             >
               <TestTube className="w-4 h-4 mr-2" />
-              {testing ? 'Testimaks...' : 'Testi ühendust'}
+              {testing ? 'Testib...' : 'Testi ühendust'}
             </Button>
 
             <Button variant="outline" onClick={loadSettings}>
@@ -258,25 +264,26 @@ export const AjaxSettings: React.FC = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>Integratsioonijuhised</CardTitle>
+          <CardTitle>Lokaalne integratsioon juhenid</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm">
             <div className="bg-blue-50 p-3 rounded">
-              <strong>Eeltingimused:</strong>
+              <strong>Eelised:</strong>
               <ul className="mt-2 space-y-1">
-                <li>• Ajax Cloud konto peab olema loodud</li>
-                <li>• Ajax HUB peab olema ühendatud internetiga</li>
-                <li>• Ajax relay/switch seadmed peavad olema seadistatud</li>
-                <li>• Kõik seadmed peavad olema lisatud Ajax Cloud äppi</li>
+                <li>• Ei vaja Ajax Cloud kontot</li>
+                <li>• Kiire ja otsene ühendus</li>
+                <li>• Töötab lokaalselt võrgus</li>
+                <li>• Pole sõltuv internetist</li>
               </ul>
             </div>
             
             <div className="bg-yellow-50 p-3 rounded">
               <strong>Seadistamise sammud:</strong>
               <ol className="mt-2 space-y-1 list-decimal list-inside">
-                <li>Sisestage Ajax Cloud konto email ja parool</li>
-                <li>Lisage Ajax Cloud App ID (kui teate)</li>
+                <li>Leidke oma Ajax HUB'i IP aadress</li>
+                <li>Sisestage IP aadress ülal (nt 192.168.1.100)</li>
+                <li>Kui HUB nõuab autentimist, lisage kasutajanimi ja parool</li>
                 <li>Määrake HUB-ide asukohad JSON formaadis</li>
                 <li>Salvestage seaded ja testige ühendust</li>
                 <li>Minge "Kapid" sektsiooni ja looge lukke</li>
@@ -286,10 +293,21 @@ export const AjaxSettings: React.FC = () => {
             <div className="bg-green-50 p-3 rounded">
               <strong>Toimimine:</strong>
               <ul className="mt-2 space-y-1">
-                <li>• Kliendid saavad avada kappe oma broneeringute kaudu</li>
+                <li>• Süsteem saadab käsud otse Ajax HUB'ile</li>
+                <li>• Kliendid saavad kappe avada oma broneeringute kaudu</li>
                 <li>• Administraatorid saavad kappe manuaalselt avada</li>
                 <li>• Kõik tegevused logitakse automaatselt</li>
-                <li>• Süsteem kontrollib broneeringute kehtivust enne avamist</li>
+                <li>• Töötab isegi siis, kui HUB on ajutiselt kättesaamatu</li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 p-3 rounded">
+              <strong>IP aadressi leidmine:</strong>
+              <ul className="mt-2 space-y-1">
+                <li>• Vaadake oma ruuteri administreerimislehelt</li>
+                <li>• Kasutage Ajax äppi seadmete loendi vaatamiseks</li>
+                <li>• Käsurida: <code className="bg-gray-200 px-1 rounded">arp -a</code></li>
+                <li>• Võrgu skannimise rakendused</li>
               </ul>
             </div>
           </div>
