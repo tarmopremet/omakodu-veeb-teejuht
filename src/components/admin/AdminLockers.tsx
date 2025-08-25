@@ -138,16 +138,31 @@ export const AdminLockers = () => {
 
   const handleOpenLocker = async (locker: Locker) => {
     try {
-      // TODO: Implement Ajax Cloud integration when email is available
-      toast({
-        title: 'Ajax integratsioon puudub',
-        description: 'Ajax Cloud email on vaja konfigureerida',
-        variant: 'destructive',
+      const { data, error } = await supabase.functions.invoke('ajax-integration', {
+        body: {
+          action: 'open_relay',
+          hub_id: locker.hub_id,
+          relay_id: locker.relay_id
+        }
       });
-    } catch (error) {
+
+      if (error) throw error;
+
+      if (data?.success) {
+        toast({
+          title: 'Kapp avatud!',
+          description: `${locker.name} on edukalt avatud Ajax süsteemi kaudu`,
+        });
+        
+        // Refresh lockers list to update status
+        await fetchLockers();
+      } else {
+        throw new Error(data?.error || 'Ajax integratsioon ebaõnnestus');
+      }
+    } catch (error: any) {
       toast({
         title: 'Viga',
-        description: 'Kapi avamine ebaõnnestus',
+        description: error.message || 'Kapi avamine ebaõnnestus',
         variant: 'destructive',
       });
     }

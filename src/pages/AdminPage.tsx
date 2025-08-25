@@ -19,6 +19,7 @@ import { AdminOpenLogs } from '@/components/admin/AdminOpenLogs';
 import { TrackingConfig } from '@/components/TrackingConfig';
 import { AdminSettings } from '@/components/admin/AdminSettings';
 import { HubSimulator } from '@/components/admin/HubSimulator';
+import { AjaxSettings } from '@/components/admin/AjaxSettings';
 
 export const AdminPage = () => {
   const navigate = useNavigate();
@@ -120,6 +121,10 @@ export const AdminPage = () => {
               <BarChart3 className="h-4 w-4 flex-shrink-0" />
               <span className="hidden sm:inline">Analüütika</span>
             </TabsTrigger>
+            <TabsTrigger value="ajax" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
+              <Settings className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">Ajax</span>
+            </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center gap-2 min-w-fit px-3 py-2 text-sm">
               <Settings className="h-4 w-4 flex-shrink-0" />
               <span className="hidden sm:inline">Seaded</span>
@@ -191,6 +196,18 @@ export const AdminPage = () => {
                 </p>
               </div>
               <TrackingConfig />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="ajax">
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight mb-2">Ajax Integratsioon</h2>
+                <p className="text-muted-foreground">
+                  Konfigureerige Ajax Cloud ühendus nutikappide juhtimiseks.
+                </p>
+              </div>
+              <AjaxSettings />
             </div>
           </TabsContent>
 

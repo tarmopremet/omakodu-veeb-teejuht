@@ -54,21 +54,25 @@ export const UserDashboard = () => {
 
   const openLocker = async (bookingId: string) => {
     try {
-      const { data, error } = await supabase.functions.invoke('open-locker', {
+      const { data, error } = await supabase.functions.invoke('smart-locker-control', {
         body: { bookingId }
       });
 
       if (error) throw error;
 
-      toast({
-        title: 'Kapp avatud!',
-        description: 'Nutikapp on edukalt avatud. Võite seadme kätte võtta.',
-      });
-    } catch (error) {
+      if (data?.success) {
+        toast({
+          title: 'Nutikapp avatud!',
+          description: `${data.locker_name} on edukalt avatud. Võite seadme kätte võtta.`,
+        });
+      } else {
+        throw new Error(data?.error || 'Kapi avamine ebaõnnestus');
+      }
+    } catch (error: any) {
       console.error('Error opening locker:', error);
       toast({
         title: 'Viga',
-        description: 'Kapi avamine ebaõnnestus',
+        description: error.message || 'Kapi avamine ebaõnnestus',
         variant: 'destructive',
       });
     }
