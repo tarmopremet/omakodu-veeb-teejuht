@@ -304,11 +304,39 @@ export const AjaxSettings: React.FC = () => {
             <div className="bg-gray-50 p-3 rounded">
               <strong>IP aadressi leidmine:</strong>
               <ul className="mt-2 space-y-1">
-                <li>• Vaadake oma ruuteri administreerimislehelt</li>
-                <li>• Kasutage Ajax äppi seadmete loendi vaatamiseks</li>
-                <li>• Käsurida: <code className="bg-gray-200 px-1 rounded">arp -a</code></li>
-                <li>• Võrgu skannimise rakendused</li>
+                <li><strong>1. Ajax Mobile äpp:</strong>
+                  <ul className="ml-4 mt-1 space-y-1">
+                    <li>• Avage Ajax Security System äpp</li>
+                    <li>• Minge Settings → Users → Engineers</li>
+                    <li>• Valige Hub → General → Ethernet või Wi-Fi</li>
+                    <li>• IP aadress on näha võrgu seadetes</li>
+                  </ul>
+                </li>
+                <li><strong>2. Ruuteri administreerimine:</strong>
+                  <ul className="ml-4 mt-1 space-y-1">
+                    <li>• Minge ruuteri lehele (tavaliselt 192.168.1.1 või 192.168.0.1)</li>
+                    <li>• Otsige "Connected Devices" või "DHCP Client List"</li>
+                    <li>• Leidke seade nimega "Ajax" või "Hub"</li>
+                  </ul>
+                </li>
+                <li><strong>3. Käsurealt (Windows):</strong>
+                  <ul className="ml-4 mt-1 space-y-1">
+                    <li>• Avage Command Prompt (CMD)</li>
+                    <li>• Sisestage: <code className="bg-gray-200 px-1 rounded">arp -a | findstr "b0-c5-54"</code></li>
+                    <li>• Ajax seadmed kasutavad tavaliselt seda MAC aadressi algust</li>
+                  </ul>
+                </li>
+                <li><strong>4. IP skannimise rakendused:</strong>
+                  <ul className="ml-4 mt-1 space-y-1">
+                    <li>• Advanced IP Scanner (Windows)</li>
+                    <li>• LanScan (macOS)</li>
+                    <li>• Network Scanner (Android/iOS)</li>
+                  </ul>
+                </li>
               </ul>
+              <div className="mt-3 p-2 bg-blue-100 rounded text-sm">
+                <strong>Näide:</strong> Kui teie kodu WiFi on 192.168.1.x võrgus, siis Ajax HUB võib olla 192.168.1.100 või sarnane aadress.
+              </div>
             </div>
           </div>
         </CardContent>
