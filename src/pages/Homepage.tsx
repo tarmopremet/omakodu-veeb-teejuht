@@ -258,28 +258,80 @@ const Homepage = () => {
       <section className="py-10 bg-gray-50 text-center">
         <h2 className="text-2xl font-bold mb-8">Mida saab rentida?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-          <Link to="/tekstiilipesuri-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
-            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <img 
-                src="/lovable-uploads/fd313741-c4a9-46c1-a39b-8590778e7d63.png" 
-                alt="Tekstiilipesur" 
-                className="w-12 h-12 object-contain rounded"
-              />
+          <div className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
+            <Link to="/tekstiilipesuri-rent" className="block">
+              <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+                <img 
+                  src="/lovable-uploads/fd313741-c4a9-46c1-a39b-8590778e7d63.png" 
+                  alt="Tekstiilipesur" 
+                  className="w-12 h-12 object-contain rounded"
+                />
+              </div>
+              <p className="font-semibold">Tekstiilipesur</p>
+              <p className="text-sm text-gray-500 mb-4">Diivanite, vaipade ja madratsite sügavpuhastuseks.</p>
+            </Link>
+            <div className="relative">
+              <Button 
+                className="w-full bg-primary hover:bg-primary-hover text-primary-foreground px-5 py-3 rounded-full font-medium flex items-center justify-center gap-2 transition-all duration-300 shadow-soft"
+                onClick={() => setShowDropdown1(!showDropdown1)}
+              >
+                <MapPin className="w-4 h-4" />
+                Broneerima
+                <ChevronDown className="w-4 h-4" />
+              </Button>
+              
+              {showDropdown1 && (
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[120px]">
+                  {cities.map((city) => (
+                    <button
+                      key={city.name}
+                      onClick={() => handleCityClick(city)}
+                      className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-primary hover:text-primary-foreground transition-all duration-200 first:rounded-t-lg last:rounded-b-lg"
+                    >
+                      {city.name}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-            <p className="font-semibold">Tekstiilipesur</p>
-            <p className="text-sm text-gray-500">Diivanite, vaipade ja madratsite sügavpuhastuseks.</p>
-          </Link>
-          <Link to="/aurupesuri-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
-            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <img 
-                src="/lovable-uploads/d1b26aab-eee2-4caa-8c59-c03fe030b6e9.png" 
-                alt="Aurupesur" 
-                className="w-12 h-12 object-contain rounded"
-              />
+          </div>
+          <div className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
+            <Link to="/aurupesuri-rent" className="block">
+              <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+                <img 
+                  src="/lovable-uploads/d1b26aab-eee2-4caa-8c59-c03fe030b6e9.png" 
+                  alt="Aurupesur" 
+                  className="w-12 h-12 object-contain rounded"
+                />
+              </div>
+              <p className="font-semibold">Aurupesur</p>
+              <p className="text-sm text-gray-500 mb-4">Eemaldab mustuse ja bakterid kemikaalideta.</p>
+            </Link>
+            <div className="relative">
+              <Button 
+                className="w-full bg-primary hover:bg-primary-hover text-primary-foreground px-5 py-3 rounded-full font-medium flex items-center justify-center gap-2 transition-all duration-300 shadow-soft"
+                onClick={() => setShowDropdown2(!showDropdown2)}
+              >
+                <MapPin className="w-4 h-4" />
+                Broneerima
+                <ChevronDown className="w-4 h-4" />
+              </Button>
+              
+              {showDropdown2 && (
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[120px]">
+                  {cities.map((city) => (
+                    <button
+                      key={city.name}
+                      onClick={() => handleCityClick(city)}
+                      className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-primary hover:text-primary-foreground transition-all duration-200 first:rounded-t-lg last:rounded-b-lg"
+                    >
+                      {city.name}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-            <p className="font-semibold">Aurupesur</p>
-            <p className="text-sm text-gray-500">Eemaldab mustuse ja bakterid kemikaalideta.</p>
-          </Link>
+          </div>
           <Link to="/aknapesuroboti-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
             <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
               <img 
