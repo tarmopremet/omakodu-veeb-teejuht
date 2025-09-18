@@ -109,7 +109,7 @@ export const RentalProductCard = ({ product }: RentalProductCardProps) => {
               </Button>
               
               {showDropdown && (
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[120px]">
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl z-[100] min-w-[140px]">
                   {cities.map((city) => (
                     <button
                       key={city.name}
