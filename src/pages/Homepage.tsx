@@ -13,6 +13,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const Homepage = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
+  const [showDropdown3, setShowDropdown3] = useState(false);
+  const [showDropdown4, setShowDropdown4] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const navigate = useNavigate();
   const { trackEvent, trackPageView } = useTracking();
@@ -30,8 +32,7 @@ const Homepage = () => {
     { name: "Tallinn", href: "/tallinn" },
     { name: "Tartu", href: "/tartu" },
     { name: "Pärnu", href: "/parnu" },
-    { name: "Rakvere", href: "/rakvere" },
-    { name: "Saku", href: "/saku" }
+    { name: "Rakvere", href: "/rakvere" }
   ];
 
   const handleCityClick = (city: typeof cities[0]) => {
@@ -49,6 +50,8 @@ const Homepage = () => {
     navigate(city.href);
     setShowDropdown1(false);
     setShowDropdown2(false);
+    setShowDropdown3(false);
+    setShowDropdown4(false);
   };
 
   const testimonials = [
@@ -332,28 +335,80 @@ const Homepage = () => {
               )}
             </div>
           </div>
-          <Link to="/aknapesuroboti-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
-            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <img 
-                src="/lovable-uploads/8ee54b86-4c92-48d5-b2c2-15dc1fdf9360.png" 
-                alt="Aknapesurobot" 
-                className="w-12 h-12 object-contain rounded"
-              />
+          <div className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
+            <Link to="/aknapesuroboti-rent" className="block">
+              <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+                <img 
+                  src="/lovable-uploads/8ee54b86-4c92-48d5-b2c2-15dc1fdf9360.png" 
+                  alt="Aknapesurobot" 
+                  className="w-12 h-12 object-contain rounded"
+                />
+              </div>
+              <p className="font-semibold">Aknapesurobot</p>
+              <p className="text-sm text-gray-500 mb-4">Säravad aknad ilma pingutuseta.</p>
+            </Link>
+            <div className="relative">
+              <Button 
+                className="w-full bg-primary hover:bg-primary-hover text-primary-foreground px-5 py-3 rounded-full font-medium flex items-center justify-center gap-2 transition-all duration-300 shadow-soft"
+                onClick={() => setShowDropdown3(!showDropdown3)}
+              >
+                <MapPin className="w-4 h-4" />
+                Broneerima
+                <ChevronDown className="w-4 h-4" />
+              </Button>
+              
+              {showDropdown3 && (
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[120px]">
+                  {cities.map((city) => (
+                    <button
+                      key={city.name}
+                      onClick={() => handleCityClick(city)}
+                      className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-primary hover:text-primary-foreground transition-all duration-200 first:rounded-t-lg last:rounded-b-lg"
+                    >
+                      {city.name}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-            <p className="font-semibold">Aknapesurobot</p>
-            <p className="text-sm text-gray-500">Säravad aknad ilma pingutuseta.</p>
-          </Link>
-          <Link to="/tolmuimeja-rent" className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
-            <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
-              <img 
-                src="/lovable-uploads/69cbbbfd-8983-483b-acf2-0c1ec50af274.png" 
-                alt="Tolmuimeja" 
-                className="w-12 h-12 object-contain rounded"
-              />
+          </div>
+          <div className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition-shadow">
+            <Link to="/tolmuimeja-rent" className="block">
+              <div className="mx-auto mb-3 w-12 h-12 flex items-center justify-center">
+                <img 
+                  src="/lovable-uploads/69cbbbfd-8983-483b-acf2-0c1ec50af274.png" 
+                  alt="Tolmuimeja" 
+                  className="w-12 h-12 object-contain rounded"
+                />
+              </div>
+              <p className="font-semibold">Tolmuimeja</p>
+              <p className="text-sm text-gray-500 mb-4">Igapäevaseks või suurpuhastuseks.</p>
+            </Link>
+            <div className="relative">
+              <Button 
+                className="w-full bg-primary hover:bg-primary-hover text-primary-foreground px-5 py-3 rounded-full font-medium flex items-center justify-center gap-2 transition-all duration-300 shadow-soft"
+                onClick={() => setShowDropdown4(!showDropdown4)}
+              >
+                <MapPin className="w-4 h-4" />
+                Broneerima
+                <ChevronDown className="w-4 h-4" />
+              </Button>
+              
+              {showDropdown4 && (
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[120px]">
+                  {cities.map((city) => (
+                    <button
+                      key={city.name}
+                      onClick={() => handleCityClick(city)}
+                      className="block w-full px-4 py-3 text-sm text-gray-700 hover:bg-primary hover:text-primary-foreground transition-all duration-200 first:rounded-t-lg last:rounded-b-lg"
+                    >
+                      {city.name}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-            <p className="font-semibold">Tolmuimeja</p>
-            <p className="text-sm text-gray-500">Igapäevaseks või suurpuhastuseks.</p>
-          </Link>
+          </div>
         </div>
       </section>
 
@@ -415,8 +470,7 @@ const Homepage = () => {
                 <a href="/tallinn" className="text-primary hover:underline">Tallinn</a>,{" "}
                 <a href="/tartu" className="text-primary hover:underline">Tartu</a>,{" "}
                 <a href="/parnu" className="text-primary hover:underline">Pärnu</a>,{" "}
-                <a href="/rakvere" className="text-primary hover:underline">Rakvere</a>,{" "}
-                <a href="/saku" className="text-primary hover:underline">Saku</a>.
+                <a href="/rakvere" className="text-primary hover:underline">Rakvere</a>.
               </p>
             </CardContent>
           </Card>
@@ -542,7 +596,7 @@ const Homepage = () => {
           <AccordionItem value="item-4">
             <AccordionTrigger>Kus nutikapid asuvad?</AccordionTrigger>
             <AccordionContent>
-              Meie kapid asuvad suuremates linnades: <a href="/tallinn" className="text-primary hover:underline">Tallinn</a>, <a href="/tartu" className="text-primary hover:underline">Tartu</a>, <a href="/parnu" className="text-primary hover:underline">Pärnu</a>, <a href="/rakvere" className="text-primary hover:underline">Rakvere</a> ja <a href="/saku" className="text-primary hover:underline">Saku</a>.
+              Meie kapid asuvad suuremates linnades: <a href="/tallinn" className="text-primary hover:underline">Tallinn</a>, <a href="/tartu" className="text-primary hover:underline">Tartu</a>, <a href="/parnu" className="text-primary hover:underline">Pärnu</a>, <a href="/rakvere" className="text-primary hover:underline">Rakvere</a>.
             </AccordionContent>
           </AccordionItem>
         </Accordion>

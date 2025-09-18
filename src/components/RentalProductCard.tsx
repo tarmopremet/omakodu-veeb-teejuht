@@ -24,8 +24,7 @@ export const RentalProductCard = ({ product }: RentalProductCardProps) => {
     { name: "Tallinn", href: "/tallinn" },
     { name: "Tartu", href: "/tartu" },
     { name: "Pärnu", href: "/parnu" },
-    { name: "Rakvere", href: "/rakvere" },
-    { name: "Saku", href: "/saku" }
+    { name: "Rakvere", href: "/rakvere" }
   ];
 
   const handleCityClick = (city: typeof cities[0]) => {

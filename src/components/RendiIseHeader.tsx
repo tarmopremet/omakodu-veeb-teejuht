@@ -15,8 +15,7 @@ export const RendiIseHeader = () => {
     { name: "Tallinn", href: "/tallinn" },
     { name: "Tartu", href: "/tartu" },
     { name: "Pärnu", href: "/parnu" },
-    { name: "Rakvere", href: "/rakvere" },
-    { name: "Saku", href: "/saku" }
+    { name: "Rakvere", href: "/rakvere" }
   ];
 
   const cityLocations = {
@@ -37,9 +36,6 @@ export const RendiIseHeader = () => {
     ],
     "Rakvere": [
       { name: "Aqva Keskus", href: "/rakvere#aqva" }
-    ],
-    "Saku": [
-      { name: "Saku Suurhall", href: "/saku#suurhall" }
     ]
   } as const;
 
