@@ -161,7 +161,7 @@ const Homepage = () => {
           
           <div className="md:col-span-7 order-1 md:order-2">
             <h1 className="text-3xl md:text-4xl font-light text-gray-800 mb-6">
-              Puhastusseadmete nutirent Eestis
+              Tekstiilipesuri ja puhastusseadmete rent üle Eesti
             </h1>
             
             {/* Lisatud tööriistad ja teenused - Parandatud mobiili jaoks */}
